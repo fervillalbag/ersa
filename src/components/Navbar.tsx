@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import NextLink from 'next/link'
 import { Box, Grid, Image, Flex, Link, Button } from '@chakra-ui/react'
 import { FaBars, FaTimes } from 'react-icons/fa'
+
 import { NavbarContext } from '../context/Navbar'
 
 const Navbar: React.FC = () => {
@@ -47,6 +48,7 @@ const Navbar: React.FC = () => {
           flexDirection={{ base: 'column', lg: 'row' }}
           top={{ base: 0, lg: 'initial' }}
           left={{ base: 0, lg: 'initial' }}
+          zIndex="200"
         >
           <Button
             display={{ base: 'block', lg: 'none' }}

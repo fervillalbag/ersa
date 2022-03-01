@@ -1,13 +1,13 @@
 import React from 'react'
 import { Box } from '@chakra-ui/react'
 
-import Navbar from '../components/Navbar'
+import Layout from '../layout'
 
 const Home: React.FC = () => {
   return (
-    <Box>
-      <Navbar />
-    </Box>
+    <Layout>
+      <Box>Hello</Box>
+    </Layout>
   )
 }
 
