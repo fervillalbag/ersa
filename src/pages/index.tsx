@@ -1,11 +1,13 @@
 import React from 'react'
-import { Flex, Heading } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
+
+import Navbar from '../components/Navbar'
 
 const Home: React.FC = () => {
   return (
-    <Flex height="100vh" alignItems="center" justifyContent="center">
-      <Heading backgroundColor="secondary">Hello</Heading>
-    </Flex>
+    <Box>
+      <Navbar />
+    </Box>
   )
 }
 

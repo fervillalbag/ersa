@@ -2,12 +2,17 @@ import React from 'react'
 import { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 
+import NavbarProvider from '../context/Navbar'
+
 import theme from '../styles/theme'
+import '../styles/globals.css'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <NavbarProvider>
+        <Component {...pageProps} />
+      </NavbarProvider>
     </ChakraProvider>
   )
 }
