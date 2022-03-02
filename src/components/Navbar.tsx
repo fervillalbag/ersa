@@ -16,11 +16,11 @@ const Navbar: React.FC = () => {
         alignItems="center"
       >
         <Box>
-          <Link href="/">
+          <NextLink href="/">
             <Link>
               <Image src="/logo.svg" alt="" width="100%" objectFit="contain" />
             </Link>
-          </Link>
+          </NextLink>
         </Box>
 
         <Button
@@ -71,6 +71,7 @@ const Navbar: React.FC = () => {
               marginBottom={{ base: '15px', lg: 0 }}
               fontSize={{ base: '24px', lg: '16px' }}
               _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
+              _focus={{ shadow: 0 }}
             >
               Home
             </Link>
@@ -83,6 +84,7 @@ const Navbar: React.FC = () => {
               marginBottom={{ base: '15px', lg: 0 }}
               fontSize={{ base: '24px', lg: '16px' }}
               _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
+              _focus={{ shadow: 0 }}
             >
               Products
             </Link>
@@ -95,6 +97,7 @@ const Navbar: React.FC = () => {
               marginBottom={{ base: '15px', lg: 0 }}
               fontSize={{ base: '24px', lg: '16px' }}
               _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
+              _focus={{ shadow: 0 }}
             >
               About Us
             </Link>
@@ -107,6 +110,7 @@ const Navbar: React.FC = () => {
               marginBottom={{ base: '15px', lg: 0 }}
               fontSize={{ base: '24px', lg: '16px' }}
               _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
+              _focus={{ shadow: 0 }}
             >
               Plans
             </Link>
@@ -117,13 +121,14 @@ const Navbar: React.FC = () => {
               fontWeight="semibold"
               fontSize={{ base: '24px', lg: '16px' }}
               _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
+              _focus={{ shadow: 0 }}
             >
               Community
             </Link>
           </NextLink>
         </Flex>
 
-        <Box display={{ base: 'none', lg: 'block' }}>
+        <Flex display={{ base: 'none', lg: 'flex' }} justifyContent="flex-end">
           <NextLink href="/" passHref>
             <Link
               display="inline-block"
@@ -138,7 +143,7 @@ const Navbar: React.FC = () => {
               Get Started
             </Link>
           </NextLink>
-        </Box>
+        </Flex>
       </Grid>
     </Box>
   )
