@@ -197,6 +197,96 @@ const Home: React.FC = () => {
           </Grid>
         </Box>
       </Grid>
+
+      <Box
+        padding={{ base: '0 0 6rem 0', lg: '3rem 0 6rem 0' }}
+        maxWidth="1170px"
+        margin="0 auto"
+        width="90%"
+      >
+        <Heading
+          as="h3"
+          textAlign="center"
+          fontSize={{ base: '2.2rem', lg: '2.8rem' }}
+          color="dark-blue"
+        >
+          What they’ve said
+        </Heading>
+
+        <Grid
+          gridTemplateColumns={{
+            base: '1fr',
+            md: 'repeat(2, 1fr)',
+            lg: 'repeat(3, 1fr)'
+          }}
+          gap="5rem 3rem"
+          marginTop="4rem"
+        >
+          <Box backgroundColor="gray" padding="1.5rem" rounded="md">
+            <Grid marginTop="-4rem" placeItems="center">
+              <Image src="/avatar-anisha.png" alt="" width="100px" />
+            </Grid>
+            <Box marginTop="1rem">
+              <Text
+                fontWeight="bold"
+                color="dark-blue"
+                textAlign="center"
+                marginBottom="0.7rem"
+                fontSize="1.125rem"
+              >
+                Anisha Li
+              </Text>
+              <Text color="dark-grayish-blue" textAlign="center">
+                “Manage has supercharged our team’s workflow. The ability to
+                maintain visibility on larger milestones at all times keeps
+                everyone motivated.”
+              </Text>
+            </Box>
+          </Box>
+          <Box backgroundColor="gray" padding="1.5rem" rounded="md">
+            <Grid marginTop="-4rem" placeItems="center">
+              <Image src="/avatar-ali.png" alt="" width="100px" />
+            </Grid>
+            <Box marginTop="1rem">
+              <Text
+                fontWeight="bold"
+                color="dark-blue"
+                textAlign="center"
+                marginBottom="0.7rem"
+                fontSize="1.125rem"
+              >
+                Ali Bravo
+              </Text>
+              <Text color="dark-grayish-blue" textAlign="center">
+                “We have been able to cancel so many other subscriptions since
+                using Manage. There is no more cross-channel confusion and
+                everyone is much more focused.”
+              </Text>
+            </Box>
+          </Box>
+          <Box backgroundColor="gray" padding="1.5rem" rounded="md">
+            <Grid marginTop="-4rem" placeItems="center">
+              <Image src="/avatar-richard.png" alt="" width="100px" />
+            </Grid>
+            <Box marginTop="1rem">
+              <Text
+                fontWeight="bold"
+                color="dark-blue"
+                textAlign="center"
+                marginBottom="0.7rem"
+                fontSize="1.125rem"
+              >
+                Richard Watts
+              </Text>
+              <Text color="dark-grayish-blue" textAlign="center">
+                “Manage allows us to provide structure and process. It keeps us
+                organized and focused. I can’t stop recommending them to
+                everyone I talk to!”
+              </Text>
+            </Box>
+          </Box>
+        </Grid>
+      </Box>
     </Layout>
   )
 }
