@@ -1,6 +1,6 @@
 import React from 'react'
 import NextLink from 'next/link'
-import { Box, Grid, Heading, Image, Link, Text } from '@chakra-ui/react'
+import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react'
 
 import Layout from '../layout'
 
@@ -209,6 +209,7 @@ const Home: React.FC = () => {
           textAlign="center"
           fontSize={{ base: '2.2rem', lg: '2.8rem' }}
           color="dark-blue"
+          marginBottom="5rem"
         >
           What they’ve said
         </Heading>
@@ -286,6 +287,65 @@ const Home: React.FC = () => {
             </Box>
           </Box>
         </Grid>
+      </Box>
+
+      <Box
+        backgroundColor="bright-red"
+        padding="3rem 0"
+        position="relative"
+        overflow="hidden"
+      >
+        <Box position="absolute" top={0} left={0}>
+          <Image
+            src="/bg-simplify-section-desktop.svg"
+            width="100%"
+            height="100%"
+            objectFit="cover"
+            alt=""
+          />
+        </Box>
+
+        <Flex
+          maxWidth="1170px"
+          margin="0 auto"
+          width="90%"
+          justifyContent={{ base: 'flex-start', lg: 'space-between' }}
+          alignItems="center"
+          flexDirection={{ base: 'column', lg: 'row' }}
+        >
+          <Box flex="1">
+            <Text
+              fontSize={{ base: '2.2rem', lg: '2.8rem' }}
+              fontWeight="bold"
+              color="white"
+              lineHeight={1.2}
+              textAlign={{ base: 'center', lg: 'left' }}
+            >
+              Simplify how your team works today.
+            </Text>
+          </Box>
+          <Flex
+            flex="1"
+            justifyContent="flex-end"
+            marginTop={{ base: '1rem', lg: '0' }}
+          >
+            <NextLink href="/" passHref>
+              <Link
+                display="inline-block"
+                backgroundColor="white"
+                color="bright-red"
+                padding="12px 30px"
+                rounded="30px"
+                fontWeight="semibold"
+                fontSize="14px"
+                marginTop="1rem"
+                _hover={{ textDecoration: 'none' }}
+              >
+                Get Started
+              </Link>
+            </NextLink>
+          </Flex>
+        </Flex>
       </Box>
     </Layout>
   )
