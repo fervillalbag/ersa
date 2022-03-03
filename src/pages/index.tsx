@@ -6,22 +6,34 @@ import { GetStaticProps } from 'next'
 import Layout from '../layout'
 import { Description } from '../interfaces/Description'
 import { HeaderInfo } from '../interfaces/HeaderInfo'
+import { GrowthInfo } from '../interfaces/GrowthInfo'
+
+interface HomeIprops {
+  headerInfo: HeaderInfo
+  growthInfo: GrowthInfo
+}
 
 export const getStaticProps: GetStaticProps = async () => {
-  const URL = `${process.env.URL_ROOT}/api/header`
-  console.log(URL)
+  const URL = process.env.URL_ROOT
 
-  const response = await fetch(URL)
-  const headerInfo = await response.json()
+  const responseHeaderInfo = await fetch(`${URL}/api/header`)
+  const headerInfo = await responseHeaderInfo.json()
+
+  const responseGrowthInfo = await fetch(`${URL}/api/growthInfo`)
+  const growthInfo = await responseGrowthInfo.json()
 
   return {
     props: {
-      headerInfo: headerInfo.data
+      headerInfo: headerInfo.data,
+      growthInfo: growthInfo.data
     }
   }
 }
 
-const Home: React.FC<HeaderInfo> = ({ headerInfo }): JSX.Element => {
+const Home: React.FC<HomeIprops> = ({
+  headerInfo,
+  growthInfo
+}): JSX.Element => {
   return (
     <Layout>
       <Box
@@ -103,18 +115,20 @@ const Home: React.FC<HeaderInfo> = ({ headerInfo }): JSX.Element => {
             fontSize={{ base: '2.2rem', lg: '2.6rem' }}
             color="dark-blue"
           >
-            What’s different about Manage?
+            {growthInfo.title}
           </Heading>
-          <Text
-            color="dark-grayish-blue"
-            fontSize="1.125rem"
-            marginTop="1rem"
-            maxWidth={{ base: '100%', lg: '65%' }}
-          >
-            Manage provides all the functionality your team needs, without the
-            complexity. Our software is tailor-made for modern digital product
-            teams.
-          </Text>
+
+          {growthInfo.description.map((item: Description) => (
+            <Text
+              key={item.id}
+              color="dark-grayish-blue"
+              fontSize="1.125rem"
+              marginTop="1rem"
+              maxWidth={{ base: '100%', lg: '65%' }}
+            >
+              {item.text}
+            </Text>
+          ))}
         </Box>
         <Box>
           <Grid
