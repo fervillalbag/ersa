@@ -1,10 +1,27 @@
 import React from 'react'
 import NextLink from 'next/link'
 import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react'
+import { GetStaticProps } from 'next'
 
 import Layout from '../layout'
+import { Description } from '../interfaces/Description'
+import { HeaderInfo } from '../interfaces/HeaderInfo'
 
-const Home: React.FC = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const URL = `${process.env.URL_ROOT}/api/header`
+  console.log(URL)
+
+  const response = await fetch(URL)
+  const headerInfo = await response.json()
+
+  return {
+    props: {
+      headerInfo: headerInfo.data
+    }
+  }
+}
+
+const Home: React.FC<HeaderInfo> = ({ headerInfo }): JSX.Element => {
   return (
     <Layout>
       <Box
@@ -31,17 +48,20 @@ const Home: React.FC = () => {
             fontSize={{ base: '2.8rem', lg: '3.6rem' }}
             color="dark-blue"
           >
-            Bring everyone together to build better products.
+            {headerInfo.title}
           </Heading>
-          <Text
-            color="dark-grayish-blue"
-            fontSize="1.125rem"
-            marginTop="1rem"
-            maxWidth={{ base: '100%', lg: '65%' }}
-          >
-            Manage makes it simple for software teams to plan day-to-day tasks
-            while keeping the larger team goals in view
-          </Text>
+
+          {headerInfo.description.map((item: Description) => (
+            <Text
+              key={item.id}
+              color="dark-grayish-blue"
+              fontSize="1.125rem"
+              marginTop="1rem"
+              maxWidth={{ base: '100%', lg: '65%' }}
+            >
+              {item.text}
+            </Text>
+          ))}
 
           <NextLink href="/" passHref>
             <Link
