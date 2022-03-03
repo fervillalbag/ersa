@@ -8,9 +8,8 @@ const HeaderSchema = new Schema(
       trim: true
     },
     description: {
-      type: String,
-      required: [true, 'Description is required'],
-      trim: true
+      type: Array,
+      required: [true, 'Description is required']
     },
     image: {
       type: String,
