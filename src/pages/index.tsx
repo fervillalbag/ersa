@@ -74,7 +74,7 @@ const Home: React.FC = () => {
         maxWidth="1170px"
         margin="0 auto"
         width="90%"
-        padding={{ base: '3rem 0 6rem 0', lg: '6rem 0' }}
+        padding={{ base: '3rem 0 6rem 0', lg: '2rem 0 6rem 0' }}
         gap="3rem"
       >
         <Box>

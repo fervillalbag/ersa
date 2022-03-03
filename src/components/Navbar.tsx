@@ -7,7 +7,6 @@ import { NavbarContext } from '../context/Navbar'
 
 const Navbar: React.FC = () => {
   const { showNavbar, setShowNavbar } = useContext(NavbarContext)
-  console.log(showNavbar)
 
   return (
     <Box maxWidth="1170px" margin="0 auto" width="90%" padding="2rem 0">
