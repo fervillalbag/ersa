@@ -7,10 +7,12 @@ import Layout from '../layout'
 import { Description } from '../interfaces/Description'
 import { HeaderInfo } from '../interfaces/HeaderInfo'
 import { GrowthInfo } from '../interfaces/GrowthInfo'
+import { Growth } from '../interfaces/Growths'
 
 interface HomeIprops {
   headerInfo: HeaderInfo
   growthInfo: GrowthInfo
+  growths: Growth[]
 }
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -22,17 +24,22 @@ export const getStaticProps: GetStaticProps = async () => {
   const responseGrowthInfo = await fetch(`${URL}/api/growthInfo`)
   const growthInfo = await responseGrowthInfo.json()
 
+  const responseGrowths = await fetch(`${URL}/api/growth`)
+  const growths = await responseGrowths.json()
+
   return {
     props: {
       headerInfo: headerInfo.data,
-      growthInfo: growthInfo.data
+      growthInfo: growthInfo.data,
+      growths: growths.data
     }
   }
 }
 
 const Home: React.FC<HomeIprops> = ({
   headerInfo,
-  growthInfo
+  growthInfo,
+  growths
 }): JSX.Element => {
   return (
     <Layout>
@@ -131,104 +138,41 @@ const Home: React.FC<HomeIprops> = ({
           ))}
         </Box>
         <Box>
-          <Grid
-            gridTemplateColumns="70px 1fr"
-            gridTemplateRows="repeat(2, auto)"
-            gap="1rem"
-            marginBottom="2rem"
-          >
-            <Box gridColumn="1/2">
-              <Box
-                backgroundColor="bright-red"
-                color="white"
-                padding="0.45rem 1rem"
-                rounded="full"
-                textAlign="center"
-                fontWeight="bold"
-                fontSize="0.9rem"
-              >
-                01
+          {growths.map((item: Growth, index: number) => (
+            <Grid
+              key={item._id}
+              gridTemplateColumns="70px 1fr"
+              gridTemplateRows="repeat(2, auto)"
+              gap="1rem"
+              marginBottom="2rem"
+            >
+              <Box gridColumn="1/2">
+                <Box
+                  backgroundColor="bright-red"
+                  color="white"
+                  padding="0.45rem 1rem"
+                  rounded="full"
+                  textAlign="center"
+                  fontWeight="bold"
+                  fontSize="0.9rem"
+                >
+                  0{index + 1}
+                </Box>
               </Box>
-            </Box>
-            <Box gridColumn="2/3" alignSelf="center">
-              <Text fontWeight="bold" color="dark-blue" fontSize="1.2rem">
-                Track company-wide progress
-              </Text>
-            </Box>
-            <Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow="2/3">
-              <Text color="dark-grayish-blue">
-                See how your day-to-day tasks fit into the wider vision. Go from
-                tracking progress at the milestone level all the way done to the
-                smallest of details. Never lose sight of the bigger picture
-                again.
-              </Text>
-            </Box>
-          </Grid>
-
-          <Grid
-            gridTemplateColumns="70px 1fr"
-            gridTemplateRows="repeat(2, auto)"
-            gap="1rem"
-            marginBottom="2rem"
-          >
-            <Box gridColumn="1/2">
-              <Box
-                backgroundColor="bright-red"
-                color="white"
-                padding="0.45rem 1rem"
-                rounded="full"
-                textAlign="center"
-                fontWeight="bold"
-                fontSize="0.9rem"
-              >
-                02
+              <Box gridColumn="2/3" alignSelf="center">
+                <Text fontWeight="bold" color="dark-blue" fontSize="1.2rem">
+                  {item.title}
+                </Text>
               </Box>
-            </Box>
-            <Box gridColumn="2/3" alignSelf="center">
-              <Text fontWeight="bold" color="dark-blue" fontSize="1.2rem">
-                Advanced built-in reports
-              </Text>
-            </Box>
-            <Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow="2/3">
-              <Text color="dark-grayish-blue">
-                Set internal delivery estimates and track progress toward
-                company goals. Our customisable dashboard helps you build out
-                the reports you need to keep key stakeholders informed.
-              </Text>
-            </Box>
-          </Grid>
-
-          <Grid
-            gridTemplateColumns="70px 1fr"
-            gridTemplateRows="repeat(2, auto)"
-            gap="1rem"
-          >
-            <Box gridColumn="1/2">
-              <Box
-                backgroundColor="bright-red"
-                color="white"
-                padding="0.45rem 1rem"
-                rounded="full"
-                textAlign="center"
-                fontWeight="bold"
-                fontSize="0.9rem"
-              >
-                03
+              <Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow="2/3">
+                {item.description.map((itemDescription: Description) => (
+                  <Text key={itemDescription.id} color="dark-grayish-blue">
+                    {itemDescription.text}
+                  </Text>
+                ))}
               </Box>
-            </Box>
-            <Box gridColumn="2/3" alignSelf="center">
-              <Text fontWeight="bold" color="dark-blue" fontSize="1.2rem">
-                Everything you need in one place
-              </Text>
-            </Box>
-            <Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow="2/3">
-              <Text color="dark-grayish-blue">
-                Stop jumping from one service to another to communicate, store
-                files, track tasks and share documents. Manage offers an
-                all-in-one team productivity solution.
-              </Text>
-            </Box>
-          </Grid>
+            </Grid>
+          ))}
         </Box>
       </Grid>
 
