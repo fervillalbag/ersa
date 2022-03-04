@@ -25,7 +25,7 @@ const review = async (
 
     case 'GET':
       try {
-        const reviewInfo = await ReviewInfo.find({})
+        const reviewInfo = await ReviewInfo.findOne({})
 
         if (!reviewInfo) res.status(500).json({ msg: 'Review info not found' })
 

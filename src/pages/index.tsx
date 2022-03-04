@@ -8,11 +8,15 @@ import { Description } from '../interfaces/Description'
 import { HeaderInfo } from '../interfaces/HeaderInfo'
 import { GrowthInfo } from '../interfaces/GrowthInfo'
 import { Growth } from '../interfaces/Growths'
+import { ReviewInfo } from '../interfaces/ReviewInfo'
+import { Review } from '../interfaces/ReviewItem'
 
 interface HomeIprops {
   headerInfo: HeaderInfo
   growthInfo: GrowthInfo
   growths: Growth[]
+  reviewInfo: ReviewInfo
+  reviews: Review[]
 }
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -27,11 +31,19 @@ export const getStaticProps: GetStaticProps = async () => {
   const responseGrowths = await fetch(`${URL}/api/growth`)
   const growths = await responseGrowths.json()
 
+  const responseReviewInfo = await fetch(`${URL}/api/reviewInfo`)
+  const reviewInfo = await responseReviewInfo.json()
+
+  const responseReviews = await fetch(`${URL}/api/review`)
+  const reviews = await responseReviews.json()
+
   return {
     props: {
       headerInfo: headerInfo.data,
       growthInfo: growthInfo.data,
-      growths: growths.data
+      growths: growths.data,
+      reviewInfo: reviewInfo.data,
+      reviews: reviews.data
     }
   }
 }
@@ -39,8 +51,12 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home: React.FC<HomeIprops> = ({
   headerInfo,
   growthInfo,
-  growths
+  growths,
+  reviewInfo,
+  reviews
 }): JSX.Element => {
+  console.log(reviews)
+
   return (
     <Layout>
       <Box
@@ -189,7 +205,7 @@ const Home: React.FC<HomeIprops> = ({
           color="dark-blue"
           marginBottom="5rem"
         >
-          What they’ve said
+          {reviewInfo.title}
         </Heading>
 
         <Grid
@@ -201,69 +217,38 @@ const Home: React.FC<HomeIprops> = ({
           gap="5rem 3rem"
           marginTop="4rem"
         >
-          <Box backgroundColor="gray" padding="1.5rem" rounded="md">
-            <Grid marginTop="-4rem" placeItems="center">
-              <Image src="/avatar-anisha.png" alt="" width="100px" />
-            </Grid>
-            <Box marginTop="1rem">
-              <Text
-                fontWeight="bold"
-                color="dark-blue"
-                textAlign="center"
-                marginBottom="0.7rem"
-                fontSize="1.125rem"
-              >
-                Anisha Li
-              </Text>
-              <Text color="dark-grayish-blue" textAlign="center">
-                “Manage has supercharged our team’s workflow. The ability to
-                maintain visibility on larger milestones at all times keeps
-                everyone motivated.”
-              </Text>
+          {reviews.map((review: Review) => (
+            <Box
+              backgroundColor="gray"
+              padding="1.5rem"
+              rounded="md"
+              key={review._id}
+            >
+              <Grid marginTop="-4rem" placeItems="center">
+                <Image src="/avatar-anisha.png" alt="" width="100px" />
+              </Grid>
+              <Box marginTop="1rem">
+                <Text
+                  fontWeight="bold"
+                  color="dark-blue"
+                  textAlign="center"
+                  marginBottom="0.7rem"
+                  fontSize="1.125rem"
+                >
+                  {review.name}
+                </Text>
+                {review.description.map((item: Description) => (
+                  <Text
+                    color="dark-grayish-blue"
+                    textAlign="center"
+                    key={item.id}
+                  >
+                    {item.text}
+                  </Text>
+                ))}
+              </Box>
             </Box>
-          </Box>
-          <Box backgroundColor="gray" padding="1.5rem" rounded="md">
-            <Grid marginTop="-4rem" placeItems="center">
-              <Image src="/avatar-ali.png" alt="" width="100px" />
-            </Grid>
-            <Box marginTop="1rem">
-              <Text
-                fontWeight="bold"
-                color="dark-blue"
-                textAlign="center"
-                marginBottom="0.7rem"
-                fontSize="1.125rem"
-              >
-                Ali Bravo
-              </Text>
-              <Text color="dark-grayish-blue" textAlign="center">
-                “We have been able to cancel so many other subscriptions since
-                using Manage. There is no more cross-channel confusion and
-                everyone is much more focused.”
-              </Text>
-            </Box>
-          </Box>
-          <Box backgroundColor="gray" padding="1.5rem" rounded="md">
-            <Grid marginTop="-4rem" placeItems="center">
-              <Image src="/avatar-richard.png" alt="" width="100px" />
-            </Grid>
-            <Box marginTop="1rem">
-              <Text
-                fontWeight="bold"
-                color="dark-blue"
-                textAlign="center"
-                marginBottom="0.7rem"
-                fontSize="1.125rem"
-              >
-                Richard Watts
-              </Text>
-              <Text color="dark-grayish-blue" textAlign="center">
-                “Manage allows us to provide structure and process. It keeps us
-                organized and focused. I can’t stop recommending them to
-                everyone I talk to!”
-              </Text>
-            </Box>
-          </Box>
+          ))}
         </Grid>
       </Box>
 
