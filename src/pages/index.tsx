@@ -55,8 +55,6 @@ const Home: React.FC<HomeIprops> = ({
   reviewInfo,
   reviews
 }): JSX.Element => {
-  console.log(reviews)
-
   return (
     <Layout>
       <Box
