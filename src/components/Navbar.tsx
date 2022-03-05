@@ -88,7 +88,7 @@ const Navbar: React.FC = () => {
               Products
             </Link>
           </NextLink>
-          <NextLink href="/" passHref>
+          <NextLink href="/about" passHref>
             <Link
               color="dark-blue"
               fontWeight="semibold"
