@@ -7,8 +7,6 @@ const growthItem = async (
 ): Promise<void> => {
   const { method, query, body } = req
 
-  console.log(query)
-
   switch (method) {
     case 'GET':
       try {
