@@ -3,7 +3,7 @@ import React from 'react'
 import { Grid, Box, Heading, Text, Image } from '@chakra-ui/react'
 
 import Layout from '../layout'
-import { GetServerSideProps } from 'next'
+import { GetStaticProps } from 'next'
 import { AboutInfo } from '../interfaces/AboutInfo'
 import { Description } from '../interfaces/Description'
 
@@ -11,7 +11,7 @@ interface AboutIprops {
   aboutInfo: AboutInfo
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const URL = process.env.URL_ROOT
 
   try {
