@@ -30,6 +30,7 @@ const About: React.FC<AboutIprops> = ({ aboutInfo }) => {
         maxWidth="1170px"
         margin="0 auto"
         width="90%"
+        paddingTop="2rem"
         paddingBottom="4rem"
         gap="2rem 5rem"
       >
@@ -50,7 +51,12 @@ const About: React.FC<AboutIprops> = ({ aboutInfo }) => {
           ))}
         </Box>
         <Box>
-          <Image src="/about-work.jpeg" alt="" />
+          <Image
+            loading="lazy"
+            fallbackSrc="/about-loader.png"
+            src="/about-work.jpeg"
+            alt=""
+          />
         </Box>
       </Grid>
     </Layout>
