@@ -23,29 +23,38 @@ interface HomeIprops {
 export const getStaticProps: GetStaticProps = async () => {
   const URL = process.env.URL_ROOT
 
-  const responseHeaderInfo = await axios.get(`${URL}/api/header`)
-  const headerInfo = await responseHeaderInfo.data
+  try {
+    const responseHeaderInfo = await axios.get(`${URL}/api/header`)
+    const headerInfo = await responseHeaderInfo.data
 
-  const responseGrowthInfo = await axios.get(`${URL}/api/growthInfo`)
-  const growthInfo = await responseGrowthInfo.data
+    const responseGrowthInfo = await axios.get(`${URL}/api/growthInfo`)
+    const growthInfo = await responseGrowthInfo.data
 
-  const responseGrowths = await axios.get(`${URL}/api/growth`)
-  const growths = await responseGrowths.data
+    const responseGrowths = await axios.get(`${URL}/api/growth`)
+    const growths = await responseGrowths.data
 
-  const responseReviewInfo = await axios.get(`${URL}/api/reviewInfo`)
-  const reviewInfo = await responseReviewInfo.data
+    const responseReviewInfo = await axios.get(`${URL}/api/reviewInfo`)
+    const reviewInfo = await responseReviewInfo.data
 
-  const responseReviews = await axios.get(`${URL}/api/review`)
-  const reviews = await responseReviews.data
+    const responseReviews = await axios.get(`${URL}/api/review`)
+    const reviews = await responseReviews.data
 
-  return {
-    props: {
-      headerInfo: headerInfo.data,
-      growthInfo: growthInfo.data,
-      growths: growths.data,
-      reviewInfo: reviewInfo.data,
-      reviews: reviews.data
+    if (!headerInfo || !growthInfo || !growths || !reviewInfo || !reviews) {
+      return { notFound: true }
     }
+
+    return {
+      props: {
+        headerInfo: headerInfo.data,
+        growthInfo: growthInfo.data,
+        growths: growths.data,
+        reviewInfo: reviewInfo.data,
+        reviews: reviews.data
+      }
+    }
+  } catch (error) {
+    console.log(error)
+    return { notFound: true }
   }
 }
 

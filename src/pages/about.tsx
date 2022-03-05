@@ -1,9 +1,9 @@
 import React from 'react'
-import axios from 'axios'
+// import axios from 'axios'
 import { Grid, Box, Heading, Text, Image } from '@chakra-ui/react'
 
 import Layout from '../layout'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { AboutInfo } from '../interfaces/AboutInfo'
 import { Description } from '../interfaces/Description'
 
@@ -11,16 +11,25 @@ interface AboutIprops {
   aboutInfo: AboutInfo
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const URL = process.env.URL_ROOT
 
-  const responseAboutInfo = await axios.get(`${URL}/api/about`)
-  const aboutInfo = await responseAboutInfo.data
+  try {
+    const responseAboutInfo = await fetch(`${URL}/api/about`)
+    const aboutInfo = await responseAboutInfo.json()
 
-  return {
-    props: {
-      aboutInfo: aboutInfo.data
+    if (!aboutInfo) {
+      return { notFound: true }
     }
+
+    return {
+      props: {
+        aboutInfo: aboutInfo.data
+      }
+    }
+  } catch (error) {
+    console.log(error)
+    return { notFound: true }
   }
 }
 
@@ -41,16 +50,18 @@ const About: React.FC<AboutIprops> = ({ aboutInfo }) => {
             {aboutInfo.title}
           </Heading>
 
-          {aboutInfo.description.map((item: Description) => (
-            <Text
-              key={item.id}
-              color="dark-grayish-blue"
-              marginBottom="2rem"
-              fontWeight="semibold"
-            >
-              {item.text}
-            </Text>
-          ))}
+          <Box>
+            {aboutInfo.description.map((item: Description) => (
+              <Text
+                key={item.id}
+                color="dark-grayish-blue"
+                marginBottom="2rem"
+                fontWeight="semibold"
+              >
+                {item.text}
+              </Text>
+            ))}
+          </Box>
         </Box>
         <Box>
           <Image
