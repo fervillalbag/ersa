@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import NextLink from 'next/link'
-import { Box, Grid, Image, Flex, Link, Button } from '@chakra-ui/react'
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { Box, Grid, Image, Flex, Link, Button, Text } from '@chakra-ui/react'
+import { FaBars, FaShoppingCart, FaTimes } from 'react-icons/fa'
 
 import { NavbarContext } from '../context/Navbar'
 
@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
   return (
     <Box maxWidth="1170px" margin="0 auto" width="90%" padding="2rem 0">
       <Grid
-        gridTemplateColumns={{ base: '150px 1fr', lg: '150px 1fr 200px' }}
+        gridTemplateColumns={{ base: '150px 1fr', lg: '150px 1fr auto' }}
         alignItems="center"
       >
         <Box>
@@ -22,16 +22,43 @@ const Navbar: React.FC = () => {
           </NextLink>
         </Box>
 
-        <Button
-          display={{ base: 'inline-block', lg: 'none' }}
-          justifySelf="end"
-          fontSize="24px"
-          color="dark-blue"
-          _focus={{ boxShadow: 0 }}
-          onClick={() => setShowNavbar(true)}
+        <Box
+          display={{ base: 'flex', lg: 'none' }}
+          alignItems="center"
+          justifyContent="flex-end"
         >
-          <FaBars />
-        </Button>
+          <Button position="relative" _focus={{ shadow: 0 }}>
+            <Text fontSize="1.9rem">
+              <FaShoppingCart />
+            </Text>
+
+            <Flex
+              justifyContent="center"
+              alignItems="center"
+              width="1.5rem"
+              height="1.5rem"
+              backgroundColor="bright-red"
+              rounded="full"
+              fontSize="0.85rem"
+              fontWeight="semibold"
+              color="white"
+              position="absolute"
+              bottom="-0.5rem"
+              right="0.3rem"
+            >
+              2
+            </Flex>
+          </Button>
+          <Button
+            justifySelf="end"
+            fontSize="24px"
+            color="dark-blue"
+            _focus={{ boxShadow: 0 }}
+            onClick={() => setShowNavbar(true)}
+          >
+            <FaBars />
+          </Button>
+        </Box>
 
         <Flex
           alignItems="center"
@@ -127,7 +154,11 @@ const Navbar: React.FC = () => {
           </NextLink>
         </Flex>
 
-        <Flex display={{ base: 'none', lg: 'flex' }} justifyContent="flex-end">
+        <Flex
+          display={{ base: 'none', lg: 'flex' }}
+          justifyContent="flex-end"
+          alignItems="center"
+        >
           <NextLink href="/" passHref>
             <Link
               display="inline-block"
@@ -142,6 +173,29 @@ const Navbar: React.FC = () => {
               Get Started
             </Link>
           </NextLink>
+
+          <Button position="relative" _focus={{ shadow: 0 }}>
+            <Text fontSize="1.9rem">
+              <FaShoppingCart />
+            </Text>
+
+            <Flex
+              justifyContent="center"
+              alignItems="center"
+              width="1.5rem"
+              height="1.5rem"
+              backgroundColor="bright-red"
+              rounded="full"
+              fontSize="0.85rem"
+              fontWeight="semibold"
+              color="white"
+              position="absolute"
+              bottom="-0.5rem"
+              right="0.3rem"
+            >
+              2
+            </Flex>
+          </Button>
         </Flex>
       </Grid>
     </Box>
