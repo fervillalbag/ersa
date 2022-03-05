@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+import connectDB from '../../config/mongodb'
 import AboutModel from '../../models/aboutInfo'
+
+connectDB()
 
 const about = async (
   req: NextApiRequest,
@@ -29,7 +32,7 @@ const about = async (
         const aboutInfo = await AboutModel.findOne({})
         if (!aboutInfo)
           return res.status(500).json({ msg: 'About info not found' })
-        return res.status(500).json({ data: aboutInfo })
+        return res.status(200).json({ data: aboutInfo })
       } catch (error) {
         console.log(error)
         return res.status(400).json({ msg: error })
@@ -47,7 +50,7 @@ const about = async (
       }
 
     default:
-      return res.status(400).json({ msg: 'method not allowed' })
+      return res.status(500).json({ msg: 'method not allowed' })
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import NextLink from 'next/link'
+import axios from 'axios'
 import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
 
@@ -22,20 +23,20 @@ interface HomeIprops {
 export const getStaticProps: GetStaticProps = async () => {
   const URL = process.env.URL_ROOT
 
-  const responseHeaderInfo = await fetch(`${URL}/api/header`)
-  const headerInfo = await responseHeaderInfo.json()
+  const responseHeaderInfo = await axios.get(`${URL}/api/header`)
+  const headerInfo = await responseHeaderInfo.data
 
-  const responseGrowthInfo = await fetch(`${URL}/api/growthInfo`)
-  const growthInfo = await responseGrowthInfo.json()
+  const responseGrowthInfo = await axios.get(`${URL}/api/growthInfo`)
+  const growthInfo = await responseGrowthInfo.data
 
-  const responseGrowths = await fetch(`${URL}/api/growth`)
-  const growths = await responseGrowths.json()
+  const responseGrowths = await axios.get(`${URL}/api/growth`)
+  const growths = await responseGrowths.data
 
-  const responseReviewInfo = await fetch(`${URL}/api/reviewInfo`)
-  const reviewInfo = await responseReviewInfo.json()
+  const responseReviewInfo = await axios.get(`${URL}/api/reviewInfo`)
+  const reviewInfo = await responseReviewInfo.data
 
-  const responseReviews = await fetch(`${URL}/api/review`)
-  const reviews = await responseReviews.json()
+  const responseReviews = await axios.get(`${URL}/api/review`)
+  const reviews = await responseReviews.data
 
   return {
     props: {
@@ -54,7 +55,7 @@ const Home: React.FC<HomeIprops> = ({
   growths,
   reviewInfo,
   reviews
-}): JSX.Element => {
+}) => {
   return (
     <Layout>
       <Box

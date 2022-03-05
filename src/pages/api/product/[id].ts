@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+import connectDB from '../../../config/mongodb'
 import ProductModel from '../../../models/products'
+
+connectDB()
 
 const product = async (
   req: NextApiRequest,

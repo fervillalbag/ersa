@@ -14,7 +14,7 @@ const handler = async (
       try {
         const headerInfo = await HeaderInfo.findOne({})
         if (!headerInfo)
-          return res.status(400).json({ msg: 'Header info not found' })
+          return res.status(500).json({ msg: 'Header info not found' })
         return res.status(200).json({ data: headerInfo })
       } catch (error) {
         console.log(error)
@@ -45,7 +45,7 @@ const handler = async (
       }
 
     default:
-      return res.status(400).json({ msg: 'method not allowed' })
+      return res.status(500).json({ msg: 'method not allowed' })
   }
 }
 

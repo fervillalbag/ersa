@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+
+import connectDB from '../../config/mongodb'
 import GrowthInfo from '../../models/growthInfo'
+
+connectDB()
 
 const reviewInfo = async (
   req: NextApiRequest,
