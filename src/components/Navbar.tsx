@@ -102,6 +102,7 @@ const Navbar: React.FC = () => {
               fontSize={{ base: '24px', lg: '16px' }}
               _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
               _focus={{ shadow: 0 }}
+              onClick={() => setShowNavbar(false)}
             >
               Home
             </Link>
@@ -115,6 +116,7 @@ const Navbar: React.FC = () => {
               fontSize={{ base: '24px', lg: '16px' }}
               _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
               _focus={{ shadow: 0 }}
+              onClick={() => setShowNavbar(false)}
             >
               Products
             </Link>
@@ -128,6 +130,7 @@ const Navbar: React.FC = () => {
               fontSize={{ base: '24px', lg: '16px' }}
               _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
               _focus={{ shadow: 0 }}
+              onClick={() => setShowNavbar(false)}
             >
               About Us
             </Link>
@@ -139,6 +142,7 @@ const Navbar: React.FC = () => {
               fontSize={{ base: '24px', lg: '16px' }}
               _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
               _focus={{ shadow: 0 }}
+              onClick={() => setShowNavbar(false)}
             >
               Community
             </Link>

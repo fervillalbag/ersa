@@ -40,7 +40,7 @@ const About: React.FC<AboutIprops> = ({ aboutInfo }) => {
         maxWidth="1170px"
         margin="0 auto"
         width="90%"
-        paddingTop="2rem"
+        paddingTop={{ base: '0', lg: '2rem' }}
         paddingBottom="4rem"
         gap="2rem 5rem"
       >

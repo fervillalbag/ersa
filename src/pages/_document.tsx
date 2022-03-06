@@ -6,7 +6,11 @@ class Document extends NextDocument {
     return (
       <Html>
         <Head>
-          <title>Project ERSA</title>
+          <link
+            rel="shortcut icon"
+            href="/favicon-32x32.png"
+            type="image/x-icon"
+          />
         </Head>
         <body>
           <Main />
