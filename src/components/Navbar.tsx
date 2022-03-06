@@ -136,19 +136,6 @@ const Navbar: React.FC = () => {
             <Link
               color="dark-blue"
               fontWeight="semibold"
-              marginRight={{ base: 0, lg: '30px' }}
-              marginBottom={{ base: '15px', lg: 0 }}
-              fontSize={{ base: '24px', lg: '16px' }}
-              _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
-              _focus={{ shadow: 0 }}
-            >
-              Plans
-            </Link>
-          </NextLink>
-          <NextLink href="/" passHref>
-            <Link
-              color="dark-blue"
-              fontWeight="semibold"
               fontSize={{ base: '24px', lg: '16px' }}
               _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
               _focus={{ shadow: 0 }}

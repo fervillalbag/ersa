@@ -5,7 +5,9 @@ class Document extends NextDocument {
   render(): JSX.Element {
     return (
       <Html>
-        <Head />
+        <Head>
+          <title>Project ERSA</title>
+        </Head>
         <body>
           <Main />
           <NextScript />
