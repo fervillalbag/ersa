@@ -1,12 +1,13 @@
 import React from 'react'
 
 import { Box } from '@chakra-ui/react'
+import Layout from '../layout'
 
 const Community: React.FC = () => {
   return (
-    <Box>
+    <Layout>
       <Box></Box>
-    </Box>
+    </Layout>
   )
 }
 

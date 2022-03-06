@@ -135,7 +135,7 @@ const Navbar: React.FC = () => {
               About Us
             </Link>
           </NextLink>
-          <NextLink href="/" passHref>
+          <NextLink href="/community" passHref>
             <Link
               color="dark-blue"
               fontWeight="semibold"
