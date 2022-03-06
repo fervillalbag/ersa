@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import NextLink from 'next/link'
 import { Box, Grid, Image, Flex, Link, Button, Text } from '@chakra-ui/react'
 import { FaBars, FaShoppingCart, FaTimes } from 'react-icons/fa'
@@ -7,6 +7,10 @@ import { NavbarContext } from '../context/Navbar'
 
 const Navbar: React.FC = () => {
   const { showNavbar, setShowNavbar } = useContext(NavbarContext)
+
+  useEffect(() => {
+    setShowNavbar(false)
+  }, [])
 
   return (
     <Box maxWidth="1170px" margin="0 auto" width="90%" padding="2rem 0">
@@ -102,7 +106,7 @@ const Navbar: React.FC = () => {
               Home
             </Link>
           </NextLink>
-          <NextLink href="/" passHref>
+          <NextLink href="/products" passHref>
             <Link
               color="dark-blue"
               fontWeight="semibold"

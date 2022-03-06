@@ -1,5 +1,4 @@
 import React from 'react'
-// import axios from 'axios'
 import { Grid, Box, Heading, Text, Image } from '@chakra-ui/react'
 
 import Layout from '../layout'
