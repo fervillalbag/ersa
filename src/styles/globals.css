@@ -8,3 +8,26 @@ body {
   overflow-x: hidden;
   font-weight: 400;
 }
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #fff !important;
+  margin: 1rem;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 30px !important;
+}
+
+@media (min-width: 768px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    margin: 2rem;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 40px !important;
+  }
+}
