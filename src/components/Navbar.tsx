@@ -4,9 +4,11 @@ import { Box, Grid, Image, Flex, Link, Button, Text } from '@chakra-ui/react'
 import { FaBars, FaShoppingCart, FaTimes } from 'react-icons/fa'
 
 import { NavbarContext } from '../context/Navbar'
+import { useRouter } from 'next/dist/client/router'
 
 const Navbar: React.FC = () => {
   const { showNavbar, setShowNavbar } = useContext(NavbarContext)
+  const { pathname } = useRouter()
 
   useEffect(() => {
     setShowNavbar(false)
@@ -95,7 +97,11 @@ const Navbar: React.FC = () => {
 
           <NextLink href="/" passHref>
             <Link
-              color="dark-blue"
+              color={
+                pathname === '/'
+                  ? { base: 'bright-red' }
+                  : { base: 'dark-blue' }
+              }
               fontWeight="semibold"
               marginRight={{ base: 0, lg: '30px' }}
               marginBottom={{ base: '15px', lg: 0 }}
@@ -109,7 +115,11 @@ const Navbar: React.FC = () => {
           </NextLink>
           <NextLink href="/products" passHref>
             <Link
-              color="dark-blue"
+              color={
+                pathname === '/products'
+                  ? { base: 'bright-red' }
+                  : { base: 'dark-blue' }
+              }
               fontWeight="semibold"
               marginRight={{ base: 0, lg: '30px' }}
               marginBottom={{ base: '15px', lg: 0 }}
@@ -123,7 +133,11 @@ const Navbar: React.FC = () => {
           </NextLink>
           <NextLink href="/about" passHref>
             <Link
-              color="dark-blue"
+              color={
+                pathname === '/about'
+                  ? { base: 'bright-red' }
+                  : { base: 'dark-blue' }
+              }
               fontWeight="semibold"
               marginRight={{ base: 0, lg: '30px' }}
               marginBottom={{ base: '15px', lg: 0 }}
@@ -137,7 +151,11 @@ const Navbar: React.FC = () => {
           </NextLink>
           <NextLink href="/community" passHref>
             <Link
-              color="dark-blue"
+              color={
+                pathname === '/community'
+                  ? { base: 'bright-red' }
+                  : { base: 'dark-blue' }
+              }
               fontWeight="semibold"
               fontSize={{ base: '24px', lg: '16px' }}
               _hover={{ textDecoration: 'none', color: 'dark-grayish-blue' }}
