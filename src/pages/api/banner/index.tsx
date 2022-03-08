@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+import connectDB from '../../../config/mongodb'
 import BannerModel from '../../../models/banner'
+
+connectDB()
 
 const banner = async (
   req: NextApiRequest,
