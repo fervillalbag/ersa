@@ -6,7 +6,7 @@ import Product from '../components/Product'
 
 const Products: React.FC = () => {
   return (
-    <Layout>
+    <Layout title="Products">
       <Box maxWidth="1170px" margin="0 auto" width="90%" paddingBottom="4rem">
         <Grid
           gridTemplateColumns={{

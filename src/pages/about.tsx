@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const About: React.FC<AboutIprops> = ({ aboutInfo }) => {
   return (
-    <Layout>
+    <Layout title="About Us">
       <Grid
         gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
         maxWidth="1170px"

@@ -41,7 +41,7 @@ const Community: React.FC<CommunityIprops> = ({ banners }) => {
   const { showNavbar } = useContext(NavbarContext)
 
   return (
-    <Layout>
+    <Layout title="Community">
       <Box position="relative">
         <Swiper
           navigation={true}

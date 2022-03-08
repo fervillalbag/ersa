@@ -65,7 +65,7 @@ const Home: React.FC<HomeIprops> = ({
   reviews
 }) => {
   return (
-    <Layout>
+    <Layout title="Home Page">
       <Box
         position="absolute"
         zIndex="-1"
