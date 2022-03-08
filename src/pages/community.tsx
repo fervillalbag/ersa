@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { GetStaticProps } from 'next'
-import { Box } from '@chakra-ui/react'
+import { Box, Image, Text } from '@chakra-ui/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 
@@ -42,28 +42,42 @@ const Community: React.FC<CommunityIprops> = ({ banners }) => {
 
   return (
     <Layout>
-      <Box>
+      <Box position="relative">
         <Swiper
           navigation={true}
           modules={[Navigation]}
-          className={`relative h-72 lg:h-[450px] px-20 ${
-            showNavbar ? 'hidden' : 'block'
-          }`}
+          className={`${showNavbar ? 'hidden' : 'block'}`}
         >
           {banners &&
             banners.map((slide: Banner) => (
-              <SwiperSlide
-                key={slide.image}
-                className="bg-slate-300 text-white"
-              >
-                <img
+              <SwiperSlide key={slide.image}>
+                <Image
                   src={slide.image}
-                  className="w-full h-full object-cover"
+                  width="100%"
+                  height="450px"
+                  objectFit="cover"
                   alt=""
                 />
               </SwiperSlide>
             ))}
         </Swiper>
+      </Box>
+
+      <Box
+        maxWidth="1170px"
+        margin="0 auto"
+        width="90%"
+        padding={{ base: '3rem 0', lg: '5rem 0' }}
+      >
+        <Text>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta minus
+          mollitia necessitatibus quibusdam, temporibus quaerat non totam
+          tempore magni aspernatur suscipit dignissimos error soluta. Architecto
+          eveniet officiis nihil autem distinctio? Lorem ipsum, dolor sit amet
+          consectetur adipisicing elit. Similique in magni ab qui tempora
+          ratione assumenda odit, sed architecto dolore, quasi sit at nam
+          exercitationem voluptas id tempore! Dolor, deserunt!
+        </Text>
       </Box>
     </Layout>
   )

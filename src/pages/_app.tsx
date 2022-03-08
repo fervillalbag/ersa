@@ -6,6 +6,7 @@ import NavbarProvider from '../context/Navbar'
 
 import theme from '../styles/theme'
 import '../styles/globals.css'
+import 'swiper/css'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
