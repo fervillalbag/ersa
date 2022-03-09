@@ -2,20 +2,21 @@ import React from 'react'
 import { Grid, Box, Heading, Text, Image } from '@chakra-ui/react'
 
 import Layout from '../layout'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { AboutInfo } from '../interfaces/AboutInfo'
 import { Description } from '../interfaces/Description'
+import axios from 'axios'
 
 interface AboutIprops {
   aboutInfo: AboutInfo
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const URL = process.env.URL_ROOT
 
   try {
-    const responseAboutInfo = await fetch(`${URL}/api/about`)
-    const aboutInfo = await responseAboutInfo.json()
+    const responseAboutInfo = await axios.get(`${URL}/api/about`)
+    const aboutInfo = await responseAboutInfo.data
 
     return {
       props: {

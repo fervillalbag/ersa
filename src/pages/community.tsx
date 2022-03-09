@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import { GetStaticProps } from 'next'
+import axios from 'axios'
+import { GetServerSideProps } from 'next'
 import { Box, Image, Text } from '@chakra-ui/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
@@ -15,12 +16,12 @@ interface CommunityIprops {
   banners: Banner[]
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const URL = process.env.URL_ROOT
 
   try {
-    const bannersResponse = await fetch(`${URL}/api/banner`)
-    const banners = await bannersResponse.json()
+    const bannersResponse = await axios.get(`${URL}/api/banner`)
+    const banners = await bannersResponse.data
 
     return {
       props: {
