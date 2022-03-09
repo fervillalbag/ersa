@@ -17,10 +17,6 @@ export const getStaticProps: GetStaticProps = async () => {
     const responseAboutInfo = await fetch(`${URL}/api/about`)
     const aboutInfo = await responseAboutInfo.json()
 
-    if (!aboutInfo) {
-      return { notFound: true }
-    }
-
     return {
       props: {
         aboutInfo: aboutInfo.data
@@ -28,7 +24,6 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   } catch (error) {
     console.log(error)
-    return { notFound: true }
   }
 }
 
