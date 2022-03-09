@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import NextLink from 'next/link'
 import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react'
-import { GetServerSideProps } from 'next'
+import { GetStaticProps } from 'next'
 
 import Layout from '../layout'
 import { Description } from '../interfaces/Description'
@@ -20,7 +20,7 @@ interface HomeIprops {
   reviews: Review[]
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const URL = process.env.URL_ROOT
 
   try {
@@ -46,7 +46,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
         growths: growths.data,
         reviewInfo: reviewInfo.data,
         reviews: reviews.data
-      }
+      },
+      revalidate: 60
     }
   } catch (error) {
     console.log(error)

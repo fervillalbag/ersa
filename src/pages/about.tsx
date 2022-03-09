@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Box, Heading, Text, Image } from '@chakra-ui/react'
 
 import Layout from '../layout'
-import { GetServerSideProps } from 'next'
+import { GetStaticProps } from 'next'
 import { AboutInfo } from '../interfaces/AboutInfo'
 import { Description } from '../interfaces/Description'
 import axios from 'axios'
@@ -11,7 +11,7 @@ interface AboutIprops {
   aboutInfo: AboutInfo
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const URL = process.env.URL_ROOT
 
   try {
@@ -21,7 +21,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
     return {
       props: {
         aboutInfo: aboutInfo.data
-      }
+      },
+      revalidate: 60
     }
   } catch (error) {
     console.log(error)

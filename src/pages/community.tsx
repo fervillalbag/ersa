@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import axios from 'axios'
-import { GetServerSideProps } from 'next'
+import { GetStaticProps } from 'next'
 import { Box, Image, Text } from '@chakra-ui/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
@@ -16,7 +16,7 @@ interface CommunityIprops {
   banners: Banner[]
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const URL = process.env.URL_ROOT
 
   try {
@@ -26,7 +26,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
     return {
       props: {
         banners: banners.data
-      }
+      },
+      revalidate: 60
     }
   } catch (error) {
     console.log(error)
