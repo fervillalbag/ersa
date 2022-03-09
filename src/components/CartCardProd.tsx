@@ -5,10 +5,14 @@ import { FaMinus, FaPlus } from 'react-icons/fa'
 
 const CartCardProd: React.FC = () => {
   return (
-    <Box borderBottom="1px solid #d3d3d3" paddingBottom="1.375rem">
+    <Box
+      borderBottom="1px solid #ebebeb"
+      paddingBottom="1.375rem"
+      marginBottom="1.375rem"
+    >
       <Grid
         gridTemplateColumns="40px 80px 1fr auto"
-        gap="0.75rem"
+        gap="0.8rem"
         alignItems="center"
       >
         <Button
@@ -32,8 +36,11 @@ const CartCardProd: React.FC = () => {
             alt=""
           />
         </Box>
-        <Box>
-          <Text fontSize="0.85rem">Descr</Text>
+        <Box alignSelf="flex-start">
+          <Text fontSize="0.85rem">Lorem ipsum dolor sit amet.</Text>
+          <Text marginTop="0.25rem" fontSize="0.85rem" fontWeight="bold">
+            $40
+          </Text>
         </Box>
         <Box>
           <Button
@@ -44,8 +51,8 @@ const CartCardProd: React.FC = () => {
             color="white"
             padding="0"
             minWidth="initial"
-            width="1.8rem"
-            height="1.8rem"
+            width="1.75rem"
+            height="1.75rem"
             _focus={{ shadow: 0 }}
             fontSize="0.7rem"
             rounded="4px"
@@ -65,8 +72,8 @@ const CartCardProd: React.FC = () => {
             color="white"
             padding="0"
             minWidth="initial"
-            width="1.8rem"
-            height="1.8rem"
+            width="1.75rem"
+            height="1.75rem"
             _focus={{ shadow: 0 }}
             fontSize="0.7rem"
             rounded="4px"

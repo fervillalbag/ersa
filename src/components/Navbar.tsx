@@ -5,9 +5,12 @@ import { FaBars, FaShoppingCart, FaTimes } from 'react-icons/fa'
 
 import { NavbarContext } from '../context/Navbar'
 import { useRouter } from 'next/dist/client/router'
+import { CartContext } from '../context/Cart'
 
 const Navbar: React.FC = () => {
   const { showNavbar, setShowNavbar } = useContext(NavbarContext)
+  const { setStatusCart } = useContext(CartContext)
+
   const { pathname } = useRouter()
 
   useEffect(() => {
@@ -33,7 +36,11 @@ const Navbar: React.FC = () => {
           alignItems="center"
           justifyContent="flex-end"
         >
-          <Button position="relative" _focus={{ shadow: 0 }}>
+          <Button
+            position="relative"
+            _focus={{ shadow: 0 }}
+            onClick={() => setStatusCart(true)}
+          >
             <Text fontSize="1.9rem">
               <FaShoppingCart />
             </Text>
@@ -187,7 +194,11 @@ const Navbar: React.FC = () => {
             </Link>
           </NextLink>
 
-          <Button position="relative" _focus={{ shadow: 0 }}>
+          <Button
+            position="relative"
+            _focus={{ shadow: 0 }}
+            onClick={() => setStatusCart(true)}
+          >
             <Text fontSize="1.9rem">
               <FaShoppingCart />
             </Text>
