@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Box, Button, Text, Flex } from '@chakra-ui/react'
 import { FaTimes } from 'react-icons/fa'
 
@@ -7,9 +7,22 @@ import { CartContext } from '../context/Cart'
 
 const Cart: React.FC = () => {
   const { statusCart, setStatusCart } = useContext(CartContext)
+  const [currentHeight, setCurrentHeight] = useState(null)
+
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if (ref && ref.current && ref.current.clientHeight) {
+      // console.log('called')
+    }
+    setCurrentHeight(ref.current.clientHeight)
+    return () => {
+      setCurrentHeight(0)
+    }
+  }, [])
 
   return (
-    <>
+    <Box>
       <Box
         display={statusCart ? 'block' : 'none'}
         backgroundColor="rgba(0,0,0,0.5)"
@@ -17,24 +30,25 @@ const Cart: React.FC = () => {
         top="0"
         left="0"
         width="100vw"
-        height="100vh"
+        height={{ base: currentHeight, md: '100vh' }}
         zIndex="300"
         onClick={() => setStatusCart(false)}
       />
       <Box
+        ref={ref}
         display={statusCart ? 'block' : 'none'}
         position="fixed"
         backgroundColor="white"
         left="0"
         top="0"
         width={{ base: '100%', md: '320px' }}
-        height="100vh"
+        height={{ base: '100%', md: '100vh' }}
         zIndex="350"
       >
         <Flex
           flexDirection="column"
           justifyContent="space-between"
-          height="100vh"
+          height={{ base: currentHeight, md: '100vh' }}
         >
           <Box>
             <Flex
@@ -53,6 +67,7 @@ const Cart: React.FC = () => {
                 _focus={{ shadow: 0 }}
                 padding={{ base: '0.25rem 0', md: '0' }}
                 margin="0"
+                onClick={() => setStatusCart(false)}
               >
                 <Text
                   as="span"
@@ -68,7 +83,7 @@ const Cart: React.FC = () => {
 
             <Box
               padding="0 1.25rem"
-              height="calc(100vh - 69px - 8rem)"
+              height={`calc(100vh - 69px - 8rem)`}
               overflowY="auto"
             >
               <CartCardProd />
@@ -110,7 +125,7 @@ const Cart: React.FC = () => {
           </Flex>
         </Flex>
       </Box>
-    </>
+    </Box>
   )
 }
 
