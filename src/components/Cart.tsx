@@ -83,7 +83,7 @@ const Cart: React.FC = () => {
 
             <Box
               padding="0 1.25rem"
-              height={`calc(${currentHeight}px - 69px - 8rem)`}
+              height={`calc(${currentHeight + 'px'} - 70px - 8rem)`}
               overflowY="auto"
             >
               <CartCardProd />
