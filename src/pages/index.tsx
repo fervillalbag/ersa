@@ -38,10 +38,6 @@ export const getStaticProps: GetStaticProps = async () => {
     const responseReviews = await fetch(`${URL}/api/review`)
     const reviews = await responseReviews.json()
 
-    if (!headerInfo || !growthInfo || !growths || !reviewInfo || !reviews) {
-      return { notFound: true }
-    }
-
     return {
       props: {
         headerInfo: headerInfo.data,
@@ -53,7 +49,6 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   } catch (error) {
     console.log(error)
-    return { notFound: true }
   }
 }
 

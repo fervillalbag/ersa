@@ -22,10 +22,6 @@ export const getStaticProps: GetStaticProps = async () => {
     const bannersResponse = await fetch(`${URL}/api/banner`)
     const banners = await bannersResponse.json()
 
-    if (!banners) {
-      return { notFound: true }
-    }
-
     return {
       props: {
         banners: banners.data
@@ -33,7 +29,6 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   } catch (error) {
     console.log(error)
-    return { notFound: true }
   }
 }
 
