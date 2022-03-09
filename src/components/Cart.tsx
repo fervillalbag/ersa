@@ -74,9 +74,9 @@ const Cart: React.FC = () => {
               <CartCardProd />
               <CartCardProd />
               {/* <CartCardProd /> */}
-              {/* <CartCardProd /> */}
-              {/* <CartCardProd /> */}
-              {/* <CartCardProd /> */}
+              <CartCardProd />
+              <CartCardProd />
+              <CartCardProd />
             </Box>
           </Box>
 
@@ -86,6 +86,10 @@ const Cart: React.FC = () => {
             backgroundColor="vary-light-gray"
             height="8rem"
             justifyContent="center"
+            position="absolute"
+            width="100%"
+            bottom="0"
+            left="0"
           >
             <Flex width="full" justifyContent="space-between">
               <Text fontWeight="bold">Total</Text>
