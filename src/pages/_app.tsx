@@ -8,16 +8,19 @@ import CartProvider from '../context/Cart'
 import theme from '../styles/theme'
 import '../styles/globals.css'
 import 'swiper/css'
+import { AnimatePresence } from 'framer-motion'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <ChakraProvider theme={theme}>
-      <CartProvider>
-        <NavbarProvider>
-          <Component {...pageProps} />
-        </NavbarProvider>
-      </CartProvider>
-    </ChakraProvider>
+    <AnimatePresence exitBeforeEnter>
+      <ChakraProvider theme={theme}>
+        <CartProvider>
+          <NavbarProvider>
+            <Component {...pageProps} />
+          </NavbarProvider>
+        </CartProvider>
+      </ChakraProvider>
+    </AnimatePresence>
   )
 }
 

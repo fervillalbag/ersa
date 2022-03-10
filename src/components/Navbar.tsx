@@ -178,6 +178,8 @@ const Navbar: React.FC = () => {
           display={{ base: 'none', lg: 'flex' }}
           justifyContent="flex-end"
           alignItems="center"
+          position="relative"
+          zIndex="100"
         >
           <NextLink href="/" passHref>
             <Link

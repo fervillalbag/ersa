@@ -11,6 +11,7 @@ import { GrowthInfo } from '../interfaces/GrowthInfo'
 import { Growth } from '../interfaces/Growths'
 import { ReviewInfo } from '../interfaces/ReviewInfo'
 import { Review } from '../interfaces/ReviewItem'
+import Animation from '../components/Animation'
 
 interface HomeIprops {
   headerInfo: HeaderInfo
@@ -63,138 +64,154 @@ const Home: React.FC<HomeIprops> = ({
 }) => {
   return (
     <Layout title="Home Page">
-      <Box
-        position="absolute"
-        zIndex="-1"
-        right={{ base: '-30rem', lg: '-12rem' }}
-        top={{ base: '-24rem', lg: '-16rem' }}
-      >
-        <Image src="/bg-tablet-pattern.svg" alt="" />
-      </Box>
+      <Animation>
+        {/* <Box
+          position="absolute"
+          zIndex="-1"
+          right={{ base: '-30rem', lg: '-12rem' }}
+          top={{ base: '-24rem', lg: '-16rem' }}
+        >
+          <Image src="/bg-tablet-pattern.svg" alt="" />
+        </Box> */}
 
-      <Grid
-        gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
-        maxWidth="1170px"
-        width="90%"
-        margin="0 auto"
-        padding="2rem 0 4rem 0"
-        alignItems="center"
-        gap="2rem 4rem"
-      >
-        <Box order={{ base: '2', lg: 'initial' }}>
-          <Heading
-            as="h1"
-            fontSize={{ base: '2.8rem', lg: '3.6rem' }}
-            color="dark-blue"
-          >
-            {headerInfo.title}
-          </Heading>
-
-          {headerInfo.description.map((item: Description) => (
-            <Text
-              key={item.id}
-              color="dark-grayish-blue"
-              fontSize="1.125rem"
-              marginTop="1rem"
-              maxWidth={{ base: '100%', lg: '65%' }}
+        <Grid
+          gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
+          maxWidth="1170px"
+          width="90%"
+          margin="0 auto"
+          padding="2rem 0 4rem 0"
+          alignItems="center"
+          gap="2rem 4rem"
+          position="relative"
+          _before={{
+            content: `''`,
+            display: 'block',
+            width: '30rem',
+            height: '60rem',
+            position: 'absolute',
+            right: -100,
+            bottom: 0,
+            backgroundColor: 'hsl(13, 100%, 96%)',
+            borderRadius: '30rem',
+            zIndex: -100,
+            transform: 'rotate(40deg)'
+          }}
+        >
+          <Box order={{ base: '2', lg: 'initial' }}>
+            <Heading
+              as="h1"
+              fontSize={{ base: '2.8rem', lg: '3.6rem' }}
+              color="dark-blue"
             >
-              {item.text}
-            </Text>
-          ))}
+              {headerInfo.title}
+            </Heading>
 
-          <NextLink href="/" passHref>
-            <Link
-              display="inline-block"
-              backgroundColor="bright-red"
-              color="white"
-              padding="12px 30px"
-              rounded="30px"
-              fontWeight="semibold"
-              fontSize="14px"
-              marginTop="1rem"
-              _hover={{ textDecoration: 'none' }}
-            >
-              Get Started
-            </Link>
-          </NextLink>
-        </Box>
-        <Box>
-          <Image
-            src="/illustration-intro.svg"
-            width="100%"
-            objectFit="cover"
-            alt=""
-          />
-        </Box>
-      </Grid>
+            {headerInfo.description.map((item: Description) => (
+              <Text
+                key={item.id}
+                color="dark-grayish-blue"
+                fontSize="1.125rem"
+                marginTop="1rem"
+                maxWidth={{ base: '100%', lg: '65%' }}
+              >
+                {item.text}
+              </Text>
+            ))}
 
-      <Grid
-        gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
-        maxWidth="1170px"
-        margin="0 auto"
-        width="90%"
-        padding={{ base: '3rem 0 6rem 0', lg: '2rem 0 6rem 0' }}
-        gap="3rem"
-      >
-        <Box>
-          <Heading
-            as="h3"
-            fontSize={{ base: '2.2rem', lg: '2.6rem' }}
-            color="dark-blue"
-          >
-            {growthInfo.title}
-          </Heading>
+            <NextLink href="/" passHref>
+              <Link
+                display="inline-block"
+                backgroundColor="bright-red"
+                color="white"
+                padding="12px 30px"
+                rounded="30px"
+                fontWeight="semibold"
+                fontSize="14px"
+                marginTop="1rem"
+                _hover={{ textDecoration: 'none' }}
+              >
+                Get Started
+              </Link>
+            </NextLink>
+          </Box>
+          <Box>
+            <Image
+              src="/illustration-intro.svg"
+              width="100%"
+              objectFit="cover"
+              alt=""
+            />
+          </Box>
+        </Grid>
 
-          {growthInfo.description.map((item: Description) => (
-            <Text
-              key={item.id}
-              color="dark-grayish-blue"
-              fontSize="1.125rem"
-              marginTop="1rem"
-              maxWidth={{ base: '100%', lg: '65%' }}
+        <Grid
+          gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
+          maxWidth="1170px"
+          margin="0 auto"
+          width="90%"
+          padding={{ base: '3rem 0 6rem 0', lg: '2rem 0 6rem 0' }}
+          gap="3rem"
+        >
+          <Box>
+            <Heading
+              as="h3"
+              fontSize={{ base: '2.2rem', lg: '2.6rem' }}
+              color="dark-blue"
             >
-              {item.text}
-            </Text>
-          ))}
-        </Box>
-        <Box>
-          {growths.map((item: Growth, index: number) => (
-            <Grid
-              key={item._id}
-              gridTemplateColumns="70px 1fr"
-              gridTemplateRows="repeat(2, auto)"
-              gap="1rem"
-              marginBottom="2rem"
-            >
-              <Box gridColumn="1/2">
-                <Box
-                  backgroundColor="bright-red"
-                  color="white"
-                  padding="0.45rem 1rem"
-                  rounded="full"
-                  textAlign="center"
-                  fontWeight="bold"
-                  fontSize="0.9rem"
-                >
-                  0{index + 1}
+              {growthInfo.title}
+            </Heading>
+
+            {growthInfo.description.map((item: Description) => (
+              <Text
+                key={item.id}
+                color="dark-grayish-blue"
+                fontSize="1.125rem"
+                marginTop="1rem"
+                maxWidth={{ base: '100%', lg: '65%' }}
+              >
+                {item.text}
+              </Text>
+            ))}
+          </Box>
+          <Box>
+            {growths.map((item: Growth, index: number) => (
+              <Grid
+                key={item._id}
+                gridTemplateColumns="70px 1fr"
+                gridTemplateRows="repeat(2, auto)"
+                gap="1rem"
+                marginBottom="2rem"
+              >
+                <Box gridColumn="1/2">
+                  <Box
+                    backgroundColor="bright-red"
+                    color="white"
+                    padding="0.45rem 1rem"
+                    rounded="full"
+                    textAlign="center"
+                    fontWeight="bold"
+                    fontSize="0.9rem"
+                  >
+                    0{index + 1}
+                  </Box>
                 </Box>
-              </Box>
-              <Box gridColumn="2/3" alignSelf="center">
-                <Text fontWeight="bold" color="dark-blue" fontSize="1.2rem">
-                  {item.title}
-                </Text>
-              </Box>
-              <Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow="2/3">
-                {item.description.map((itemDescription: Description) => (
-                  <Text key={itemDescription.id} color="dark-grayish-blue">
-                    {itemDescription.text}
+                <Box gridColumn="2/3" alignSelf="center">
+                  <Text fontWeight="bold" color="dark-blue" fontSize="1.2rem">
+                    {item.title}
                   </Text>
-                ))}
-              </Box>
-            </Grid>
-          ))}
-        </Box>
-      </Grid>
+                </Box>
+                <Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow="2/3">
+                  {item.description.map((itemDescription: Description) => (
+                    <Text key={itemDescription.id} color="dark-grayish-blue">
+                      {itemDescription.text}
+                    </Text>
+                  ))}
+                </Box>
+              </Grid>
+            ))}
+          </Box>
+        </Grid>
+      </Animation>
 
       <Box
         padding={{ base: '0 0 6rem 0', lg: '3rem 0 6rem 0' }}
