@@ -1,6 +1,7 @@
 import React from 'react'
-import { Grid, Box, Heading, Text, Image } from '@chakra-ui/react'
 import axios from 'axios'
+import { Grid, Box, Heading, Text } from '@chakra-ui/react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import Layout from '../layout'
 import { GetStaticProps } from 'next'
@@ -60,10 +61,10 @@ const About: React.FC<AboutIprops> = ({ aboutInfo }) => {
               ))}
             </Box>
           </Box>
-          <Box>
-            <Image
+          <Box className="image">
+            <LazyLoadImage
               loading="lazy"
-              fallbackSrc="/about-loader.png"
+              effect="blur"
               src="/about-work.jpeg"
               alt=""
             />

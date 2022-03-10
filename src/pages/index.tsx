@@ -3,6 +3,7 @@ import axios from 'axios'
 import NextLink from 'next/link'
 import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import Layout from '../layout'
 import { Description } from '../interfaces/Description'
@@ -65,15 +66,6 @@ const Home: React.FC<HomeIprops> = ({
   return (
     <Layout title="Home Page">
       <Animation>
-        {/* <Box
-          position="absolute"
-          zIndex="-1"
-          right={{ base: '-30rem', lg: '-12rem' }}
-          top={{ base: '-24rem', lg: '-16rem' }}
-        >
-          <Image src="/bg-tablet-pattern.svg" alt="" />
-        </Box> */}
-
         <Grid
           gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
           maxWidth="1170px"
@@ -135,11 +127,11 @@ const Home: React.FC<HomeIprops> = ({
             </NextLink>
           </Box>
           <Box>
-            <Image
+            <LazyLoadImage
               src="/illustration-intro.svg"
               width="100%"
-              objectFit="cover"
               alt=""
+              effect="blur"
             />
           </Box>
         </Grid>

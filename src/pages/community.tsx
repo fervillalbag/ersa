@@ -41,7 +41,7 @@ const Community: React.FC<CommunityIprops> = ({ banners }) => {
   return (
     <Layout title="Community">
       <Animation>
-        <Box position="relative">
+        <Box position="relative" backgroundColor="gray">
           <Swiper
             navigation={true}
             modules={[Navigation]}

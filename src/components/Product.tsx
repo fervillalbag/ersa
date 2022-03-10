@@ -1,7 +1,7 @@
 import React from 'react'
 import NextLink from 'next/link'
-import { Box, Text, Button, Link, Image, Flex } from '@chakra-ui/react'
-
+import { Box, Text, Button, Link, Flex } from '@chakra-ui/react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { RiShoppingCartFill } from 'react-icons/ri'
 
 const Product: React.FC = () => {
@@ -13,7 +13,12 @@ const Product: React.FC = () => {
           padding="1.5rem"
           border="1px solid hsl(0, 0%, 90%)"
         >
-          <Image src="/product.jpeg" alt="" width="100%" objectFit="cover" />
+          <LazyLoadImage
+            src="/product.jpeg"
+            alt=""
+            width="100%"
+            effect="blur"
+          />
         </Link>
       </NextLink>
 
