@@ -7,7 +7,7 @@ import { RiShoppingCartFill } from 'react-icons/ri'
 const Product: React.FC = () => {
   return (
     <Box>
-      <NextLink href="/">
+      <NextLink href={`/product/2`}>
         <Link
           display="block"
           padding="1.5rem"

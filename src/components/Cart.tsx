@@ -22,7 +22,7 @@ const Cart: React.FC = () => {
   }, [])
 
   return (
-    <Box>
+    <Box overflow="hidden">
       <Box
         display={statusCart ? 'block' : 'none'}
         backgroundColor="rgba(0,0,0,0.5)"
