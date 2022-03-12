@@ -65,7 +65,7 @@ const About: React.FC<AboutIprops> = ({ aboutInfo }) => {
             <LazyLoadImage
               loading="lazy"
               effect="blur"
-              src="/about-work.jpeg"
+              src={aboutInfo.image}
               alt=""
             />
           </Box>

@@ -24,15 +24,15 @@ const Cart: React.FC = () => {
   return (
     <>
       <Box
-        display={statusCart ? 'block' : 'none'}
+        display={statusCart ? { base: 'block', lg: 'none' } : { base: 'none' }}
         backgroundColor="white"
         position="fixed"
         width="100vw"
         height="100vh"
-        zIndex="20"
+        zIndex="300"
       ></Box>
 
-      <Box overflow="hidden" position="relative" zIndex="40">
+      <Box overflow="hidden" position="relative" zIndex="400">
         <Box
           display={statusCart ? 'block' : 'none'}
           backgroundColor="rgba(0,0,0,0.5)"
@@ -41,7 +41,7 @@ const Cart: React.FC = () => {
           left="0"
           width="100vw"
           height={{ base: currentHeight, md: '100vh' }}
-          zIndex="300"
+          zIndex="400"
           onClick={() => setStatusCart(false)}
         />
         <Box
@@ -53,7 +53,7 @@ const Cart: React.FC = () => {
           top="0"
           width={{ base: '100%', md: '320px' }}
           height={{ base: '100%', md: '100vh' }}
-          zIndex="350"
+          zIndex="500"
         >
           <Flex
             flexDirection="column"

@@ -3,20 +3,26 @@ import NextLink from 'next/link'
 import { Box, Text, Button, Link, Flex } from '@chakra-ui/react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { RiShoppingCartFill } from 'react-icons/ri'
+import { ProductType } from '../interfaces/Product'
 
-const Product: React.FC = () => {
+interface ProductIprops {
+  product: ProductType
+}
+
+const Product: React.FC<ProductIprops> = ({ product }) => {
   return (
     <Box>
-      <NextLink href={`/product/2`}>
+      <NextLink href={`/product/${product._id}`}>
         <Link
           display="block"
           padding="1.5rem"
           border="1px solid hsl(0, 0%, 90%)"
         >
           <LazyLoadImage
-            src="/product.jpeg"
+            src={product.image}
             alt=""
             width="100%"
+            height="300px"
             effect="blur"
           />
         </Link>
@@ -32,7 +38,7 @@ const Product: React.FC = () => {
             marginLeft="0.25rem"
             color="dark-grayish-blue"
           >
-            72171
+            {product.code}
           </Text>
         </Flex>
         <Text
@@ -41,7 +47,7 @@ const Product: React.FC = () => {
           marginTop="0.3rem"
           fontSize="1.2rem"
         >
-          Sunglasses for summer
+          {product.name}
         </Text>
         <Flex
           marginTop="1rem"
@@ -57,7 +63,7 @@ const Product: React.FC = () => {
               Price
             </Text>
             <Text fontWeight="bold" color="dark-blue" fontSize="1.2rem">
-              $20
+              ${product.price}
             </Text>
           </Box>
           <Box>

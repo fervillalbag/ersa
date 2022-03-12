@@ -35,3 +35,8 @@ body {
 .image img {
   object-fit: cover;
 }
+
+.lazy-load-image-background.blur.lazy-load-image-loaded img {
+  height: 100%;
+  object-fit: cover;
+}

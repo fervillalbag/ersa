@@ -5,8 +5,54 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import Layout from '../../layout'
 import Animation from '../../components/Animation'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import axios from 'axios'
+import { ProductType } from '../../interfaces/Product'
+import { Description } from '../../interfaces/Description'
 
-const Product: React.FC = () => {
+interface ProductIprops {
+  product: ProductType
+}
+
+const URL = process.env.URL_ROOT
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  try {
+    const responseProducts = await axios.get(`${URL}/api/product`)
+    const products = await responseProducts.data
+
+    const paths = products.data.map((product: ProductType) => ({
+      params: { id: product._id.toString() }
+    }))
+
+    return {
+      paths,
+      fallback: false
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { id } = params
+
+  try {
+    const responseProduct = await axios.get(`${URL}/api/product/${id}`)
+    const product = await responseProduct.data
+
+    return {
+      props: {
+        product: product.data
+      },
+      revalidate: 60
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const Product: React.FC<ProductIprops> = ({ product }) => {
   return (
     <Layout>
       <Animation>
@@ -21,44 +67,37 @@ const Product: React.FC = () => {
         >
           <Flex justifyContent="center">
             <Box width={{ base: '100%', md: '400px' }}>
-              <LazyLoadImage src="/product.jpeg" alt="" width="100%" />
+              <LazyLoadImage
+                src={product.image}
+                alt=""
+                width="100%"
+                height="400px"
+                effect="blur"
+              />
             </Box>
           </Flex>
           <Box>
             <Text fontWeight="bold" fontSize="1.7rem" color="dark-blue">
-              Sunglasses for summer
+              {product.name}
             </Text>
 
             <Flex>
               <Text color="dark-grayish-blue">Code:</Text>
               <Text color="dark-grayish-blue" marginLeft="0.25rem">
-                4129
+                {product.code}
               </Text>
             </Flex>
 
             <Text fontWeight="bold" fontSize="2rem" color="dark-blue">
-              $20
+              ${product.price}
             </Text>
 
             <Box maxWidth={{ base: '100%', md: '80%' }}>
-              <Text
-                color="dark-grayish-blue"
-                marginTop="1rem"
-                fontWeight="semibold"
-              >
-                The updated Silvani Anorak features weatherproof but breathable,
-                DryVent™ 2L fabric and a convenient, secure kangaroo pocket for
-                powder day essentials.
-              </Text>
-              <Text
-                color="dark-grayish-blue"
-                marginTop="1rem"
-                fontWeight="semibold"
-              >
-                The updated Silvani Anorak features weatherproof but breathable,
-                DryVent™ 2L fabric and a convenient, secure kangaroo pocket for
-                powder day essentials.
-              </Text>
+              {product.description.map((item: Description) => (
+                <Text key={item.id} color="dark-grayish-blue" marginTop="1rem">
+                  {item.text}
+                </Text>
+              ))}
             </Box>
 
             <Flex marginTop="1rem">
@@ -71,7 +110,7 @@ const Product: React.FC = () => {
                 marginLeft="0.25rem"
                 fontSize="0.9rem"
               >
-                12
+                {product.quantity}
               </Text>
             </Flex>
 

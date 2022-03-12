@@ -128,7 +128,7 @@ const Home: React.FC<HomeIprops> = ({
           </Box>
           <Box>
             <LazyLoadImage
-              src="/illustration-intro.svg"
+              src={headerInfo.image}
               width="100%"
               alt=""
               effect="blur"
@@ -238,7 +238,7 @@ const Home: React.FC<HomeIprops> = ({
               key={review._id}
             >
               <Grid marginTop="-4rem" placeItems="center">
-                <Image src="/avatar-anisha.png" alt="" width="100px" />
+                <Image src={review.avatar} alt="" width="100px" />
               </Grid>
               <Box marginTop="1rem">
                 <Text

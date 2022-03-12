@@ -4,8 +4,33 @@ import { Box, Grid } from '@chakra-ui/react'
 import Layout from '../layout'
 import Product from '../components/Product'
 import Animation from '../components/Animation'
+import { GetStaticProps } from 'next'
+import axios from 'axios'
+import { ProductType } from '../interfaces/Product'
 
-const Products: React.FC = () => {
+interface ProductsIprops {
+  products: ProductType[]
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const URL = process.env.URL_ROOT
+
+  try {
+    const responseProducts = await axios.get(`${URL}/api/product`)
+    const products = await responseProducts.data
+
+    return {
+      props: {
+        products: products.data
+      },
+      revalidate: 60
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const Products: React.FC<ProductsIprops> = ({ products }) => {
   return (
     <Layout title="Products">
       <Animation>
@@ -18,12 +43,9 @@ const Products: React.FC = () => {
             }}
             gap="2rem 3rem"
           >
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
+            {products.map((item: ProductType) => (
+              <Product key={item._id} product={item} />
+            ))}
           </Grid>
         </Box>
       </Animation>

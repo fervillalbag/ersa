@@ -68,7 +68,7 @@ const Community: React.FC<CommunityIprops> = ({ banners }) => {
           width="90%"
           padding={{ base: '3rem 0', lg: '5rem 0' }}
         >
-          <Text>
+          <Text color="dark-grayish-blue">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta
             minus mollitia necessitatibus quibusdam, temporibus quaerat non
             totam tempore magni aspernatur suscipit dignissimos error soluta.
