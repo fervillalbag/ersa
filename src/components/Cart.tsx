@@ -54,6 +54,7 @@ const Cart: React.FC = () => {
           width={{ base: '100%', md: '320px' }}
           height={{ base: '100%', md: '100vh' }}
           zIndex="500"
+          overflowY="hidden"
         >
           <Flex
             flexDirection="column"

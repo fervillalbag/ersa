@@ -16,7 +16,10 @@ const Layout: React.FC<LayoutIprops> = ({ children, title }) => {
   const { statusCart } = useContext(CartContext)
 
   return (
-    <Box>
+    <Box
+      height={statusCart ? '100vh' : 'initial'}
+      overflowY={statusCart ? 'hidden' : 'initial'}
+    >
       <Header>
         <title>{title || 'Landing Ersa'}</title>
       </Header>
