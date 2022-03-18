@@ -4,12 +4,15 @@ import { Box, Text, Button, Link, Flex } from '@chakra-ui/react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { RiShoppingCartFill } from 'react-icons/ri'
 import { ProductType } from '../interfaces/Product'
+import { useCart } from '../hooks/useCart'
 
 interface ProductIprops {
   product: ProductType
 }
 
 const Product: React.FC<ProductIprops> = ({ product }) => {
+  const { handleAddCart } = useCart()
+
   return (
     <Box>
       <NextLink href={`/product/${product._id}`}>
@@ -68,6 +71,7 @@ const Product: React.FC<ProductIprops> = ({ product }) => {
           </Box>
           <Box>
             <Button
+              type="button"
               width="3.2rem"
               height="3.2rem"
               backgroundColor="bright-red"
@@ -76,6 +80,9 @@ const Product: React.FC<ProductIprops> = ({ product }) => {
               justifyContent="center"
               alignItems="center"
               _focus={{ shadow: 0 }}
+              // console.log(product)
+              // toast.success('Agregado al carrito')
+              onClick={() => handleAddCart(product)}
             >
               <Text fontSize="1.3rem" color="white">
                 <RiShoppingCartFill />

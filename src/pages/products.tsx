@@ -1,11 +1,11 @@
 import React from 'react'
+import axios from 'axios'
 import { Box, Grid } from '@chakra-ui/react'
+import { GetStaticProps } from 'next'
 
 import Layout from '../layout'
 import Product from '../components/Product'
 import Animation from '../components/Animation'
-import { GetStaticProps } from 'next'
-import axios from 'axios'
 import { ProductType } from '../interfaces/Product'
 
 interface ProductsIprops {

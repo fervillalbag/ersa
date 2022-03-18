@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion'
 
 import NavbarProvider from '../context/Navbar'
 import CartProvider from '../context/Cart'
+import { CartContextProvider } from '../context/CartContext'
 
 import theme from '../styles/theme'
 import '../styles/globals.css'
@@ -15,11 +16,13 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <AnimatePresence exitBeforeEnter>
       <ChakraProvider theme={theme}>
-        <CartProvider>
-          <NavbarProvider>
-            <Component {...pageProps} />
-          </NavbarProvider>
-        </CartProvider>
+        <CartContextProvider>
+          <CartProvider>
+            <NavbarProvider>
+              <Component {...pageProps} />
+            </NavbarProvider>
+          </CartProvider>
+        </CartContextProvider>
       </ChakraProvider>
     </AnimatePresence>
   )

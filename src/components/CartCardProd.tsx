@@ -3,7 +3,16 @@ import { Grid, Box, Button, Text, Image } from '@chakra-ui/react'
 import { BsFillTrashFill } from 'react-icons/bs'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 
-const CartCardProd: React.FC = () => {
+import { ProductType } from '../interfaces/Product'
+import { useCart } from '../hooks/useCart'
+
+interface CartCardProdIprops {
+  product: ProductType
+}
+
+const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
+  const { handleAddCart, handleDeleteCart } = useCart()
+
   return (
     <Box
       borderBottom="1px solid #ebebeb"
@@ -27,9 +36,9 @@ const CartCardProd: React.FC = () => {
             <BsFillTrashFill />
           </Text>
         </Button>
-        <Box>
+        <Box height="100%">
           <Image
-            src="/product.jpeg"
+            src={product.image}
             width="100%"
             height="100%"
             objectFit="cover"
@@ -37,9 +46,12 @@ const CartCardProd: React.FC = () => {
           />
         </Box>
         <Box alignSelf="flex-start">
-          <Text fontSize="0.85rem">Lorem ipsum dolor sit amet.</Text>
+          <Text fontSize="0.85rem">
+            {product?.name.slice(0, 30)}
+            {product?.name.length >= 30 && '...'}
+          </Text>
           <Text marginTop="0.25rem" fontSize="0.85rem" fontWeight="bold">
-            $40
+            ${product.price}
           </Text>
         </Box>
         <Box>
@@ -56,12 +68,13 @@ const CartCardProd: React.FC = () => {
             _focus={{ shadow: 0 }}
             fontSize="0.7rem"
             rounded="4px"
+            onClick={() => handleDeleteCart(product._id)}
           >
             <FaMinus />
           </Button>
           <Box padding="0.35rem 0">
             <Text fontWeight="bold" fontSize="0.8rem" textAlign="center">
-              2
+              {product.qty}
             </Text>
           </Box>
           <Button
@@ -77,6 +90,7 @@ const CartCardProd: React.FC = () => {
             _focus={{ shadow: 0 }}
             fontSize="0.7rem"
             rounded="4px"
+            onClick={() => handleAddCart(product)}
           >
             <FaPlus />
           </Button>

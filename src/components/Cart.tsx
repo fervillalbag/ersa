@@ -4,10 +4,12 @@ import { FaTimes } from 'react-icons/fa'
 
 import CartCardProd from './CartCardProd'
 import { CartContext } from '../context/Cart'
+import { useCart } from '../hooks/useCart'
 
 const Cart: React.FC = () => {
   const { statusCart, setStatusCart } = useContext(CartContext)
   const [currentHeight, setCurrentHeight] = useState(null)
+  const { cart } = useCart()
 
   const ref = useRef(null)
 
@@ -100,12 +102,10 @@ const Cart: React.FC = () => {
                 }}
                 overflowY="auto"
               >
-                <CartCardProd />
-                <CartCardProd />
-                {/* <CartCardProd /> */}
-                <CartCardProd />
-                <CartCardProd />
-                <CartCardProd />
+                {cart &&
+                  cart.map(item => (
+                    <CartCardProd product={item} key={item._id} />
+                  ))}
               </Box>
             </Box>
 

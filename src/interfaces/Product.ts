@@ -6,6 +6,7 @@ export interface ProductType {
   code: string
   quantity: number
   price: number
+  qty?: number
   image: string
   description: Description[]
 }
