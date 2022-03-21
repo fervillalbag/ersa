@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { AnimatePresence } from 'framer-motion'
 
 import NavbarProvider from '../context/Navbar'
-import CartProvider from '../context/Cart'
+import { CartStatusProvider } from '../context/CartStatus'
 import { CartContextProvider } from '../context/CartContext'
 
 import theme from '../styles/theme'
@@ -14,17 +14,17 @@ import 'react-lazy-load-image-component/src/effects/blur.css'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <AnimatePresence exitBeforeEnter>
-      <ChakraProvider theme={theme}>
-        <CartContextProvider>
-          <CartProvider>
+    <CartContextProvider>
+      <AnimatePresence exitBeforeEnter>
+        <ChakraProvider theme={theme}>
+          <CartStatusProvider>
             <NavbarProvider>
               <Component {...pageProps} />
             </NavbarProvider>
-          </CartProvider>
-        </CartContextProvider>
-      </ChakraProvider>
-    </AnimatePresence>
+          </CartStatusProvider>
+        </ChakraProvider>
+      </AnimatePresence>
+    </CartContextProvider>
   )
 }
 

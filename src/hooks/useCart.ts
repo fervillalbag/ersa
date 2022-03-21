@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react'
-import { CartContext } from '../context/CartContext'
+import { CartContextProducts } from '../context/CartContext'
 
 interface useCartIprops {
   cart: []
@@ -9,8 +9,9 @@ interface useCartIprops {
 }
 
 export const useCart = (): useCartIprops => {
-  const { cart, setCart } = useContext(CartContext)
+  const { cart, setCart } = useContext(CartContextProducts)
   // console.log(cart)
+  // console.log(localStorage.getItem('cart-product'))
 
   useEffect(() => {
     const cartFromStoraget = JSON.parse(
@@ -22,6 +23,7 @@ export const useCart = (): useCartIprops => {
 
   useEffect(() => {
     localStorage.setItem('cart-product', JSON.stringify(cart))
+    // console.log(localStorage.getItem('cart-product'))
     // console.log(cart)
   }, [cart])
 
@@ -36,7 +38,10 @@ export const useCart = (): useCartIprops => {
         )
       )
     } else {
+      console.log(item)
       setCart([...cart, { ...item, qty: 1 }])
+      // console.log(localStorage.getItem('cart-product'))
+      console.log(cart)
     }
   }
 

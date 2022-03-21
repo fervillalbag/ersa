@@ -3,11 +3,12 @@ import { Box, Button, Text, Flex } from '@chakra-ui/react'
 import { FaTimes } from 'react-icons/fa'
 
 import CartCardProd from './CartCardProd'
-import { CartContext } from '../context/Cart'
+import { CartStatusContext } from '../context/CartStatus'
 import { useCart } from '../hooks/useCart'
+import { ProductType } from '../interfaces/Product'
 
 const Cart: React.FC = () => {
-  const { statusCart, setStatusCart } = useContext(CartContext)
+  const { statusCart, setStatusCart } = useContext(CartStatusContext)
   const [currentHeight, setCurrentHeight] = useState(null)
   const { cart } = useCart()
 
@@ -103,7 +104,7 @@ const Cart: React.FC = () => {
                 overflowY="auto"
               >
                 {cart &&
-                  cart.map(item => (
+                  cart.map((item: ProductType) => (
                     <CartCardProd product={item} key={item._id} />
                   ))}
               </Box>

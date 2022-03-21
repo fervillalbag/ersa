@@ -6,14 +6,14 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Cart from '../components/Cart'
 import Animation from '../components/Animation'
-import { CartContext } from '../context/Cart'
+import { CartStatusContext } from '../context/CartStatus'
 
 interface LayoutIprops {
   title?: string
 }
 
 const Layout: React.FC<LayoutIprops> = ({ children, title }) => {
-  const { statusCart } = useContext(CartContext)
+  const { statusCart } = useContext(CartStatusContext)
 
   return (
     <Box

@@ -5,11 +5,11 @@ import { FaBars, FaShoppingCart, FaTimes } from 'react-icons/fa'
 
 import { NavbarContext } from '../context/Navbar'
 import { useRouter } from 'next/dist/client/router'
-import { CartContext } from '../context/Cart'
+import { CartStatusContext } from '../context/CartStatus'
 
 const Navbar: React.FC = () => {
   const { showNavbar, setShowNavbar } = useContext(NavbarContext)
-  const { setStatusCart } = useContext(CartContext)
+  const { setStatusCart } = useContext(CartStatusContext)
 
   const { pathname } = useRouter()
 
