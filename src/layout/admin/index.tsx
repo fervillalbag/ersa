@@ -2,19 +2,30 @@ import React from 'react'
 import { Box, Grid, Text, Flex } from '@chakra-ui/react'
 import Navbar from '../../components/admin/Navbar'
 import { FaUserAlt } from 'react-icons/fa'
+import { useRouter } from 'next/dist/client/router'
 
-const AdminLayout: React.FC = ({ children }) => {
+interface LayoutIprops {
+  title?: string
+}
+
+const AdminLayout: React.FC<LayoutIprops> = ({ children, title }) => {
+  const router = useRouter()
+
   return (
     <Grid gridTemplateColumns="285px 1fr">
       <Navbar />
-      <Box backgroundColor="gray" height="8000px" padding="0 2rem">
+      <Box backgroundColor="gray" padding="0 2rem">
         <Flex
           padding="1.25rem 0"
           alignItems="center"
           justifyContent="space-between"
         >
-          <Text fontWeight="bold" color="dark-blue" fontSize="1.5rem">
-            Hola Fernando!
+          <Text
+            fontWeight="semibold"
+            color="dark-grayish-blue"
+            fontSize="1.5rem"
+          >
+            {router.pathname === '/admin' ? 'Hola Fernando!' : title}
           </Text>
           <Flex
             width="3rem"
@@ -28,7 +39,7 @@ const AdminLayout: React.FC = ({ children }) => {
             <FaUserAlt color="white" />
           </Flex>
         </Flex>
-        <Box>{children}</Box>
+        <Box paddingBottom="4rem">{children}</Box>
       </Box>
     </Grid>
   )

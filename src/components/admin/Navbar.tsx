@@ -11,7 +11,6 @@ import { useRouter } from 'next/dist/client/router'
 
 const Navbar: React.FC = () => {
   const router = useRouter()
-  console.log(router.pathname)
 
   return (
     <Box height="100vh" position="relative">
