@@ -35,9 +35,9 @@ const handler = async (
 
     case 'PUT':
       try {
-        const { title, description, image, id } = req.body
-        const input = { title, description, image }
-        await HeaderInfo.findOneAndUpdate({ _id: id }, input)
+        const { title, description, image, _id } = req.body
+        const input = { _id, title, description, image }
+        await HeaderInfo.findOneAndUpdate({ _id: input._id }, input)
         return res.status(200).json({ msg: 'Header info updated successfully' })
       } catch (error) {
         console.log(error)

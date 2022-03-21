@@ -2,6 +2,7 @@ import React from 'react'
 import { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import { AnimatePresence } from 'framer-motion'
+import { Toaster } from 'react-hot-toast'
 
 import NavbarProvider from '../context/Navbar'
 import { CartStatusProvider } from '../context/CartStatus'
@@ -20,6 +21,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           <CartStatusProvider>
             <NavbarProvider>
               <Component {...pageProps} />
+              <Toaster position="top-center" reverseOrder={false} />
             </NavbarProvider>
           </CartStatusProvider>
         </ChakraProvider>

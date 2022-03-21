@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import { GetServerSideProps } from 'next'
 import {
   Box,
   Button,
@@ -8,13 +9,14 @@ import {
   Textarea,
   Flex
 } from '@chakra-ui/react'
-import Layout from '../../layout/admin'
-import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import { produce } from 'immer'
 import { v4 as uuidv4 } from 'uuid'
 import { BsTrash } from 'react-icons/bs'
+
+import Layout from '../../layout/admin'
 import { HeaderInfo } from '../../interfaces/HeaderInfo'
+import toast from 'react-hot-toast'
 
 export type FileType = {
   lastModified: number
@@ -72,20 +74,46 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
 
   const handleUpdateHeader = async () => {
     const headerInfo = {
+      _id: data._id,
       title: data.title,
       description: descriptionArray,
       image
     }
 
     try {
-      const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
-      const response = await fetch(`${URL}/api/header`, {
-        method: 'PUT',
-        body: JSON.stringify(headerInfo),
-        headers: {
-          'Content-Type': 'application/json'
+      if (fileImage) {
+        const url = process.env.URL_CLOUDINARY_RES
+        const formData = new FormData()
+        formData.append('file', fileImage as string | Blob)
+        formData.append(
+          'upload_preset',
+          process.env.PRESET_HEADER_INFO as string
+        )
+        const res = await fetch(url as string, {
+          method: 'post',
+          body: formData
+        })
+        const imageData = await res.json()
+
+        const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
+
+        const response = await axios.put(`${URL}/api/header`, {
+          _id: data._id,
+          title: data.title,
+          description: descriptionArray,
+          image: imageData?.secure_url
+        })
+
+        if (response?.status === 200) {
+          return toast.success('Updated!')
+        } else {
+          console.log(response?.statusText)
+          return toast.error('Some error!')
         }
-      })
+      }
+
+      const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
+      const response = await axios.put(`${URL}/api/header`, headerInfo)
       console.log(response)
     } catch (error) {
       console.log(error)
