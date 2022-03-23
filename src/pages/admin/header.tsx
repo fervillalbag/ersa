@@ -9,7 +9,7 @@ import {
   Textarea,
   Flex
 } from '@chakra-ui/react'
-import axios from 'axios'
+import axios from '../../config/axios'
 import { produce } from 'immer'
 import { v4 as uuidv4 } from 'uuid'
 import { BsTrash } from 'react-icons/bs'
@@ -32,8 +32,7 @@ interface AdminHeaderPageIprops {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const URL = process.env.URL_ROOT
-  const responseHeader = await axios.get(`${URL}/api/header`)
+  const responseHeader = await axios.get(`/api/header`)
   const data = await responseHeader.data
 
   return {
@@ -95,14 +94,22 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
         })
         const imageData = await res.json()
 
-        const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
+        const headers = {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true,
+          'Content-Type': 'application/json'
+        }
 
-        const response = await axios.put(`${URL}/api/header`, {
-          _id: data._id,
-          title: data.title,
-          description: descriptionArray,
-          image: imageData?.secure_url
-        })
+        const response = await axios.put(
+          `/api/header`,
+          {
+            _id: data._id,
+            title: data.title,
+            description: descriptionArray,
+            image: imageData?.secure_url
+          },
+          { headers }
+        )
 
         if (response?.status === 200) {
           return toast.success('Updated!')
@@ -112,8 +119,14 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
         }
       }
 
-      const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
-      const response = await axios.put(`${URL}/api/header`, headerInfo)
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+        'Content-Type': 'application/json'
+      }
+
+      // const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
+      const response = await axios.put(`/api/header`, headerInfo, { headers })
       console.log(response)
     } catch (error) {
       console.log(error)
