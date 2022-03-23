@@ -94,22 +94,23 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
         })
         const imageData = await res.json()
 
-        const headers = {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Credentials': true,
-          'Content-Type': 'application/json'
+        const headerInfo = {
+          _id: data._id,
+          title: data.title,
+          image: imageData?.secure_url,
+          description: descriptionArray
         }
 
-        const response = await axios.put(
-          `/api/header`,
-          {
-            _id: data._id,
-            title: data.title,
-            description: descriptionArray,
-            image: imageData?.secure_url
-          },
-          { headers }
-        )
+        const URL = process.env.URL_ROOT
+
+        const response = await fetch(`${URL}/api/header`, {
+          method: 'PUT',
+          body: JSON.stringify(headerInfo),
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
+          }
+        })
 
         if (response?.status === 200) {
           return toast.success('Updated!')
@@ -119,14 +120,16 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
         }
       }
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
-        'Content-Type': 'application/json'
-      }
+      const URL = process.env.URL_ROOT
+      const response = await fetch(`${URL}/api/header`, {
+        method: 'PUT',
+        body: JSON.stringify(headerInfo),
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        }
+      })
 
-      // const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
-      const response = await axios.put(`/api/header`, headerInfo, { headers })
       console.log(response)
     } catch (error) {
       console.log(error)
