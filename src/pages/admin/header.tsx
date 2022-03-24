@@ -101,9 +101,10 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
           description: descriptionArray
         }
 
-        const URL = process.env.URL_ROOT
+        const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
 
         const response = await fetch(`${URL}/api/header`, {
+          mode: 'cors',
           method: 'PUT',
           body: JSON.stringify(headerInfo),
           headers: {
@@ -120,7 +121,7 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
         }
       }
 
-      const URL = process.env.URL_ROOT
+      const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
       const response = await fetch(`${URL}/api/header`, {
         method: 'PUT',
         body: JSON.stringify(headerInfo),
@@ -130,6 +131,7 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
         }
       })
 
+      return toast.success('Updated!')
       console.log(response)
     } catch (error) {
       console.log(error)
