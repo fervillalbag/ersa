@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import axios from 'axios'
 import { GetStaticProps } from 'next'
 import { Box, Image, Text } from '@chakra-ui/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -21,8 +20,8 @@ export const getStaticProps: GetStaticProps = async () => {
   const URL = process.env.URL_ROOT
 
   try {
-    const bannersResponse = await axios.get(`${URL}/api/banner`)
-    const banners = await bannersResponse.data
+    const bannersResponse = await fetch(`${URL}/api/banner`)
+    const banners = await bannersResponse.json()
 
     return {
       props: {

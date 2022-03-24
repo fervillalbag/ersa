@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import { Box, Grid } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
 
@@ -16,8 +15,8 @@ export const getStaticProps: GetStaticProps = async () => {
   const URL = process.env.URL_ROOT
 
   try {
-    const responseProducts = await axios.get(`${URL}/api/product`)
-    const products = await responseProducts.data
+    const responseProducts = await fetch(`${URL}/api/product`)
+    const products = await responseProducts.json()
 
     return {
       props: {

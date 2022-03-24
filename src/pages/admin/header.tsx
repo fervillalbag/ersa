@@ -9,7 +9,7 @@ import {
   Textarea,
   Flex
 } from '@chakra-ui/react'
-import axios from '../../config/axios'
+
 import { produce } from 'immer'
 import { v4 as uuidv4 } from 'uuid'
 import { BsTrash } from 'react-icons/bs'
@@ -32,8 +32,9 @@ interface AdminHeaderPageIprops {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const responseHeader = await axios.get(`/api/header`)
-  const data = await responseHeader.data
+  const URL = process.env.URL_ROOT
+  const responseHeader = await fetch(`${URL}/api/header`)
+  const data = await responseHeader.json()
 
   return {
     props: {

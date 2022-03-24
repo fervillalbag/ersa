@@ -2,11 +2,10 @@ import React from 'react'
 import { Box, Grid, Text, Flex, Button } from '@chakra-ui/react'
 import { RiShoppingCartFill } from 'react-icons/ri'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { GetStaticPaths, GetStaticProps } from 'next'
 
 import Layout from '../../layout'
 import Animation from '../../components/Animation'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import axios from 'axios'
 import { ProductType } from '../../interfaces/Product'
 import { Description } from '../../interfaces/Description'
 
@@ -18,8 +17,8 @@ const URL = process.env.URL_ROOT
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const responseProducts = await axios.get(`${URL}/api/product`)
-    const products = await responseProducts.data
+    const responseProducts = await fetch(`${URL}/api/product`)
+    const products = await responseProducts.json()
 
     const paths = products.data.map((product: ProductType) => ({
       params: { id: product._id.toString() }
@@ -38,8 +37,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params
 
   try {
-    const responseProduct = await axios.get(`${URL}/api/product/${id}`)
-    const product = await responseProduct.data
+    const responseProduct = await fetch(`${URL}/api/product/${id}`)
+    const product = await responseProduct.json()
 
     return {
       props: {

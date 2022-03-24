@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import { Grid, Box, Heading, Text } from '@chakra-ui/react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
@@ -17,8 +16,8 @@ export const getStaticProps: GetStaticProps = async () => {
   const URL = process.env.URL_ROOT
 
   try {
-    const responseAboutInfo = await axios.get(`${URL}/api/about`)
-    const aboutInfo = await responseAboutInfo.data
+    const responseAboutInfo = await fetch(`${URL}/api/about`)
+    const aboutInfo = await responseAboutInfo.json()
 
     return {
       props: {
