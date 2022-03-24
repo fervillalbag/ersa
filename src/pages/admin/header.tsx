@@ -80,6 +80,10 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
       image
     }
 
+    // const value = JSON.parse(JSON.stringify(headerInfo))
+    // console.log(headerInfo)
+    // return
+
     try {
       if (fileImage) {
         const url = process.env.URL_CLOUDINARY_RES
@@ -102,7 +106,8 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
           description: descriptionArray
         }
 
-        const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
+        const URL =
+          process.env.API_HEADER_REQ_DEV || process.env.API_HEADER_REQ_PROD
 
         const response = await fetch(`${URL}/api/header`, {
           mode: 'cors',
@@ -122,7 +127,8 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
         }
       }
 
-      const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
+      const URL =
+        process.env.API_HEADER_REQ_DEV || process.env.API_HEADER_REQ_PROD
       const response = await fetch(`${URL}/api/header`, {
         method: 'PUT',
         body: JSON.stringify(headerInfo),
@@ -132,8 +138,14 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
         }
       })
 
-      return toast.success('Updated!')
       console.log(response)
+
+      if (response?.status === 200) {
+        return toast.success('Updated!')
+      } else {
+        console.log(response?.statusText)
+        return toast.error('Some error!')
+      }
     } catch (error) {
       console.log(error)
       return null
