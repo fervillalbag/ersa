@@ -102,9 +102,10 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
           description: descriptionArray
         }
 
-        const URL = process.env.URL_ROOT_LOCAL
-          ? process.env.URL_ROOT_LOCAL
-          : process.env.URL_ROOT
+        const URL =
+          process.env.NODE_ENV === 'development'
+            ? process.env.URL_ROOT_LOCAL
+            : process.env.URL_ROOT
 
         const response = await fetch(`${URL}/api/header/update`, {
           method: 'POST',
@@ -122,9 +123,10 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
         }
       }
 
-      const URL = process.env.URL_ROOT_LOCAL
-        ? process.env.URL_ROOT_LOCAL
-        : process.env.URL_ROOT
+      const URL =
+        process.env.NODE_ENV === 'development'
+          ? process.env.URL_ROOT_LOCAL
+          : process.env.URL_ROOT
 
       const response = await fetch(`${URL}/api/header/update`, {
         method: 'POST',
