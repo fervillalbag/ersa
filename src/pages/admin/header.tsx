@@ -32,7 +32,11 @@ interface AdminHeaderPageIprops {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const URL = process.env.URL_ROOT
+  const URL =
+    process.env.NODE_ENV === 'development'
+      ? process.env.URL_ROOT_LOCAL
+      : process.env.URL_ROOT
+
   const responseHeader = await fetch(`${URL}/api/header`)
   const data = await responseHeader.json()
 
@@ -82,6 +86,11 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
 
     try {
       if (fileImage) {
+        const URL =
+          process.env.NODE_ENV === 'development'
+            ? process.env.URL_ROOT_LOCAL
+            : process.env.URL_ROOT
+
         const url = process.env.URL_CLOUDINARY_RES
         const formData = new FormData()
         formData.append('file', fileImage as string | Blob)
@@ -90,7 +99,7 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
           process.env.PRESET_HEADER_INFO as string
         )
         const res = await fetch(url as string, {
-          method: 'post',
+          method: 'POST',
           body: formData
         })
         const imageData = await res.json()
@@ -101,11 +110,6 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
           image: imageData?.secure_url,
           description: descriptionArray
         }
-
-        const URL =
-          process.env.NODE_ENV === 'development'
-            ? process.env.URL_ROOT_LOCAL
-            : process.env.URL_ROOT
 
         const response = await fetch(`${URL}/api/header/update`, {
           method: 'POST',
