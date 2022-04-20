@@ -80,10 +80,6 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
       image
     }
 
-    // const value = JSON.parse(JSON.stringify(headerInfo))
-    // console.log(headerInfo)
-    // return
-
     try {
       if (fileImage) {
         const url = process.env.URL_CLOUDINARY_RES
@@ -106,15 +102,12 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
           description: descriptionArray
         }
 
-        const URL =
-          process.env.API_HEADER_REQ_DEV || process.env.API_HEADER_REQ_PROD
+        const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
 
-        const response = await fetch(`${URL}/api/header`, {
-          mode: 'cors',
-          method: 'PUT',
+        const response = await fetch(`${URL}/api/header/update`, {
+          method: 'POST',
           body: JSON.stringify(headerInfo),
           headers: {
-            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json'
           }
         })
@@ -127,18 +120,14 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
         }
       }
 
-      const URL =
-        process.env.API_HEADER_REQ_DEV || process.env.API_HEADER_REQ_PROD
-      const response = await fetch(`${URL}/api/header`, {
-        method: 'PUT',
+      const URL = process.env.URL_ROOT_LOCAL || process.env.URL_ROOT
+      const response = await fetch(`${URL}/api/header/update`, {
+        method: 'POST',
         body: JSON.stringify(headerInfo),
         headers: {
-          'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
         }
       })
-
-      console.log(response)
 
       if (response?.status === 200) {
         return toast.success('Updated!')
