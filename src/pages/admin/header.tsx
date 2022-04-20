@@ -33,9 +33,9 @@ interface AdminHeaderPageIprops {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const URL =
-    process.env.NODE_ENV === 'development'
-      ? process.env.URL_ROOT_LOCAL
-      : process.env.URL_ROOT
+    process.env.NODE_ENV !== 'development'
+      ? process.env.API_HEADER
+      : process.env.API_HEADER_LOCAL
 
   const responseHeader = await fetch(`${URL}/api/header`)
   const data = await responseHeader.json()
@@ -87,9 +87,9 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
     try {
       if (fileImage) {
         const URL =
-          process.env.NODE_ENV === 'development'
-            ? process.env.URL_ROOT_LOCAL
-            : process.env.URL_ROOT
+          process.env.NODE_ENV !== 'development'
+            ? process.env.API_HEADER
+            : process.env.API_HEADER_LOCAL
 
         const url = process.env.URL_CLOUDINARY_RES
         const formData = new FormData()
@@ -128,9 +128,9 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
       }
 
       const URL =
-        process.env.NODE_ENV === 'development'
-          ? process.env.URL_ROOT_LOCAL
-          : process.env.URL_ROOT
+        process.env.NODE_ENV !== 'development'
+          ? process.env.API_HEADER
+          : process.env.API_HEADER_LOCAL
 
       const response = await fetch(`${URL}/api/header/update`, {
         method: 'POST',
