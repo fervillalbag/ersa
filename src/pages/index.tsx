@@ -22,7 +22,10 @@ interface HomeIprops {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const URL = process.env.URL_ROOT
+  const URL =
+    process.env.NODE_ENV !== 'development'
+      ? process.env.URL_ROOT
+      : process.env.URL_ROOT_LOCAL
 
   try {
     const responseHeaderInfo = await fetch(`${URL}/api/header`)
@@ -31,7 +34,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const responseGrowthInfo = await fetch(`${URL}/api/growthInfo`)
     const growthInfo = await responseGrowthInfo.json()
 
-    const responseGrowths = await fetch(`${URL}/api/growth`)
+    const responseGrowths = await fetch(`${URL}/api/growthItems`)
     const growths = await responseGrowths.json()
 
     const responseReviewInfo = await fetch(`${URL}/api/reviewInfo`)

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import toast from 'react-hot-toast'
 import { GetServerSideProps } from 'next'
 import {
   Box,
@@ -9,14 +10,12 @@ import {
   Textarea,
   Flex
 } from '@chakra-ui/react'
-
 import { produce } from 'immer'
 import { v4 as uuidv4 } from 'uuid'
 import { BsTrash } from 'react-icons/bs'
 
 import Layout from '../../layout/admin'
 import { HeaderInfo } from '../../interfaces/HeaderInfo'
-import toast from 'react-hot-toast'
 
 export type FileType = {
   lastModified: number
@@ -63,7 +62,7 @@ const AdminHeaderPage: React.FC<AdminHeaderPageIprops> = ({ headerData }) => {
     setDescriptionArray([...descriptionArray, newInputDescription])
   }
 
-  const handleDeleteInputDescription = id => {
+  const handleDeleteInputDescription = (id: string) => {
     const newInputDescription = descriptionArray.filter(item => item.id !== id)
     setDescriptionArray(newInputDescription)
   }
