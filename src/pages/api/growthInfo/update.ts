@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import connectDB from '../../../config/mongodb'
-import GrowthInfo from '../../../models/growthInfo'
+import GrowthInfoSchema from '../../../models/growthinfo'
 
 connectDB()
 
@@ -14,7 +14,7 @@ const reviewInfo = async (
   try {
     const { title, description, _id } = body
     const input = { title, description, _id }
-    await GrowthInfo.findOneAndUpdate({ _id }, input)
+    await GrowthInfoSchema.findOneAndUpdate({ _id }, input)
     return res.status(200).json({ msg: 'Growth info updated successfully' })
   } catch (error) {
     console.log(error)

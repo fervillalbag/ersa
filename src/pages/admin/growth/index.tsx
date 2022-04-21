@@ -29,7 +29,7 @@ import { useRouter } from 'next/dist/client/router'
 
 interface AdminGrowthPageIprops {
   growthDataInfo: GrowthInfo
-  dataGrowthItems: GrowthType[]
+  datagrowths: GrowthType[]
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -38,28 +38,28 @@ export const getServerSideProps: GetServerSideProps = async () => {
       ? process.env.URL_ROOT
       : process.env.URL_ROOT_LOCAL
 
-  const responseGrowthInfo = await fetch(`${URL}/api/growthInfo`)
-  const data = await responseGrowthInfo.json()
+  const responsegrowthinfo = await fetch(`${URL}/api/growthinfo`)
+  const data = await responsegrowthinfo.json()
 
-  const responseGrowth = await fetch(`${URL}/api/growthItems`)
+  const responseGrowth = await fetch(`${URL}/api/growths`)
   const dataGrowth = await responseGrowth.json()
 
   return {
     props: {
       growthDataInfo: data?.data,
-      dataGrowthItems: dataGrowth?.data
+      datagrowths: dataGrowth?.data
     }
   }
 }
 
 const GrowthAdminPage: React.FC<AdminGrowthPageIprops> = ({
   growthDataInfo,
-  dataGrowthItems
+  datagrowths
 }) => {
   const router = useRouter()
 
   const [data, setData] = useState<GrowthInfo>(growthDataInfo)
-  const [dataItems] = useState<GrowthType[]>(dataGrowthItems)
+  const [dataItems] = useState<GrowthType[]>(datagrowths)
   const [descriptionArray, setDescriptionArray] = useState<DescriptionType[]>(
     data?.description || []
   )

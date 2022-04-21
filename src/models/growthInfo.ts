@@ -17,4 +17,4 @@ const GrowthInfoSchema = new Schema(
   }
 )
 
-export default models.GrowthInfo || model('GrowthInfo', GrowthInfoSchema)
+export default models.GrowthInfoSchema || model('growthinfo', GrowthInfoSchema)

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import connectDB from '../../../config/mongodb'
-import GrowthInfo from '../../../models/growthInfo'
+import GrowthInfo from '../../../models/growthinfo'
 
 connectDB()
 
@@ -13,10 +13,10 @@ const reviewInfo = async (
 
   try {
     const { title, description } = body
-    const growthInfo = new GrowthInfo({ title, description })
-    await growthInfo.save()
+    const growthinfo = new GrowthInfo({ title, description })
+    await growthinfo.save()
 
-    if (!growthInfo)
+    if (!growthinfo)
       return res.status(500).json({ msg: 'Growth info not found' })
     return res.status(200).json({ msg: 'Growth info created successfully' })
   } catch (error) {

@@ -31,10 +31,10 @@ export const getStaticProps: GetStaticProps = async () => {
     const responseHeaderInfo = await fetch(`${URL}/api/header`)
     const headerInfo = await responseHeaderInfo.json()
 
-    const responseGrowthInfo = await fetch(`${URL}/api/growthInfo`)
-    const growthInfo = await responseGrowthInfo.json()
+    const responsegrowthInfo = await fetch(`${URL}/api/growthinfo`)
+    const growthinfo = await responsegrowthInfo.json()
 
-    const responseGrowths = await fetch(`${URL}/api/growthItems`)
+    const responseGrowths = await fetch(`${URL}/api/growths`)
     const growths = await responseGrowths.json()
 
     const responseReviewInfo = await fetch(`${URL}/api/reviewInfo`)
@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
       props: {
         headerInfo: headerInfo.data,
-        growthInfo: growthInfo.data,
+        growthInfo: growthinfo.data,
         growths: growths.data,
         reviewInfo: reviewInfo.data,
         reviews: reviews.data

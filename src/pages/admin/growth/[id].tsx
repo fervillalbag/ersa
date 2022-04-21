@@ -20,10 +20,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
         ? process.env.URL_ROOT
         : process.env.URL_ROOT_LOCAL
 
-    const responseGrowthItems = await fetch(`${URL}/api/growthItems`)
-    const growthItems = await responseGrowthItems.json()
+    const responsegrowths = await fetch(`${URL}/api/growths`)
+    const growths = await responsegrowths.json()
 
-    const paths = growthItems.data.map(growthItem => ({
+    const paths = growths.data.map(growthItem => ({
       params: { id: growthItem._id.toString() }
     }))
 
@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         ? process.env.URL_ROOT
         : process.env.URL_ROOT_LOCAL
 
-    const responseGrowthItem = await fetch(`${URL}/api/growthItems/${id}`)
+    const responseGrowthItem = await fetch(`${URL}/api/growths/${id}`)
 
     const dataGrowthItem = await responseGrowthItem.json()
 

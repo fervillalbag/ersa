@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import connectDB from '../../../config/mongodb'
-import GrowthInfo from '../../../models/growthInfo'
+import GrowthInfo from '../../../models/growthinfo'
 
 connectDB()
 
@@ -10,10 +10,10 @@ const reviewInfo = async (
   res: NextApiResponse
 ): Promise<void> => {
   try {
-    const growthInfo = await GrowthInfo.findOne({})
-    if (!growthInfo)
+    const growthinfo = await GrowthInfo.findOne({})
+    if (!growthinfo)
       return res.status(500).json({ msg: 'Growth info not found' })
-    return res.status(200).json({ data: growthInfo })
+    return res.status(200).json({ data: growthinfo })
   } catch (error) {
     console.log(error)
     return res.status(400).json({ msg: error })

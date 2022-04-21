@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import connectDB from '../../../../config/mongodb'
-import ProductModel from '../../../../models/products'
+import connectDB from '../../../config/mongodb'
+import ProductModel from '../../../models/products'
 
 connectDB()
 
@@ -12,8 +12,9 @@ const product = async (
   const { query } = req
 
   try {
-    await ProductModel.findOneAndDelete({ _id: query.id })
-    return res.status(200).json({ msg: 'Product deleted' })
+    const product = await ProductModel.findOne({ _id: query.id })
+    if (!product) return res.status(500).json({ msg: 'Product not allowed' })
+    return res.status(200).json({ data: product })
   } catch (error) {
     console.log(error)
     return res.status(400).json({ msg: error })

@@ -6,13 +6,16 @@ import ProductModel from '../../../models/products'
 connectDB()
 
 const product = async (
-  _: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  const { query, body } = req
+
   try {
-    const products = await ProductModel.find({})
-    if (!products) return res.status(500).json({ msg: 'Products not found' })
-    return res.status(200).json({ data: products })
+    const { name, code, quantity, price, image, description } = body
+    const input = { name, code, quantity, price, image, description }
+    await ProductModel.findOneAndUpdate({ _id: query.id }, input)
+    return res.status(200).json({ msg: 'Product updated' })
   } catch (error) {
     console.log(error)
     return res.status(400).json({ msg: error })
