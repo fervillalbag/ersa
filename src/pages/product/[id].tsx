@@ -13,9 +13,12 @@ interface ProductIprops {
   product: ProductType
 }
 
-const URL = process.env.URL_ROOT
-
 export const getStaticPaths: GetStaticPaths = async () => {
+  const URL =
+    process.env.NEXT_PUBLIC_ENV !== 'development'
+      ? process.env.URL_ROOT
+      : process.env.URL_ROOT_LOCAL
+
   try {
     const responseProducts = await fetch(`${URL}/api/product`)
     const products = await responseProducts.json()
@@ -36,6 +39,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params
 
+  const URL =
+    process.env.NEXT_PUBLIC_ENV !== 'development'
+      ? process.env.URL_ROOT
+      : process.env.URL_ROOT_LOCAL
+
   try {
     const responseProduct = await fetch(`${URL}/api/product/${id}`)
     const product = await responseProduct.json()
@@ -43,8 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return {
       props: {
         product: product.data
-      },
-      revalidate: 60
+      }
     }
   } catch (error) {
     console.log(error)

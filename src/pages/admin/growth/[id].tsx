@@ -16,7 +16,7 @@ interface DataGrowthItemIprops {
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const URL =
-      process.env.NODE_ENV !== 'development'
+      process.env.NEXT_PUBLIC_ENV !== 'development'
         ? process.env.URL_ROOT
         : process.env.URL_ROOT_LOCAL
 
@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   try {
     const URL =
-      process.env.NODE_ENV !== 'development'
+      process.env.NEXT_PUBLIC_ENV !== 'development'
         ? process.env.URL_ROOT
         : process.env.URL_ROOT_LOCAL
 

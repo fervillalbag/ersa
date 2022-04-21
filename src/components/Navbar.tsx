@@ -120,10 +120,10 @@ const Navbar: React.FC = () => {
               Home
             </Link>
           </NextLink>
-          <NextLink href="/products" passHref>
+          <NextLink href="/product" passHref>
             <Link
               color={
-                pathname === '/products'
+                pathname === '/product'
                   ? { base: 'bright-red' }
                   : { base: 'dark-blue' }
               }

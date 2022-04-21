@@ -1,8 +1,10 @@
 import React from 'react'
 import { Box, Text } from '@chakra-ui/react'
-import Layout from '../../layout/admin'
+import { NextPage } from 'next'
 
-const AdminIndexPage: React.FC = () => {
+import Layout from '../layout/admin'
+
+const AdminIndexPage: NextPage = () => {
   return (
     <Box>
       <Layout>

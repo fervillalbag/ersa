@@ -2,17 +2,20 @@ import React from 'react'
 import { Box, Grid } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
 
-import Layout from '../layout'
-import Product from '../components/Product'
-import Animation from '../components/Animation'
-import { ProductType } from '../interfaces/Product'
+import Layout from '../../layout'
+import Product from '../../components/Product'
+import Animation from '../../components/Animation'
+import { ProductType } from '../../interfaces/Product'
 
 interface ProductsIprops {
   products: ProductType[]
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const URL = process.env.URL_ROOT
+  const URL =
+    process.env.NEXT_PUBLIC_ENV !== 'development'
+      ? process.env.URL_ROOT
+      : process.env.URL_ROOT_LOCAL
 
   try {
     const responseProducts = await fetch(`${URL}/api/product`)

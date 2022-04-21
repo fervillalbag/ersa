@@ -13,7 +13,10 @@ interface AboutIprops {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const URL = process.env.URL_ROOT
+  const URL =
+    process.env.NEXT_PUBLIC_ENV !== 'development'
+      ? process.env.URL_ROOT
+      : process.env.URL_ROOT_LOCAL
 
   try {
     const responseAboutInfo = await fetch(`${URL}/api/about`)
