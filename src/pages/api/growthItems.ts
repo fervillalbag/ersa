@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import connectDB from '../../../config/mongodb'
-import Growth from '../../../models/growth'
+import connectDB from '../../config/mongodb'
+import Growth from '../../models/growth'
 
 connectDB()
 
