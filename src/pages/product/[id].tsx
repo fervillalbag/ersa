@@ -8,24 +8,15 @@ import Layout from '../../layout'
 import Animation from '../../components/Animation'
 import { ProductType } from '../../interfaces/Product'
 import { Description } from '../../interfaces/Description'
+import { productData, productDataPaths } from '../../data/product'
 
 interface ProductIprops {
   product: ProductType
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const URL =
-    process.env.NEXT_PUBLIC_ENV !== 'development'
-      ? process.env.URL_ROOT
-      : process.env.URL_ROOT_LOCAL
-
   try {
-    const responseProducts = await fetch(`${URL}/api/product`)
-    const products = await responseProducts.json()
-
-    const paths = products.data.map((product: ProductType) => ({
-      params: { id: product._id.toString() }
-    }))
+    const paths = await productDataPaths()
 
     return {
       paths,
@@ -39,18 +30,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params
 
-  const URL =
-    process.env.NEXT_PUBLIC_ENV !== 'development'
-      ? process.env.URL_ROOT
-      : process.env.URL_ROOT_LOCAL
-
   try {
-    const responseProduct = await fetch(`${URL}/api/product/${id}`)
-    const product = await responseProduct.json()
+    const data = await productData(id.toString())
 
     return {
       props: {
-        product: product.data
+        product: data
       }
     }
   } catch (error) {

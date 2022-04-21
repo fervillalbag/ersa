@@ -10,3 +10,9 @@ export interface ProductType {
   image: string
   description: Description[]
 }
+
+export interface PathProduct {
+  params: {
+    id: string
+  }
+}

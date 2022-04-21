@@ -1,7 +1,7 @@
 import React from 'react'
 import NextLink from 'next/link'
 import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react'
-import { GetStaticProps } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import Layout from '../layout'
@@ -58,7 +58,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-const Home: React.FC<HomeIprops> = ({
+const Home: NextPage<HomeIprops> = ({
   headerInfo,
   growthInfo,
   growths,
