@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { GetServerSideProps } from 'next'
+import React from 'react'
 import {
   Box,
   Button,
@@ -16,80 +15,12 @@ import {
   ModalBody,
   ModalCloseButton
 } from '@chakra-ui/react'
-import { produce } from 'immer'
 import { BsTrash } from 'react-icons/bs'
-import { v4 as uuidv4 } from 'uuid'
 
 import Layout from '../../../layout/admin'
-import { GrowthInfo } from '../../../interfaces/GrowthInfo'
-import { Growth as GrowthType } from '../../../interfaces/Growths'
-import { Description as DescriptionType } from '../../../interfaces/Description'
 import { FiEdit } from 'react-icons/fi'
-import { useRouter } from 'next/dist/client/router'
 
-interface AdminGrowthPageIprops {
-  growthDataInfo: GrowthInfo
-  datagrowths: GrowthType[]
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const URL =
-    process.env.NEXT_PUBLIC_ENV !== 'development'
-      ? process.env.URL_ROOT
-      : process.env.URL_ROOT_LOCAL
-
-  const responsegrowthinfo = await fetch(`${URL}/api/growthinfo`)
-  const data = await responsegrowthinfo.json()
-
-  const responseGrowth = await fetch(`${URL}/api/growths`)
-  const dataGrowth = await responseGrowth.json()
-
-  return {
-    props: {
-      growthDataInfo: data?.data,
-      datagrowths: dataGrowth?.data
-    }
-  }
-}
-
-const GrowthAdminPage: React.FC<AdminGrowthPageIprops> = ({
-  growthDataInfo,
-  datagrowths
-}) => {
-  const router = useRouter()
-
-  const [data, setData] = useState<GrowthInfo>(growthDataInfo)
-  const [dataItems] = useState<GrowthType[]>(datagrowths)
-  const [descriptionArray, setDescriptionArray] = useState<DescriptionType[]>(
-    data?.description || []
-  )
-
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [currentIdGrowthItem, setCurrentIdGrowthItem] = useState<string | null>(
-    null
-  )
-
-  const newInputDescription = {
-    id: uuidv4(),
-    text: ''
-  }
-
-  const handleAddInputDescription = () => {
-    setDescriptionArray([...descriptionArray, newInputDescription])
-  }
-
-  const handleDeleteInputDescription = (id: string) => {
-    const newInputDescription = descriptionArray.filter(item => item.id !== id)
-    setDescriptionArray(newInputDescription)
-  }
-
-  const handleDeleteGrowthItem = async () => {
-    console.log(currentIdGrowthItem)
-  }
-
-  const onClose = () => setIsOpen(false)
-  const onOpen = () => setIsOpen(true)
-
+const GrowthAdminPage: React.FC = () => {
   return (
     <Box>
       <Layout title="Growth">
@@ -111,8 +42,8 @@ const GrowthAdminPage: React.FC<AdminGrowthPageIprops> = ({
               borderColor="dark-grayish-blue"
               borderRadius="4px"
               paddingLeft="0.75rem"
-              value={data.title}
-              onChange={e => setData({ ...data, title: e.target.value })}
+              // value={data.title}
+              // onChange={e => setData({ ...data, title: e.target.value })}
             />
           </Box>
 
@@ -129,40 +60,38 @@ const GrowthAdminPage: React.FC<AdminGrowthPageIprops> = ({
               Description
             </Text>
 
-            {descriptionArray.map((description, index) => (
-              <Flex key={description.id} marginBottom="1rem">
-                <Textarea
-                  id="title"
-                  borderColor="dark-grayish-blue"
-                  borderRadius="4px"
-                  paddingLeft="0.75rem"
-                  height="8rem"
-                  resize="none"
-                  value={description.text}
-                  onChange={e => {
-                    const text = e.target.value
-                    setDescriptionArray(currentDescription =>
-                      produce(currentDescription, v => {
-                        v[index].text = text
-                      })
-                    )
-                  }}
-                />
-                <Button
-                  minWidth="initial"
-                  height="auto"
-                  marginLeft="0.75rem"
-                  backgroundColor="red.400"
-                  color="white"
-                  rounded="4px"
-                  fontSize="1.2rem"
-                  _focus={{ shadow: 0 }}
-                  onClick={() => handleDeleteInputDescription(description.id)}
-                >
-                  <BsTrash />
-                </Button>
-              </Flex>
-            ))}
+            <Flex marginBottom="1rem">
+              <Textarea
+                id="title"
+                borderColor="dark-grayish-blue"
+                borderRadius="4px"
+                paddingLeft="0.75rem"
+                height="8rem"
+                resize="none"
+                // value={description.text}
+                // onChange={e => {
+                //   const text = e.target.value
+                //   setDescriptionArray(currentDescription =>
+                //     produce(currentDescription, v => {
+                //       v[index].text = text
+                //     })
+                //   )
+                // }}
+              />
+              <Button
+                minWidth="initial"
+                height="auto"
+                marginLeft="0.75rem"
+                backgroundColor="red.400"
+                color="white"
+                rounded="4px"
+                fontSize="1.2rem"
+                _focus={{ shadow: 0 }}
+                // onClick={() => handleDeleteInputDescription(description.id)}
+              >
+                <BsTrash />
+              </Button>
+            </Flex>
 
             <Button
               backgroundColor="transparent"
@@ -170,7 +99,7 @@ const GrowthAdminPage: React.FC<AdminGrowthPageIprops> = ({
               _focus={{ shadow: 0 }}
               color="dark-blue"
               fontWeight="normal"
-              onClick={handleAddInputDescription}
+              // onClick={handleAddInputDescription}
             >
               Add description
             </Button>
@@ -221,67 +150,67 @@ const GrowthAdminPage: React.FC<AdminGrowthPageIprops> = ({
             </Grid>
 
             <Box>
-              {dataItems.map(item => (
-                <Grid
-                  gridTemplateColumns="1fr auto"
-                  key={item._id}
-                  width="100%"
-                  padding="0.8rem"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  backgroundColor="#FFF"
-                  marginBottom="1rem"
-                  borderRadius="4px"
-                >
-                  <Box>
-                    <Text>{item.title}</Text>
+              <Grid
+                gridTemplateColumns="1fr auto"
+                width="100%"
+                padding="0.8rem"
+                alignItems="center"
+                justifyContent="space-between"
+                backgroundColor="#FFF"
+                marginBottom="1rem"
+                borderRadius="4px"
+              >
+                <Box>{/* <Text>{item.title}</Text> */}</Box>
+                <Grid gridTemplateColumns="repeat(3, 60px)">
+                  <Box
+                    padding="0.5rem"
+                    border="1px solid #d9d9d9"
+                    rounded="4px"
+                  >
+                    <Text textAlign="center" fontSize="0.8rem">
+                      2
+                    </Text>
                   </Box>
-                  <Grid gridTemplateColumns="repeat(3, 60px)">
-                    <Box
-                      padding="0.5rem"
-                      border="1px solid #d9d9d9"
-                      rounded="4px"
-                    >
-                      <Text textAlign="center" fontSize="0.8rem">
-                        2
-                      </Text>
-                    </Box>
 
-                    <Button
-                      minWidth="initial"
-                      marginLeft="0.75rem"
-                      color="dark-blue"
-                      border="1px solid"
-                      borderColor="dark-blue"
-                      rounded="4px"
-                      fontSize="1.2rem"
-                      _focus={{ shadow: 0 }}
-                      onClick={() => router.push(`/admin/growth/${item._id}`)}
-                    >
-                      <FiEdit />
-                    </Button>
-                    <Button
-                      minWidth="initial"
-                      marginLeft="0.75rem"
-                      backgroundColor="red.400"
-                      rounded="4px"
-                      color="white"
-                      fontSize="1.2rem"
-                      _focus={{ shadow: 0 }}
-                      onClick={() => {
-                        onOpen()
-                        setCurrentIdGrowthItem(item._id)
-                      }}
-                    >
-                      <BsTrash />
-                    </Button>
-                  </Grid>
+                  <Button
+                    minWidth="initial"
+                    marginLeft="0.75rem"
+                    color="dark-blue"
+                    border="1px solid"
+                    borderColor="dark-blue"
+                    rounded="4px"
+                    fontSize="1.2rem"
+                    _focus={{ shadow: 0 }}
+                    // onClick={() => router.push(`/admin/growth/${item._id}`)}
+                  >
+                    <FiEdit />
+                  </Button>
+                  <Button
+                    minWidth="initial"
+                    marginLeft="0.75rem"
+                    backgroundColor="red.400"
+                    rounded="4px"
+                    color="white"
+                    fontSize="1.2rem"
+                    _focus={{ shadow: 0 }}
+                    onClick={() => {
+                      // onOpen()
+                      // setCurrentIdGrowthItem(item._id)
+                    }}
+                  >
+                    <BsTrash />
+                  </Button>
                 </Grid>
-              ))}
+              </Grid>
             </Box>
           </Box>
 
-          <Modal isOpen={isOpen} onClose={onClose} isCentered size="sm">
+          <Modal
+            isOpen={false}
+            onClose={() => console.log('close')}
+            isCentered
+            size="sm"
+          >
             <ModalOverlay />
             <ModalContent>
               <ModalHeader padding="15px">Eliminar</ModalHeader>
@@ -300,7 +229,7 @@ const GrowthAdminPage: React.FC<AdminGrowthPageIprops> = ({
                   width="100%"
                   color="#3E3E3E"
                   backgroundColor="#F0F0F0"
-                  onClick={onClose}
+                  onClick={() => console.log('close')}
                 >
                   Cerrar
                 </Button>
@@ -311,7 +240,7 @@ const GrowthAdminPage: React.FC<AdminGrowthPageIprops> = ({
                   backgroundColor="red.100"
                   _focus={{ shadow: 0 }}
                   _hover={{ backgroundColor: 'red.200' }}
-                  onClick={handleDeleteGrowthItem}
+                  // onClick={handleDeleteGrowthItem}
                 >
                   Si, eliminar
                 </Button>

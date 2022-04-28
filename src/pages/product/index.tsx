@@ -1,38 +1,11 @@
 import React from 'react'
 import { Box, Grid } from '@chakra-ui/react'
-import { GetStaticProps } from 'next'
 
 import Layout from '../../layout'
 import Product from '../../components/Product'
 import Animation from '../../components/Animation'
-import { ProductType } from '../../interfaces/Product'
 
-interface ProductsIprops {
-  products: ProductType[]
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const URL =
-    process.env.NEXT_PUBLIC_ENV !== 'development'
-      ? process.env.URL_ROOT
-      : process.env.URL_ROOT_LOCAL
-
-  try {
-    const responseProducts = await fetch(`${URL}/api/product`)
-    const products = await responseProducts.json()
-
-    return {
-      props: {
-        products: products.data
-      },
-      revalidate: 60
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const Products: React.FC<ProductsIprops> = ({ products }) => {
+const Products: React.FC = () => {
   return (
     <Layout title="Products">
       <Animation>
@@ -45,9 +18,17 @@ const Products: React.FC<ProductsIprops> = ({ products }) => {
             }}
             gap="2rem 3rem"
           >
-            {products.map((item: ProductType) => (
-              <Product key={item._id} product={item} />
-            ))}
+            <Product
+              product={{
+                name: '',
+                code: '',
+                image: '',
+                _id: '',
+                quantity: 0,
+                price: 0,
+                description: []
+              }}
+            />
           </Grid>
         </Box>
       </Animation>

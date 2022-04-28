@@ -1,70 +1,13 @@
 import React from 'react'
 import NextLink from 'next/link'
 import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react'
-import { GetStaticProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import Layout from '../layout'
-import { Description } from '../interfaces/Description'
-import { HeaderInfo } from '../interfaces/HeaderInfo'
-import { GrowthInfo } from '../interfaces/GrowthInfo'
-import { Growth } from '../interfaces/Growths'
-import { ReviewInfo } from '../interfaces/ReviewInfo'
-import { Review } from '../interfaces/ReviewItem'
 import Animation from '../components/Animation'
 
-interface HomeIprops {
-  headerInfo: HeaderInfo
-  growthInfo: GrowthInfo
-  growths: Growth[]
-  reviewInfo: ReviewInfo
-  reviews: Review[]
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const URL =
-    process.env.NEXT_PUBLIC_ENV !== 'development'
-      ? process.env.URL_ROOT
-      : process.env.URL_ROOT_LOCAL
-
-  try {
-    const responseHeaderInfo = await fetch(`${URL}/api/header`)
-    const headerInfo = await responseHeaderInfo.json()
-
-    const responsegrowthInfo = await fetch(`${URL}/api/growthinfo`)
-    const growthinfo = await responsegrowthInfo.json()
-
-    const responseGrowths = await fetch(`${URL}/api/growths`)
-    const growths = await responseGrowths.json()
-
-    const responseReviewInfo = await fetch(`${URL}/api/reviewInfo`)
-    const reviewInfo = await responseReviewInfo.json()
-
-    const responseReviews = await fetch(`${URL}/api/review`)
-    const reviews = await responseReviews.json()
-
-    return {
-      props: {
-        headerInfo: headerInfo.data,
-        growthInfo: growthinfo.data,
-        growths: growths.data,
-        reviewInfo: reviewInfo.data,
-        reviews: reviews.data
-      },
-      revalidate: 60
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const Home: NextPage<HomeIprops> = ({
-  headerInfo,
-  growthInfo,
-  growths,
-  reviewInfo,
-  reviews
-}) => {
+const Home: NextPage = () => {
   return (
     <Layout title="Home Page">
       <Animation>
@@ -97,20 +40,17 @@ const Home: NextPage<HomeIprops> = ({
               fontSize={{ base: '2.8rem', lg: '3.6rem' }}
               color="dark-blue"
             >
-              {headerInfo.title}
+              {/* {headerInfo.title} */}
             </Heading>
 
-            {headerInfo.description.map((item: Description) => (
-              <Text
-                key={item.id}
-                color="dark-grayish-blue"
-                fontSize="1.125rem"
-                marginTop="1rem"
-                maxWidth={{ base: '100%', lg: '65%' }}
-              >
-                {item.text}
-              </Text>
-            ))}
+            <Text
+              color="dark-grayish-blue"
+              fontSize="1.125rem"
+              marginTop="1rem"
+              maxWidth={{ base: '100%', lg: '65%' }}
+            >
+              {/* {item.text} */}
+            </Text>
 
             <NextLink href="/" passHref>
               <Link
@@ -129,12 +69,7 @@ const Home: NextPage<HomeIprops> = ({
             </NextLink>
           </Box>
           <Box>
-            <LazyLoadImage
-              src={headerInfo.image}
-              width="100%"
-              alt=""
-              effect="blur"
-            />
+            <LazyLoadImage src={''} width="100%" alt="" effect="blur" />
           </Box>
         </Grid>
 
@@ -152,57 +87,49 @@ const Home: NextPage<HomeIprops> = ({
               fontSize={{ base: '2.2rem', lg: '2.6rem' }}
               color="dark-blue"
             >
-              {growthInfo.title}
+              {/* {growthInfo.title} */}
             </Heading>
 
-            {growthInfo.description.map((item: Description) => (
-              <Text
-                key={item.id}
-                color="dark-grayish-blue"
-                fontSize="1.125rem"
-                marginTop="1rem"
-                maxWidth={{ base: '100%', lg: '65%' }}
-              >
-                {item.text}
-              </Text>
-            ))}
+            <Text
+              color="dark-grayish-blue"
+              fontSize="1.125rem"
+              marginTop="1rem"
+              maxWidth={{ base: '100%', lg: '65%' }}
+            >
+              {/* {item.text} */}
+            </Text>
           </Box>
           <Box>
-            {growths.map((item: Growth, index: number) => (
-              <Grid
-                key={item._id}
-                gridTemplateColumns="70px 1fr"
-                gridTemplateRows="repeat(2, auto)"
-                gap="1rem"
-                marginBottom="2rem"
-              >
-                <Box gridColumn="1/2">
-                  <Box
-                    backgroundColor="bright-red"
-                    color="white"
-                    padding="0.45rem 1rem"
-                    rounded="full"
-                    textAlign="center"
-                    fontWeight="bold"
-                    fontSize="0.9rem"
-                  >
-                    0{index + 1}
-                  </Box>
+            <Grid
+              gridTemplateColumns="70px 1fr"
+              gridTemplateRows="repeat(2, auto)"
+              gap="1rem"
+              marginBottom="2rem"
+            >
+              <Box gridColumn="1/2">
+                <Box
+                  backgroundColor="bright-red"
+                  color="white"
+                  padding="0.45rem 1rem"
+                  rounded="full"
+                  textAlign="center"
+                  fontWeight="bold"
+                  fontSize="0.9rem"
+                >
+                  {/* 0{index + 1} */}
                 </Box>
-                <Box gridColumn="2/3" alignSelf="center">
-                  <Text fontWeight="bold" color="dark-blue" fontSize="1.2rem">
-                    {item.title}
-                  </Text>
-                </Box>
-                <Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow="2/3">
-                  {item.description.map((itemDescription: Description) => (
-                    <Text key={itemDescription.id} color="dark-grayish-blue">
-                      {itemDescription.text}
-                    </Text>
-                  ))}
-                </Box>
-              </Grid>
-            ))}
+              </Box>
+              <Box gridColumn="2/3" alignSelf="center">
+                <Text fontWeight="bold" color="dark-blue" fontSize="1.2rem">
+                  {/* {item.title} */}
+                </Text>
+              </Box>
+              <Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow="2/3">
+                <Text color="dark-grayish-blue">
+                  {/* {itemDescription.text} */}
+                </Text>
+              </Box>
+            </Grid>
           </Box>
         </Grid>
       </Animation>
@@ -220,7 +147,7 @@ const Home: NextPage<HomeIprops> = ({
           color="dark-blue"
           marginBottom="5rem"
         >
-          {reviewInfo.title}
+          {/* {reviewInfo.title} */}
         </Heading>
 
         <Grid
@@ -232,38 +159,25 @@ const Home: NextPage<HomeIprops> = ({
           gap="5rem 3rem"
           marginTop="4rem"
         >
-          {reviews.map((review: Review) => (
-            <Box
-              backgroundColor="gray"
-              padding="1.5rem"
-              rounded="md"
-              key={review._id}
-            >
-              <Grid marginTop="-4rem" placeItems="center">
-                <Image src={review.avatar} alt="" width="100px" />
-              </Grid>
-              <Box marginTop="1rem">
-                <Text
-                  fontWeight="bold"
-                  color="dark-blue"
-                  textAlign="center"
-                  marginBottom="0.7rem"
-                  fontSize="1.125rem"
-                >
-                  {review.name}
-                </Text>
-                {review.description.map((item: Description) => (
-                  <Text
-                    color="dark-grayish-blue"
-                    textAlign="center"
-                    key={item.id}
-                  >
-                    {item.text}
-                  </Text>
-                ))}
-              </Box>
+          <Box backgroundColor="gray" padding="1.5rem" rounded="md">
+            <Grid marginTop="-4rem" placeItems="center">
+              <Image src="" alt="" width="100px" />
+            </Grid>
+            <Box marginTop="1rem">
+              <Text
+                fontWeight="bold"
+                color="dark-blue"
+                textAlign="center"
+                marginBottom="0.7rem"
+                fontSize="1.125rem"
+              >
+                {/* {review.name} */}
+              </Text>
+              <Text color="dark-grayish-blue" textAlign="center">
+                {/* {item.text} */}
+              </Text>
             </Box>
-          ))}
+          </Box>
         </Grid>
       </Box>
 

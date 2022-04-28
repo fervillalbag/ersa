@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { GetStaticProps } from 'next'
 import { Box, Image, Text } from '@chakra-ui/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
@@ -7,37 +6,11 @@ import { Navigation } from 'swiper'
 import Layout from '../layout'
 import Animation from '../components/Animation'
 import { NavbarContext } from '../context/Navbar'
-import { Banner } from '../interfaces/Banner'
 
 import 'swiper/css/navigation'
 import 'swiper/css/autoplay'
 
-interface CommunityIprops {
-  banners: Banner[]
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const URL =
-    process.env.NEXT_PUBLIC_ENV !== 'development'
-      ? process.env.URL_ROOT
-      : process.env.URL_ROOT_LOCAL
-
-  try {
-    const bannersResponse = await fetch(`${URL}/api/banner`)
-    const banners = await bannersResponse.json()
-
-    return {
-      props: {
-        banners: banners.data
-      },
-      revalidate: 60
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const Community: React.FC<CommunityIprops> = ({ banners }) => {
+const Community: React.FC = () => {
   const { showNavbar } = useContext(NavbarContext)
 
   return (
@@ -49,18 +22,15 @@ const Community: React.FC<CommunityIprops> = ({ banners }) => {
             modules={[Navigation]}
             className={`${showNavbar ? 'hidden' : 'block'}`}
           >
-            {banners &&
-              banners.map((slide: Banner) => (
-                <SwiperSlide key={slide.image}>
-                  <Image
-                    src={slide.image}
-                    width="100%"
-                    height="450px"
-                    objectFit="cover"
-                    alt=""
-                  />
-                </SwiperSlide>
-              ))}
+            <SwiperSlide>
+              <Image
+                src={''}
+                width="100%"
+                height="450px"
+                objectFit="cover"
+                alt=""
+              />
+            </SwiperSlide>
           </Swiper>
         </Box>
 
