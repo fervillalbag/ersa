@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import { db } from '../../../lib'
 import { Growth } from '../../../models'
-import { GrowthInfo } from '../../interfaces/GrowthInfo'
+import { GrowthInfo } from '../../interfaces/Growth'
 
 type Data = { msg: string } | GrowthInfo
 

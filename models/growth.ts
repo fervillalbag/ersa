@@ -1,5 +1,5 @@
 import mongoose, { models, Model, Schema } from 'mongoose'
-import { GrowthInfo } from '../src/interfaces/GrowthInfo'
+import { GrowthInfo } from '../src/interfaces/Growth'
 
 const GrowthSchema = new Schema({
   title: {

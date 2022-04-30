@@ -1,7 +1,7 @@
 import { NextApiResponse, NextApiRequest } from 'next'
 
 import { About } from '../../../models'
-import { AboutInfo } from '../../interfaces/AboutInfo'
+import { AboutInfo } from '../../interfaces/About'
 import { db } from '../../../lib'
 
 type Data = { msg: string } | AboutInfo

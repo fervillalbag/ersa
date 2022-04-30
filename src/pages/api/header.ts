@@ -2,7 +2,7 @@ import { NextApiResponse, NextApiRequest } from 'next'
 
 import { db } from '../../../lib'
 import { Header } from '../../../models'
-import { HeaderInfo } from '../../interfaces/HeaderInfo'
+import { HeaderInfo } from '../../interfaces/Header'
 
 type Data = { msg: string } | HeaderInfo
 

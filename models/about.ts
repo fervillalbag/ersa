@@ -1,5 +1,5 @@
 import mongoose, { Schema, models, Model } from 'mongoose'
-import { AboutInfo } from '../src/interfaces/AboutInfo'
+import { AboutInfo } from '../src/interfaces/About'
 
 const AboutSchema = new Schema({
   title: {

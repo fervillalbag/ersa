@@ -1,5 +1,5 @@
 import mongoose, { Model, models, Schema } from 'mongoose'
-import { HeaderInfo } from '../src/interfaces/HeaderInfo'
+import { HeaderInfo } from '../src/interfaces/Header'
 
 const HeaderSchema = new Schema({
   title: {
