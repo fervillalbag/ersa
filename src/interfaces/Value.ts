@@ -1,6 +1,6 @@
 import { Description } from './Description'
 
-export type Growth = {
+export type Value = {
   _id: string
   title: string
   description: Description[]
