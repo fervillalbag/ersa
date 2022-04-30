@@ -1,8 +1,6 @@
 import mongoose, { Model, models, Schema } from 'mongoose'
 import { HeaderInfo } from '../src/interfaces/HeaderInfo'
 
-export type HeaderSchemaProps = HeaderInfo
-
 const HeaderSchema = new Schema({
   title: {
     type: String,
@@ -22,7 +20,7 @@ const HeaderSchema = new Schema({
   }
 })
 
-const HeaderModel: Model<HeaderSchemaProps> =
+const HeaderModel: Model<HeaderInfo> =
   models.Header || mongoose.model('Header', HeaderSchema)
 
 export default HeaderModel

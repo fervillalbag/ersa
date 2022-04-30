@@ -1,8 +1,8 @@
 import { NextApiResponse, NextApiRequest } from 'next'
 
+import { db } from '../../../lib'
 import { Header } from '../../../models'
 import { HeaderInfo } from '../../interfaces/HeaderInfo'
-import { db } from '../../../lib'
 
 type Data = { msg: string } | HeaderInfo
 
@@ -59,6 +59,7 @@ const getHeader = async (res: NextApiResponse<Data>) => {
     await db.disconnect()
     return res.status(200).json(headerInfo)
   } catch (error) {
+    await db.disconnect()
     console.log(error)
     return res.status(500).json({ msg: 'Some error!' })
   }
@@ -81,8 +82,9 @@ const updateHeader = async (
       }
     )
     await db.disconnect()
-    return res.status(200).json({ msg: 'Header updated!' })
+    return res.status(200).json({ msg: 'Updated!' })
   } catch (error) {
+    await db.disconnect()
     console.log(error)
     return res.status(500).json({ msg: 'Some error!' })
   }
