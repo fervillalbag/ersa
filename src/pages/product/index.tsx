@@ -22,6 +22,7 @@ const Products: React.FC = () => {
               product={{
                 name: '',
                 code: '',
+                category: '',
                 image: '',
                 _id: '',
                 quantity: 0,

@@ -10,7 +10,7 @@ export interface ProductType {
   image: string
   category: string
   description: Description[]
-  createdAt: number
+  createdAt?: number
 }
 
 export interface PathProduct {
