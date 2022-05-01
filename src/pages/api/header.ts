@@ -73,7 +73,7 @@ const updateHeader = async (
 
   try {
     await db.connected()
-    await Header.updateOne(
+    await Header.findOneAndUpdate(
       {},
       {
         title,

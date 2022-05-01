@@ -72,7 +72,7 @@ const updateGrowth = async (
 
   try {
     await db.connected()
-    await Growth.updateOne({}, { title, description })
+    await Growth.findOneAndUpdate({}, { title, description })
     await db.disconnect()
     return res.status(200).json({ msg: 'Updated!' })
   } catch (err) {

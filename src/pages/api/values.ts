@@ -72,7 +72,7 @@ const updateValue = async (
 
   try {
     await db.connected()
-    await Value.updateOne({}, { title, description })
+    await Value.findOneAndUpdate({}, { title, description })
     await db.disconnect()
     return res.status(200).json({ msg: 'Updated!' })
   } catch (error) {

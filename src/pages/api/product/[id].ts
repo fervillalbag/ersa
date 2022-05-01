@@ -35,7 +35,7 @@ const updateProduct = async (
 
   try {
     db.connected()
-    await Product.updateOne(
+    await Product.findOneAndUpdate(
       { _id: req.query.id },
       {
         name,

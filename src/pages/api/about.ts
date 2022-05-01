@@ -60,7 +60,7 @@ const updateAbout = async (
 
   try {
     await db.connected()
-    await About.updateOne(
+    await About.findOneAndUpdate(
       {},
       {
         title,

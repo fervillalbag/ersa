@@ -59,7 +59,7 @@ const updateCommunity = async (
 
   try {
     db.connected()
-    await Community.updateOne({}, { title, description })
+    await Community.findOneAndUpdate({}, { title, description })
     db.disconnect()
     return res.status(200).json({ msg: 'Updated' })
   } catch (error) {

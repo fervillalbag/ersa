@@ -35,7 +35,7 @@ const updateBanner = async (
 
   try {
     await db.connected()
-    await Banner.updateOne(
+    await Banner.findOneAndUpdate(
       { _id: req.query.id },
       {
         title,

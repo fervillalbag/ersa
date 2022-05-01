@@ -35,7 +35,7 @@ const updateReview = async (
 
   try {
     await db.connected()
-    await Review.updateOne(
+    await Review.findOneAndUpdate(
       { _id: req.query.id },
       {
         name,
