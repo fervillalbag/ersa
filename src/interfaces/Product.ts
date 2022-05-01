@@ -8,7 +8,9 @@ export interface ProductType {
   price: number
   qty?: number
   image: string
+  category: string
   description: Description[]
+  createdAt: number
 }
 
 export interface PathProduct {
