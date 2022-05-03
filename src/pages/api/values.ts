@@ -47,7 +47,7 @@ const createValue = async (
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }
 
@@ -55,12 +55,17 @@ const getValue = async (res: NextApiResponse<Data>): Promise<void> => {
   try {
     await db.connected()
     const value = await Value.findOne()
+
+    if (!value) {
+      return res.status(400).json({ msg: 'Values not found' })
+    }
+
     await db.disconnect()
     return res.status(200).json(value)
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }
 
@@ -78,6 +83,6 @@ const updateValue = async (
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }

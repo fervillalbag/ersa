@@ -73,6 +73,11 @@ const getCommunity = async (res: NextApiResponse<Data>): Promise<void> => {
   try {
     db.connected()
     const community = await Community.findOne()
+
+    if (!community) {
+      return res.status(400).json({ msg: 'Community info not found' })
+    }
+
     db.disconnect()
     return res.status(200).json(community)
   } catch (error) {

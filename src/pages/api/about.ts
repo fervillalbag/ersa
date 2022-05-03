@@ -48,7 +48,7 @@ const createAbout = async (
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }
 
@@ -74,7 +74,7 @@ const updateAbout = async (
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }
 
@@ -82,11 +82,16 @@ const getAbout = async (res: NextApiResponse<Data>): Promise<void> => {
   try {
     await db.connected()
     const aboutInfo = await About.findOne()
+
+    if (!aboutInfo) {
+      return res.status(400).json({ msg: 'About info not found' })
+    }
+
     await db.disconnect()
     return res.status(200).json(aboutInfo)
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }

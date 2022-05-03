@@ -48,7 +48,7 @@ const createHeader = async (
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }
 
@@ -56,12 +56,17 @@ const getHeader = async (res: NextApiResponse<Data>) => {
   try {
     await db.connected()
     const headerInfo = await Header.findOne()
+
+    if (!headerInfo) {
+      return res.status(400).json({ msg: 'Header info not found' })
+    }
+
     await db.disconnect()
     return res.status(200).json(headerInfo)
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }
 
@@ -86,6 +91,6 @@ const updateHeader = async (
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }

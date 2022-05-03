@@ -47,7 +47,7 @@ const createGrowth = async (
   } catch (err) {
     await db.disconnect()
     console.log(err)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }
 
@@ -55,12 +55,17 @@ const getGrowth = async (res: NextApiResponse<Data>): Promise<void> => {
   try {
     await db.connected()
     const growth = await Growth.findOne()
+
+    if (!growth) {
+      return res.status(400).json({ msg: 'Growth info not found' })
+    }
+
     await db.disconnect()
     return res.status(200).json(growth)
   } catch (err) {
     await db.disconnect()
     console.log(err)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }
 
@@ -78,6 +83,6 @@ const updateGrowth = async (
   } catch (err) {
     await db.disconnect()
     console.log(err)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }

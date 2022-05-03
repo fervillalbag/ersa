@@ -48,7 +48,7 @@ const updateReview = async (
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }
 
@@ -59,12 +59,17 @@ const getReview = async (
   try {
     await db.connected()
     const review = await Review.findOne({ _id: req.query.id })
+
+    if (!review) {
+      return res.status(400).json({ msg: 'Review not found' })
+    }
+
     await db.disconnect()
     return res.status(200).json(review)
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }
 
@@ -80,6 +85,6 @@ const deleteReview = async (
   } catch (error) {
     await db.disconnect()
     console.log(error)
-    return res.status(500).json({ msg: 'Some error!' })
+    return res.status(400).json({ msg: 'Some error!' })
   }
 }
