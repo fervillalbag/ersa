@@ -1,13 +1,41 @@
 import React from 'react'
 import NextLink from 'next/link'
+import { GetStaticProps, NextPage } from 'next'
 import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react'
-import { NextPage } from 'next'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import Layout from '../layout'
 import Animation from '../components/Animation'
+import { getHeaderInfo, getGrowthInfo, getValues } from '../utils'
+import { HeaderInfo, GrowthInfo, Value } from '../interfaces/'
 
-const Home: NextPage = () => {
+interface HomeProps {
+  headerInfo: HeaderInfo
+  growthInfo: GrowthInfo
+  values: Value[]
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const headerInfo = await getHeaderInfo()
+  const growthInfo = await getGrowthInfo()
+  const values = await getValues()
+
+  if (!headerInfo || !growthInfo || !values) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {
+      headerInfo: headerInfo,
+      growthInfo: growthInfo,
+      values: values
+    }
+  }
+}
+
+const Home: NextPage<HomeProps> = ({ headerInfo, growthInfo, values }) => {
   return (
     <Layout title="Home Page">
       <Animation>
@@ -40,17 +68,20 @@ const Home: NextPage = () => {
               fontSize={{ base: '2.8rem', lg: '3.6rem' }}
               color="dark-blue"
             >
-              {/* {headerInfo.title} */}
+              {headerInfo.title}
             </Heading>
 
-            <Text
-              color="dark-grayish-blue"
-              fontSize="1.125rem"
-              marginTop="1rem"
-              maxWidth={{ base: '100%', lg: '65%' }}
-            >
-              {/* {item.text} */}
-            </Text>
+            {headerInfo.description.map(item => (
+              <Text
+                key={item.id}
+                color="dark-grayish-blue"
+                fontSize="1.125rem"
+                marginTop="1rem"
+                maxWidth={{ base: '100%', lg: '65%' }}
+              >
+                {item.text}
+              </Text>
+            ))}
 
             <NextLink href="/" passHref>
               <Link
@@ -69,7 +100,12 @@ const Home: NextPage = () => {
             </NextLink>
           </Box>
           <Box>
-            <LazyLoadImage src={''} width="100%" alt="" effect="blur" />
+            <LazyLoadImage
+              src={headerInfo.image}
+              width="100%"
+              alt=""
+              effect="blur"
+            />
           </Box>
         </Grid>
 
@@ -87,49 +123,58 @@ const Home: NextPage = () => {
               fontSize={{ base: '2.2rem', lg: '2.6rem' }}
               color="dark-blue"
             >
-              {/* {growthInfo.title} */}
+              {growthInfo.title}
             </Heading>
 
-            <Text
-              color="dark-grayish-blue"
-              fontSize="1.125rem"
-              marginTop="1rem"
-              maxWidth={{ base: '100%', lg: '65%' }}
-            >
-              {/* {item.text} */}
-            </Text>
+            {growthInfo.description.map(item => (
+              <Text
+                key={item.id}
+                color="dark-grayish-blue"
+                fontSize="1.125rem"
+                marginTop="1rem"
+                maxWidth={{ base: '100%', lg: '65%' }}
+              >
+                {item.text}
+              </Text>
+            ))}
           </Box>
+
           <Box>
-            <Grid
-              gridTemplateColumns="70px 1fr"
-              gridTemplateRows="repeat(2, auto)"
-              gap="1rem"
-              marginBottom="2rem"
-            >
-              <Box gridColumn="1/2">
-                <Box
-                  backgroundColor="bright-red"
-                  color="white"
-                  padding="0.45rem 1rem"
-                  rounded="full"
-                  textAlign="center"
-                  fontWeight="bold"
-                  fontSize="0.9rem"
-                >
-                  {/* 0{index + 1} */}
+            {values.map((item, index) => (
+              <Grid
+                key={item._id}
+                gridTemplateColumns="70px 1fr"
+                gridTemplateRows="repeat(2, auto)"
+                gap="1rem"
+                marginBottom="2rem"
+              >
+                <Box gridColumn="1/2">
+                  <Box
+                    backgroundColor="bright-red"
+                    color="white"
+                    padding="0.45rem 1rem"
+                    rounded="full"
+                    textAlign="center"
+                    fontWeight="bold"
+                    fontSize="0.9rem"
+                  >
+                    0{index + 1}
+                  </Box>
                 </Box>
-              </Box>
-              <Box gridColumn="2/3" alignSelf="center">
-                <Text fontWeight="bold" color="dark-blue" fontSize="1.2rem">
-                  {/* {item.title} */}
-                </Text>
-              </Box>
-              <Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow="2/3">
-                <Text color="dark-grayish-blue">
-                  {/* {itemDescription.text} */}
-                </Text>
-              </Box>
-            </Grid>
+                <Box gridColumn="2/3" alignSelf="center">
+                  <Text fontWeight="bold" color="dark-blue" fontSize="1.2rem">
+                    {item.title}
+                  </Text>
+                </Box>
+                <Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow="2/3">
+                  {item.description.map(item => (
+                    <Text key={item.id} color="dark-grayish-blue">
+                      {item.text}
+                    </Text>
+                  ))}
+                </Box>
+              </Grid>
+            ))}
           </Box>
         </Grid>
       </Animation>

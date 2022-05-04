@@ -4,8 +4,9 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import Layout from '../layout'
 import Animation from '../components/Animation'
+import { NextPage } from 'next'
 
-const About: React.FC = () => {
+const About: NextPage = () => {
   return (
     <Layout title="About Us">
       <Animation>
