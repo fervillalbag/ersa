@@ -6,21 +6,23 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import Layout from '../layout'
 import Animation from '../components/Animation'
-import { getHeaderInfo, getGrowthInfo, getValues } from '../utils'
-import { HeaderInfo, GrowthInfo, Value } from '../interfaces/'
+import { getHeaderInfo, getGrowthInfo, getValues, getReviews } from '../utils'
+import { HeaderInfo, GrowthInfo, Value, Review } from '../interfaces/'
 
 interface HomeProps {
   headerInfo: HeaderInfo
   growthInfo: GrowthInfo
   values: Value[]
+  reviews: Review[]
 }
 
 export const getStaticProps: GetStaticProps = async () => {
   const headerInfo = await getHeaderInfo()
   const growthInfo = await getGrowthInfo()
   const values = await getValues()
+  const reviews = await getReviews()
 
-  if (!headerInfo || !growthInfo || !values) {
+  if (!headerInfo || !growthInfo || !values || !reviews) {
     return {
       notFound: true
     }
@@ -28,14 +30,20 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      headerInfo: headerInfo,
-      growthInfo: growthInfo,
-      values: values
+      headerInfo,
+      growthInfo,
+      values,
+      reviews
     }
   }
 }
 
-const Home: NextPage<HomeProps> = ({ headerInfo, growthInfo, values }) => {
+const Home: NextPage<HomeProps> = ({
+  headerInfo,
+  growthInfo,
+  values,
+  reviews
+}) => {
   return (
     <Layout title="Home Page">
       <Animation>
@@ -192,7 +200,7 @@ const Home: NextPage<HomeProps> = ({ headerInfo, growthInfo, values }) => {
           color="dark-blue"
           marginBottom="5rem"
         >
-          {/* {reviewInfo.title} */}
+          What they’ve said
         </Heading>
 
         <Grid
@@ -204,25 +212,38 @@ const Home: NextPage<HomeProps> = ({ headerInfo, growthInfo, values }) => {
           gap="5rem 3rem"
           marginTop="4rem"
         >
-          <Box backgroundColor="gray" padding="1.5rem" rounded="md">
-            <Grid marginTop="-4rem" placeItems="center">
-              <Image src="" alt="" width="100px" />
-            </Grid>
-            <Box marginTop="1rem">
-              <Text
-                fontWeight="bold"
-                color="dark-blue"
-                textAlign="center"
-                marginBottom="0.7rem"
-                fontSize="1.125rem"
-              >
-                {/* {review.name} */}
-              </Text>
-              <Text color="dark-grayish-blue" textAlign="center">
-                {/* {item.text} */}
-              </Text>
+          {reviews.map(review => (
+            <Box
+              key={review._id}
+              backgroundColor="gray"
+              padding="1.5rem"
+              rounded="md"
+            >
+              <Grid marginTop="-4rem" placeItems="center">
+                <Image src={review.avatar} alt="" width="100px" />
+              </Grid>
+              <Box marginTop="1rem">
+                <Text
+                  fontWeight="bold"
+                  color="dark-blue"
+                  textAlign="center"
+                  marginBottom="0.7rem"
+                  fontSize="1.125rem"
+                >
+                  {review.name}
+                </Text>
+                {review.description.map(item => (
+                  <Text
+                    key={item.id}
+                    color="dark-grayish-blue"
+                    textAlign="center"
+                  >
+                    {item.text}
+                  </Text>
+                ))}
+              </Box>
             </Box>
-          </Box>
+          ))}
         </Grid>
       </Box>
 
