@@ -1,12 +1,36 @@
 import React from 'react'
+import type { GetServerSideProps, NextPage } from 'next'
 import { Box, Grid, Text, Flex, Button } from '@chakra-ui/react'
 import { RiShoppingCartFill } from 'react-icons/ri'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import Layout from '../../layout'
 import Animation from '../../components/Animation'
+import { getProducts } from '../../utils'
+import { ProductType } from '../../interfaces'
 
-const Product: React.FC = () => {
+interface ProductPageProps {
+  product: ProductType
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const products = await getProducts()
+  const product = products.find(product => product._id === params.id)
+
+  if (!product) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {
+      product
+    }
+  }
+}
+
+const Product: NextPage<ProductPageProps> = ({ product }) => {
   return (
     <Layout>
       <Animation>
@@ -22,7 +46,7 @@ const Product: React.FC = () => {
           <Flex justifyContent="center">
             <Box width={{ base: '100%', md: '400px' }}>
               <LazyLoadImage
-                src={''}
+                src={product.image}
                 alt=""
                 width="100%"
                 height="400px"
@@ -32,24 +56,30 @@ const Product: React.FC = () => {
           </Flex>
           <Box>
             <Text fontWeight="bold" fontSize="1.7rem" color="dark-blue">
-              {/* {product.name} */}
+              {product.name}
             </Text>
 
             <Flex>
               <Text color="dark-grayish-blue">Code:</Text>
               <Text color="dark-grayish-blue" marginLeft="0.25rem">
-                {/* {product.code} */}
+                {product._id.slice(0, 10)}
               </Text>
             </Flex>
 
             <Text fontWeight="bold" fontSize="2rem" color="dark-blue">
-              {/* ${product.price} */}
+              ${product.price}
             </Text>
 
             <Box maxWidth={{ base: '100%', md: '80%' }}>
-              <Text color="dark-grayish-blue" marginTop="1rem">
-                {/* {item.text} */}
-              </Text>
+              {product.description.map(paragraph => (
+                <Text
+                  key={paragraph.id}
+                  color="dark-grayish-blue"
+                  marginTop="1rem"
+                >
+                  {paragraph.text}
+                </Text>
+              ))}
             </Box>
 
             <Flex marginTop="1rem">
@@ -62,7 +92,7 @@ const Product: React.FC = () => {
                 marginLeft="0.25rem"
                 fontSize="0.9rem"
               >
-                {/* {product.quantity} */}
+                {product.quantity}
               </Text>
             </Flex>
 

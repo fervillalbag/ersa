@@ -4,7 +4,7 @@ import { About } from '../../../models'
 import { AboutInfo } from '../../interfaces/About'
 import { db } from '../../../lib'
 
-type Data = { msg: string } | AboutInfo
+type Data = { msg: string } | AboutInfo | string
 
 const handler = async (
   req: NextApiRequest,
@@ -44,7 +44,7 @@ const createAbout = async (
     await db.connected()
     await newAboutInfo.save()
     await db.disconnect()
-    return res.status(201).json(newAboutInfo)
+    return res.status(201).json(JSON.stringify(newAboutInfo))
   } catch (error) {
     await db.disconnect()
     console.log(error)

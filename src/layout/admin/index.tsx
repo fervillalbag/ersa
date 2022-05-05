@@ -1,8 +1,9 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { Box, Grid, Text, Flex, Button } from '@chakra-ui/react'
-import Navbar from '../../components/admin/Navbar'
 import { FaArrowLeft, FaUserAlt } from 'react-icons/fa'
-import { useRouter } from 'next/dist/client/router'
+
+import Navbar from '../../components/admin/Navbar'
 
 interface LayoutIprops {
   title?: string
@@ -10,7 +11,7 @@ interface LayoutIprops {
   onClick?: () => void
 }
 
-const AdminLayout: React.FC<LayoutIprops> = ({
+const Layout: React.FC<LayoutIprops> = ({
   children,
   title,
   showNavbar = true,
@@ -77,4 +78,4 @@ const AdminLayout: React.FC<LayoutIprops> = ({
   )
 }
 
-export default AdminLayout
+export default Layout

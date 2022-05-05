@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 import { Box, Grid, Image, Flex, Link, Button, Text } from '@chakra-ui/react'
 import { FaBars, FaShoppingCart, FaTimes } from 'react-icons/fa'
 
 import { NavbarContext } from '../context/Navbar'
-import { useRouter } from 'next/dist/client/router'
 import { CartStatusContext } from '../context/CartStatus'
 
 const Navbar: React.FC = () => {

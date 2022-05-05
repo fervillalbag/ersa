@@ -41,7 +41,7 @@ const Product: React.FC<ProductIprops> = ({ product }) => {
             marginLeft="0.25rem"
             color="dark-grayish-blue"
           >
-            {product.code}
+            {product._id.slice(0, 10)}
           </Text>
         </Flex>
         <Text

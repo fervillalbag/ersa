@@ -1,11 +1,34 @@
 import React from 'react'
+import { GetServerSideProps } from 'next'
 import { Box, Grid } from '@chakra-ui/react'
 
 import Layout from '../../layout'
 import Product from '../../components/Product'
 import Animation from '../../components/Animation'
+import { getProducts } from '../../utils'
+import { ProductType } from '../../interfaces'
 
-const Products: React.FC = () => {
+interface ProductPageProps {
+  products: ProductType[]
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const products = await getProducts()
+
+  if (!products) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {
+      products
+    }
+  }
+}
+
+const Products: React.FC<ProductPageProps> = ({ products }) => {
   return (
     <Layout title="Products">
       <Animation>
@@ -18,18 +41,9 @@ const Products: React.FC = () => {
             }}
             gap="2rem 3rem"
           >
-            <Product
-              product={{
-                name: '',
-                code: '',
-                category: '',
-                image: '',
-                _id: '',
-                quantity: 0,
-                price: 0,
-                description: []
-              }}
-            />
+            {products.map(product => (
+              <Product key={product._id} product={product} />
+            ))}
           </Grid>
         </Box>
       </Animation>

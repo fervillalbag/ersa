@@ -27,13 +27,14 @@ const createProduct = async (
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ): Promise<void> => {
-  const { name, price, description, image, category } = req.body
+  const { name, price, description, image, category, quantity } = req.body
   const newProduct = new Product({
     name,
     price,
     description,
     image,
     category,
+    quantity,
     createdAt: Date.now()
   })
 

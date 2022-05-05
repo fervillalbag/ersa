@@ -1,13 +1,14 @@
 import React from 'react'
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 import { Box, Flex, Text, Link } from '@chakra-ui/react'
+
 import { RiHome4Line } from 'react-icons/ri'
 import { GiBrain } from 'react-icons/gi'
 import { VscCommentDiscussion } from 'react-icons/vsc'
 import { MdOutlineLocalGroceryStore } from 'react-icons/md'
 import { AiOutlineUsergroupDelete } from 'react-icons/ai'
 import { FaRegImages } from 'react-icons/fa'
-import { useRouter } from 'next/dist/client/router'
 
 const Navbar: React.FC = () => {
   const router = useRouter()

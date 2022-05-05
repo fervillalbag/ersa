@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
+import Head from 'next/head'
 import { Box } from '@chakra-ui/react'
-import Header from 'next/head'
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -20,9 +20,9 @@ const Layout: React.FC<LayoutIprops> = ({ children, title }) => {
       height={statusCart ? '100vh' : 'initial'}
       overflowY={statusCart ? 'hidden' : 'initial'}
     >
-      <Header>
+      <Head>
         <title>{title || 'Landing Ersa'}</title>
-      </Header>
+      </Head>
 
       <Cart />
       <Navbar />

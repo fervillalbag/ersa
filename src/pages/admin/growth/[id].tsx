@@ -4,7 +4,7 @@ import { Box, Button, Flex, Input, Text, Textarea } from '@chakra-ui/react'
 import { BsTrash } from 'react-icons/bs'
 
 import Layout from '../../../layout/admin'
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 
 const GrowthItem: NextPage = () => {
   const router = useRouter()
