@@ -4,9 +4,33 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import Layout from '../layout'
 import Animation from '../components/Animation'
-import { NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
+import { getAboutInfo } from '../utils'
+import { AboutInfo } from '../interfaces/About'
 
-const About: NextPage = () => {
+interface AboutProps {
+  aboutInfo: AboutInfo
+}
+
+export const getStaticProps: GetServerSideProps = async () => {
+  const aboutInfo = await getAboutInfo()
+
+  if (!aboutInfo) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {
+      aboutInfo
+    }
+  }
+}
+
+const About: NextPage<AboutProps> = ({ aboutInfo }) => {
+  console.log()
+
   return (
     <Layout title="About Us">
       <Animation>
@@ -21,17 +45,28 @@ const About: NextPage = () => {
         >
           <Box>
             <Heading as="h3" color="dark-blue" marginBottom="2rem">
-              {/* {aboutInfo.title} */}
+              {aboutInfo.title}
             </Heading>
 
             <Box>
-              <Text color="dark-grayish-blue" marginBottom="2rem">
-                {/* {item.text} */}
-              </Text>
+              {aboutInfo.description.map(paragraph => (
+                <Text
+                  key={paragraph.id}
+                  color="dark-grayish-blue"
+                  marginBottom="2rem"
+                >
+                  {paragraph.text}
+                </Text>
+              ))}
             </Box>
           </Box>
           <Box className="image">
-            <LazyLoadImage loading="lazy" effect="blur" src={''} alt="" />
+            <LazyLoadImage
+              loading="lazy"
+              effect="blur"
+              src={aboutInfo.image}
+              alt=""
+            />
           </Box>
         </Grid>
       </Animation>
