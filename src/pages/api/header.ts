@@ -55,9 +55,9 @@ const createHeader = async (
 const getHeader = async (res: NextApiResponse<Data>) => {
   try {
     await db.connected()
-    const headerInfo = await Header.findOne()
+    const headerInfo = await Header.findOne({})
 
-    if (!headerInfo) {
+    if (Object.keys(headerInfo).length === 0) {
       return res.status(400).json({ msg: 'Header info not found' })
     }
 

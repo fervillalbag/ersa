@@ -7,6 +7,7 @@ import Animation from '../components/Animation'
 import { GetServerSideProps, NextPage } from 'next'
 import { getAboutInfo } from '../utils'
 import { AboutInfo } from '../interfaces/About'
+import NotFound from '../components/NotFound'
 
 interface AboutProps {
   aboutInfo: AboutInfo
@@ -17,7 +18,7 @@ export const getStaticProps: GetServerSideProps = async () => {
 
   if (!aboutInfo) {
     return {
-      notFound: true
+      props: {}
     }
   }
 
@@ -29,7 +30,9 @@ export const getStaticProps: GetServerSideProps = async () => {
 }
 
 const About: NextPage<AboutProps> = ({ aboutInfo }) => {
-  console.log()
+  if (Object.keys(aboutInfo).length === 0) {
+    return <NotFound />
+  }
 
   return (
     <Layout title="About Us">

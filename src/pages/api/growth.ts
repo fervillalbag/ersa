@@ -56,7 +56,7 @@ const getGrowth = async (res: NextApiResponse<Data>): Promise<void> => {
     await db.connected()
     const growth = await Growth.findOne()
 
-    if (!growth) {
+    if (Object.keys(growth).length === 0) {
       return res.status(400).json({ msg: 'Growth info not found' })
     }
 

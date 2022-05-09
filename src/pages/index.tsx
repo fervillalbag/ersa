@@ -5,6 +5,7 @@ import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import Layout from '../layout'
+import NotFound from '../components/NotFound'
 import Animation from '../components/Animation'
 import { getHeaderInfo, getGrowthInfo, getValues, getReviews } from '../utils'
 import { HeaderInfo, GrowthInfo, Value, Review } from '../interfaces/'
@@ -24,7 +25,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   if (!headerInfo || !growthInfo || !values || !reviews) {
     return {
-      notFound: true
+      props: {}
     }
   }
 
@@ -44,6 +45,15 @@ const Home: NextPage<HomeProps> = ({
   values,
   reviews
 }) => {
+  if (
+    Object.keys(headerInfo).length === 0 ||
+    Object.keys(growthInfo).length === 0 ||
+    Object.keys(values).length === 0 ||
+    Object.keys(reviews).length === 0
+  ) {
+    return <NotFound />
+  }
+
   return (
     <Layout title="Home Page">
       <Animation>
