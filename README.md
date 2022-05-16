@@ -1,3 +1,1 @@
-## Initial setup
-
-Nextjs, ChakraUI, Typescript, ESLint, Prettier
+### Monorepo config with ViteJS

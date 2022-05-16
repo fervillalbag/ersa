@@ -1,53 +1,18 @@
 {
-  "name": "nextjs-typescript",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "export": "next export",
-    "lint": "next lint",
-    "migrate": "npx prisma migrate dev --name init"
-  },
-  "dependencies": {
-    "@chakra-ui/react": "^1.6.6",
-    "@emotion/react": "^11",
-    "@emotion/styled": "^11",
-    "@prisma/client": "^3.13.0",
-    "axios": "^0.26.1",
-    "framer-motion": "^4.1.17",
-    "immer": "^9.0.12",
-    "mongoose": "^6.2.4",
-    "morgan": "^1.10.0",
-    "next": "^12.1.5",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-hot-toast": "^2.2.0",
-    "react-icons": "^4.3.1",
-    "react-lazy-load-image-component": "^1.5.1",
-    "swiper": "^8.0.7",
-    "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "@types/morgan": "^1.9.3",
-    "@types/node": "^15.12.4",
-    "@types/react": "^17.0.11",
-    "@types/react-lazy-load-image-component": "^1.5.2",
-    "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^4.28.0",
-    "@typescript-eslint/parser": "^4.28.0",
-    "eslint": "^7.29.0",
-    "eslint-config-next": "11.0.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-react": "^7.24.0",
-    "prettier": "^2.3.1",
-    "prisma": "^3.13.0",
-    "typescript": "^4.3.4"
-  }
+	"scripts": {
+		"format": "prettier --write .",
+		"lint": "eslint --fix . --ext .js,.jsx,.ts,.tsx"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.23.0",
+		"@typescript-eslint/parser": "^5.23.0",
+		"eslint": "^8.15.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-config-standard": "^17.0.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-n": "^15.2.0",
+		"eslint-plugin-promise": "^6.0.0",
+		"eslint-plugin-react": "^7.29.4",
+		"prettier": "^2.6.2"
+	}
 }
