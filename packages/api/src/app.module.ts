@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HeaderModule } from './header/header.module';
 import { GrowthModule } from './growth/growth.module';
+import { ValuesModule } from './values/values.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { GrowthModule } from './growth/growth.module';
     }),
     HeaderModule,
     GrowthModule,
+    ValuesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
