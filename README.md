@@ -1,1 +1,1 @@
-### Monorepo config with ViteJS
+### Pseudo Monorepo config with ESLint and Prettier
