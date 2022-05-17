@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HeaderModule } from './header/header.module';
+import { GrowthModule } from './growth/growth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { HeaderModule } from './header/header.module';
       useNewUrlParser: true,
     }),
     HeaderModule,
+    GrowthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
