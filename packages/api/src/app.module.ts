@@ -9,6 +9,7 @@ import { GrowthModule } from './growth/growth.module';
 import { ValuesModule } from './values/values.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { AboutModule } from './about/about.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AboutModule } from './about/about.module';
     ValuesModule,
     ReviewsModule,
     AboutModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
