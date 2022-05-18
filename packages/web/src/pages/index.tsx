@@ -1,5 +1,4 @@
 import NextLink from 'next/link';
-import { NextPage } from 'next';
 import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -7,16 +6,32 @@ import Layout from '../layout';
 // import NotFound from '../components/NotFound';
 import Animation from '../components/Animation';
 // import { getHeaderInfo, getGrowthInfo, getValues, getReviews } from '../utils';
+import { getHeaderInfo, getGrowthInfo } from '../utils';
 import { HeaderInfo, GrowthInfo, Value, Review } from '../interfaces/';
 
 type HomeProps = {
-	headerInfo: HeaderInfo;
-	growthInfo: GrowthInfo;
+	headerData: HeaderInfo;
+	growthData: GrowthInfo;
 	values: Value[];
 	reviews: Review[];
 };
 
-const Home: NextPage<HomeProps> = () => {
+export const getStaticProps = async () => {
+	const headerData = await getHeaderInfo();
+	const growthData = await getGrowthInfo();
+
+	return {
+		props: {
+			headerData,
+			growthData,
+		},
+	};
+};
+
+const Home = ({ headerData, growthData }: HomeProps) => {
+	const growth = growthData.growth;
+	const header = headerData.header;
+
 	return (
 		<Layout title='Home Page'>
 			<Animation>
@@ -49,10 +64,10 @@ const Home: NextPage<HomeProps> = () => {
 							fontSize={{ base: '2.8rem', lg: '3.6rem' }}
 							color='dark-blue'
 						>
-							{/* {headerInfo.title} */}
+							{header.title}
 						</Heading>
 
-						{/* {headerInfo.description.map(item => (
+						{header.description.map(item => (
 							<Text
 								key={item.id}
 								color='dark-grayish-blue'
@@ -62,7 +77,7 @@ const Home: NextPage<HomeProps> = () => {
 							>
 								{item.text}
 							</Text>
-						))} */}
+						))}
 
 						<NextLink href='/' passHref>
 							<Link
@@ -82,7 +97,7 @@ const Home: NextPage<HomeProps> = () => {
 					</Box>
 					<Box>
 						<LazyLoadImage
-							// src={headerInfo.image}
+							src={header.image}
 							width='100%'
 							alt=''
 							effect='blur'
@@ -104,10 +119,10 @@ const Home: NextPage<HomeProps> = () => {
 							fontSize={{ base: '2.2rem', lg: '2.6rem' }}
 							color='dark-blue'
 						>
-							{/* {growthInfo.title} */}
+							{growth.title}
 						</Heading>
 
-						{/* {growthInfo.description.map(item => (
+						{growth.description.map(item => (
 							<Text
 								key={item.id}
 								color='dark-grayish-blue'
@@ -117,7 +132,7 @@ const Home: NextPage<HomeProps> = () => {
 							>
 								{item.text}
 							</Text>
-						))} */}
+						))}
 					</Box>
 
 					<Box>

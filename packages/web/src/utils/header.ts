@@ -1,13 +1,13 @@
-import { HeaderInfo } from '../interfaces'
+import { HeaderInfo } from '../interfaces';
 
 export const getHeaderInfo = async (): Promise<HeaderInfo | null> => {
-  try {
-    const URL = process.env.URL_ROOT_LOCAL
-    const response = await fetch(`${URL}/api/header`)
-    const data = await response.json()
-    return data
-  } catch (error) {
-    console.log(error)
-    return null
-  }
-}
+	try {
+		const URL = process.env.URL_API;
+		const response = await fetch(`${URL}/header`);
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};

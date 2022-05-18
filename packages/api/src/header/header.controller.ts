@@ -56,13 +56,17 @@ export class HeaderController {
   }
 
   @Get('/')
-  async getHeader(): Promise<HeaderInterface> {
+  async getHeader(@Res() res): Promise<HeaderInterface> {
     const header = await this.headerService.getHeader();
 
     if (Object.keys(header).length === 0) {
       throw new NotFoundException('Header not found');
     }
 
-    return header;
+    return res.status(HttpStatus.OK).json({
+      message: 'Header fetched!',
+      success: true,
+      header,
+    });
   }
 }
