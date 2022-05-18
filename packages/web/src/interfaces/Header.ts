@@ -1,6 +1,6 @@
 import { Description } from './Description';
 
-export type HeaderInfo = {
+export type HeaderInterface = {
 	message: string;
 	success: boolean;
 	header: {

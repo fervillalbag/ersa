@@ -1,13 +1,13 @@
-import { Value } from '../interfaces'
+import { ValueInterface } from '../interfaces';
 
-export const getValues = async (): Promise<Value[] | null> => {
-  try {
-    const URL = process.env.URL_ROOT_LOCAL
-    const response = await fetch(`${URL}/api/values`)
-    const data = await response.json()
-    return data
-  } catch (error) {
-    console.log(error)
-    return null
-  }
-}
+export const getValues = async (): Promise<ValueInterface | null> => {
+	try {
+		const URL = process.env.URL_API;
+		const response = await fetch(`${URL}/values`);
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};

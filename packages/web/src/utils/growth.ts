@@ -1,6 +1,6 @@
-import { GrowthInfo } from '../interfaces';
+import { GrowthInterface } from '../interfaces';
 
-export const getGrowthInfo = async (): Promise<GrowthInfo | null> => {
+export const getGrowthInfo = async (): Promise<GrowthInterface | null> => {
 	try {
 		const URL = process.env.URL_API;
 		const response = await fetch(`${URL}/growth`);

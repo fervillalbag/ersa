@@ -1,9 +1,15 @@
-import { Description } from './Description'
+import { Description } from './Description';
 
-export type Value = {
-  _id: string
-  title: string
-  description: Description[]
-  createdAt: string
-  updatedAt: string
-}
+type Value = {
+	_id: string;
+	title: string;
+	description: Description[];
+	createdAt: string;
+	updatedAt: string;
+};
+
+export type ValueInterface = {
+	message: string;
+	success: boolean;
+	values: Value[];
+};

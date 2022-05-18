@@ -6,31 +6,39 @@ import Layout from '../layout';
 // import NotFound from '../components/NotFound';
 import Animation from '../components/Animation';
 // import { getHeaderInfo, getGrowthInfo, getValues, getReviews } from '../utils';
-import { getHeaderInfo, getGrowthInfo } from '../utils';
-import { HeaderInfo, GrowthInfo, Value, Review } from '../interfaces/';
+import { getHeaderInfo, getGrowthInfo, getValues } from '../utils';
+import {
+	HeaderInterface,
+	GrowthInterface,
+	ValueInterface,
+	Review,
+} from '../interfaces/';
 
 type HomeProps = {
-	headerData: HeaderInfo;
-	growthData: GrowthInfo;
-	values: Value[];
+	headerData: HeaderInterface;
+	growthData: GrowthInterface;
+	valuesData: ValueInterface;
 	reviews: Review[];
 };
 
 export const getStaticProps = async () => {
 	const headerData = await getHeaderInfo();
 	const growthData = await getGrowthInfo();
+	const valuesData = await getValues();
 
 	return {
 		props: {
 			headerData,
 			growthData,
+			valuesData,
 		},
 	};
 };
 
-const Home = ({ headerData, growthData }: HomeProps) => {
+const Home = ({ headerData, growthData, valuesData }: HomeProps) => {
 	const growth = growthData.growth;
 	const header = headerData.header;
+	const values = valuesData.values;
 
 	return (
 		<Layout title='Home Page'>
@@ -136,7 +144,7 @@ const Home = ({ headerData, growthData }: HomeProps) => {
 					</Box>
 
 					<Box>
-						{/* {values.map((item, index) => (
+						{values.map((item, index) => (
 							<Grid
 								key={item._id}
 								gridTemplateColumns='70px 1fr'
@@ -170,7 +178,7 @@ const Home = ({ headerData, growthData }: HomeProps) => {
 									))}
 								</Box>
 							</Grid>
-						))} */}
+						))}
 					</Box>
 				</Grid>
 			</Animation>

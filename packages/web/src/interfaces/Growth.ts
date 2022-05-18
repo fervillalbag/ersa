@@ -1,6 +1,6 @@
 import { Description } from './Description';
 
-export type GrowthInfo = {
+export type GrowthInterface = {
 	message: string;
 	success: boolean;
 	growth: {
