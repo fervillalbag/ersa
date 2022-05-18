@@ -8,6 +8,7 @@ import { HeaderModule } from './header/header.module';
 import { GrowthModule } from './growth/growth.module';
 import { ValuesModule } from './values/values.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { AboutModule } from './about/about.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ReviewsModule } from './reviews/reviews.module';
     GrowthModule,
     ValuesModule,
     ReviewsModule,
+    AboutModule,
   ],
   controllers: [AppController],
   providers: [AppService],
