@@ -5,40 +5,47 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Layout from '../layout';
 // import NotFound from '../components/NotFound';
 import Animation from '../components/Animation';
-// import { getHeaderInfo, getGrowthInfo, getValues, getReviews } from '../utils';
-import { getHeaderInfo, getGrowthInfo, getValues } from '../utils';
+import { getHeaderInfo, getGrowthInfo, getValues, getReviews } from '../utils';
 import {
 	HeaderInterface,
 	GrowthInterface,
 	ValueInterface,
-	Review,
+	ReviewInterface,
 } from '../interfaces/';
 
 type HomeProps = {
 	headerData: HeaderInterface;
 	growthData: GrowthInterface;
 	valuesData: ValueInterface;
-	reviews: Review[];
+	reviewsData: ReviewInterface;
 };
 
 export const getStaticProps = async () => {
 	const headerData = await getHeaderInfo();
 	const growthData = await getGrowthInfo();
 	const valuesData = await getValues();
+	const reviewsData = await getReviews();
 
 	return {
 		props: {
 			headerData,
 			growthData,
 			valuesData,
+			reviewsData,
 		},
 	};
 };
 
-const Home = ({ headerData, growthData, valuesData }: HomeProps) => {
+const Home = ({
+	headerData,
+	growthData,
+	valuesData,
+	reviewsData,
+}: HomeProps) => {
 	const growth = growthData.growth;
 	const header = headerData.header;
 	const values = valuesData.values;
+	const reviews = reviewsData.reviews;
 
 	return (
 		<Layout title='Home Page'>
@@ -208,7 +215,7 @@ const Home = ({ headerData, growthData, valuesData }: HomeProps) => {
 					gap='5rem 3rem'
 					marginTop='4rem'
 				>
-					{/* {reviews.map(review => (
+					{reviews.map(review => (
 						<Box
 							key={review._id}
 							backgroundColor='gray'
@@ -239,7 +246,7 @@ const Home = ({ headerData, growthData, valuesData }: HomeProps) => {
 								))}
 							</Box>
 						</Box>
-					))} */}
+					))}
 				</Grid>
 			</Box>
 

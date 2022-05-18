@@ -1,9 +1,9 @@
-import { Review } from '../interfaces';
+import { ReviewInterface } from '../interfaces';
 
-export const getReviews = async (): Promise<Review | null> => {
+export const getReviews = async (): Promise<ReviewInterface | null> => {
 	try {
-		const URL = process.env.URL_ROOT_LOCAL;
-		const response = await fetch(`${URL}/api/review`);
+		const URL = process.env.URL_API;
+		const response = await fetch(`${URL}/reviews`);
 		const data = await response.json();
 		return data;
 	} catch (error) {

@@ -1,8 +1,14 @@
-import { Description } from './Description'
+import { Description } from './Description';
 
-export interface Review {
-  _id: string
-  name: string
-  avatar: string
-  description: Description[]
-}
+type Review = {
+	_id: string;
+	name: string;
+	avatar: string;
+	description: Description[];
+};
+
+export type ReviewInterface = {
+	message: string;
+	success: boolean;
+	reviews: Review[];
+};
