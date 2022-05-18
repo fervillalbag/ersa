@@ -1,17 +1,28 @@
-import { Grid, Box, Heading } from '@chakra-ui/react';
+import { Grid, Box, Heading, Text } from '@chakra-ui/react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Layout from '../layout';
 import Animation from '../components/Animation';
-import { NextPage } from 'next';
-// import { getAboutInfo } from '../utils';
-import { AboutInfo } from '../interfaces/About';
+import { getAboutInfo } from '../utils';
+import { AboutInterface } from '../interfaces/About';
 
 type AboutProps = {
-	aboutInfo: AboutInfo;
+	aboutData: AboutInterface;
 };
 
-const About: NextPage<AboutProps> = () => {
+export const getStaticProps = async () => {
+	const aboutData = await getAboutInfo();
+
+	return {
+		props: {
+			aboutData,
+		},
+	};
+};
+
+const About = ({ aboutData }: AboutProps) => {
+	const about = aboutData.about;
+
 	return (
 		<Layout title='About Us'>
 			<Animation>
@@ -26,11 +37,11 @@ const About: NextPage<AboutProps> = () => {
 				>
 					<Box>
 						<Heading as='h3' color='dark-blue' marginBottom='2rem'>
-							{/* {aboutInfo.title} */}
+							{about.title}
 						</Heading>
 
 						<Box>
-							{/* {aboutInfo.description.map(paragraph => (
+							{about.description.map(paragraph => (
 								<Text
 									key={paragraph.id}
 									color='dark-grayish-blue'
@@ -38,15 +49,15 @@ const About: NextPage<AboutProps> = () => {
 								>
 									{paragraph.text}
 								</Text>
-							))} */}
+							))}
 						</Box>
 					</Box>
 					<Box className='image'>
 						<LazyLoadImage
 							loading='lazy'
 							effect='blur'
-							// src={aboutInfo.image}
-							alt=''
+							src={about.image}
+							alt={about.title}
 						/>
 					</Box>
 				</Grid>
