@@ -42,7 +42,7 @@ export class ProductService {
   }
 
   async getProduct(id: string): Promise<ProductInterface> {
-    const product = await this.productModel.findOne({ id });
+    const product = await this.productModel.findOne({ _id: id });
     return product;
   }
 }

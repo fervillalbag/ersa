@@ -23,6 +23,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
 const Product = ({ productData }: ProductProps) => {
 	const product = productData.product;
+	console.log(product);
 
 	return (
 		<Layout>
