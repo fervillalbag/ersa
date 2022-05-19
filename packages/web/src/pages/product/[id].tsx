@@ -1,18 +1,29 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps } from 'next';
 import { Box, Grid, Text, Flex, Button } from '@chakra-ui/react';
 import { RiShoppingCartFill } from 'react-icons/ri';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Layout from '../../layout';
 import Animation from '../../components/Animation';
-// import { getProducts } from '../../utils';
-import { ProductType } from '../../interfaces';
+import { ProductInterface } from '../../interfaces';
+import { getProduct } from '../../utils';
 
-type ProductPageProps = {
-	product: ProductType;
+type ProductProps = {
+	productData: ProductInterface;
 };
 
-const Product: NextPage<ProductPageProps> = () => {
+export const getServerSideProps: GetServerSideProps = async context => {
+	const productData = await getProduct(context.params.id.toString());
+	return {
+		props: {
+			productData,
+		},
+	};
+};
+
+const Product = ({ productData }: ProductProps) => {
+	const product = productData.product;
+
 	return (
 		<Layout>
 			<Animation>
@@ -28,7 +39,7 @@ const Product: NextPage<ProductPageProps> = () => {
 					<Flex justifyContent='center'>
 						<Box width={{ base: '100%', md: '400px' }}>
 							<LazyLoadImage
-								// src={product.image}
+								src={product.image}
 								alt=''
 								width='100%'
 								height='400px'
@@ -38,22 +49,22 @@ const Product: NextPage<ProductPageProps> = () => {
 					</Flex>
 					<Box>
 						<Text fontWeight='bold' fontSize='1.7rem' color='dark-blue'>
-							{/* {product.name} */}
+							{product.name}
 						</Text>
 
 						<Flex>
 							<Text color='dark-grayish-blue'>Code:</Text>
 							<Text color='dark-grayish-blue' marginLeft='0.25rem'>
-								{/* {product._id.slice(0, 10)} */}
+								{product._id.slice(0, 10)}
 							</Text>
 						</Flex>
 
 						<Text fontWeight='bold' fontSize='2rem' color='dark-blue'>
-							{/* ${product.price} */}
+							${product.price}
 						</Text>
 
 						<Box maxWidth={{ base: '100%', md: '80%' }}>
-							{/* {product.description.map(paragraph => (
+							{product.description.map(paragraph => (
 								<Text
 									key={paragraph.id}
 									color='dark-grayish-blue'
@@ -61,7 +72,7 @@ const Product: NextPage<ProductPageProps> = () => {
 								>
 									{paragraph.text}
 								</Text>
-							))} */}
+							))}
 						</Box>
 
 						<Flex marginTop='1rem'>
@@ -74,7 +85,7 @@ const Product: NextPage<ProductPageProps> = () => {
 								marginLeft='0.25rem'
 								fontSize='0.9rem'
 							>
-								{/* {product.quantity} */}
+								{product.quantity}
 							</Text>
 						</Flex>
 

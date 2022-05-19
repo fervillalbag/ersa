@@ -3,11 +3,11 @@ import { Grid, Box, Button, Text, Image } from '@chakra-ui/react';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 
-import { ProductType } from '../interfaces/Product';
+import { Product } from '../interfaces/Product';
 import { useCart } from '../hooks/useCart';
 
 type CartCardProdIprops = {
-	product: ProductType;
+	product: Product;
 };
 
 const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
@@ -47,8 +47,8 @@ const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
 				</Box>
 				<Box alignSelf='flex-start'>
 					<Text fontSize='0.85rem'>
-						{product?.name.slice(0, 30)}
-						{product?.name.length >= 30 && '...'}
+						{product.name.slice(0, 30)}
+						{product.name.length >= 30 && '...'}
 					</Text>
 					<Text marginTop='0.25rem' fontSize='0.85rem' fontWeight='bold'>
 						${product.price}

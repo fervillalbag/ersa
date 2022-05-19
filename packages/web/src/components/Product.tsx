@@ -3,11 +3,12 @@ import NextLink from 'next/link';
 import { Box, Text, Button, Link, Flex } from '@chakra-ui/react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { RiShoppingCartFill } from 'react-icons/ri';
-import { ProductType } from '../interfaces/Product';
+
+import { Product as ProductInterface } from '../interfaces/Product';
 import { useCart } from '../hooks/useCart';
 
 type ProductIprops = {
-	product: ProductType;
+	product: ProductInterface;
 };
 
 const Product: React.FC<ProductIprops> = ({ product }) => {

@@ -1,17 +1,28 @@
-import { NextPage } from 'next';
 import { Box, Grid } from '@chakra-ui/react';
 
 import Layout from '../../layout';
-// import Product from '../../components/Product';
 import Animation from '../../components/Animation';
-// import { getProducts } from '../../utils';
-import { ProductType } from '../../interfaces';
+import { getProducts } from '../../utils';
+import { ProductsInterface } from '../../interfaces';
+import Product from '../../components/Product';
 
-type ProductPageProps = {
-	products: ProductType[];
+export const getStaticProps = async () => {
+	const productsData = await getProducts();
+
+	return {
+		props: {
+			productsData,
+		},
+	};
 };
 
-const Products: NextPage<ProductPageProps> = () => {
+type ProductPageProps = {
+	productsData: ProductsInterface;
+};
+
+const Products = ({ productsData }: ProductPageProps) => {
+	const products = productsData.products;
+
 	return (
 		<Layout title='Products'>
 			<Animation>
@@ -24,9 +35,9 @@ const Products: NextPage<ProductPageProps> = () => {
 						}}
 						gap='2rem 3rem'
 					>
-						{/* {products.map(product => (
+						{products.map(product => (
 							<Product key={product._id} product={product} />
-						))} */}
+						))}
 					</Grid>
 				</Box>
 			</Animation>
