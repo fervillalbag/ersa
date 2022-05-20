@@ -17,7 +17,7 @@
 		"@prisma/client": "^3.13.0",
 		"axios": "^0.26.1",
 		"framer-motion": "^4.1.17",
-		"immer": "^9.0.12",
+		"immer": "^9.0.14",
 		"mongoose": "^6.2.4",
 		"morgan": "^1.10.0",
 		"next": "^12.1.5",

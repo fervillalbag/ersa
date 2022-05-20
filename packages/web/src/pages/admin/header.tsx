@@ -7,10 +7,85 @@ import {
 	Text,
 	Textarea,
 } from '@chakra-ui/react';
+import produce from 'immer';
+import { GetStaticProps } from 'next';
+import { useRef, useState } from 'react';
 import { BsTrash } from 'react-icons/bs';
-import Layout from '../../layout/admin';
 
-const AdminHeader = () => {
+import { HeaderInterface, Description, FileType } from '../../interfaces';
+import Layout from '../../layout/admin';
+import { getHeaderInfo, updateHeader } from '../../utils';
+import { useImage } from '../../hooks/useImage';
+
+type AdminHeaderProps = {
+	headerData: HeaderInterface;
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+	const headerData = await getHeaderInfo();
+
+	return {
+		props: {
+			headerData,
+		},
+	};
+};
+
+const AdminHeader = ({ headerData }: AdminHeaderProps) => {
+	const [headerInfo, setHeaderInfo] = useState(headerData.header);
+	const [descriptionArray, setDescriptionArray] = useState(
+		headerData.header.description
+	);
+
+	const [image, setImage] = useState<string>('');
+	const [fileImage, setFileImage] = useState<FileType | string | Blob>();
+	const inputImgRef = useRef(null);
+
+	const newInputDescription: Description = {
+		id: Date.now().toString(),
+		text: '',
+	};
+
+	const handleAddInputDescription = () => {
+		setDescriptionArray([...descriptionArray, newInputDescription]);
+	};
+
+	const handleDeleteInputDescription = id => {
+		setDescriptionArray(description =>
+			description.filter(item => item.id !== id)
+		);
+	};
+
+	const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const target = e.currentTarget as HTMLInputElement;
+		const file = target.files[0];
+		const image = URL.createObjectURL(file);
+		setImage(image);
+		setFileImage(file);
+	};
+
+	const handleUpdateHeaderInfo = async () => {
+		if (!headerInfo.title) return;
+
+		if (image) {
+			const responseImage = await useImage(fileImage as string);
+
+			const data = {
+				_id: headerInfo._id,
+				title: headerInfo.title,
+				image: responseImage,
+				description: descriptionArray,
+			};
+
+			const response = await updateHeader(data);
+			console.log(response);
+			return;
+		}
+
+		const response = await updateHeader(headerInfo);
+		console.log(response);
+	};
+
 	return (
 		<Layout title='Header'>
 			<Box maxWidth='600px'>
@@ -31,8 +106,10 @@ const AdminHeader = () => {
 						borderColor='dark-grayish-blue'
 						borderRadius='4px'
 						paddingLeft='0.75rem'
-						// value={data.title}
-						// onChange={e => setData({ ...data, title: e.target.value })}
+						value={headerInfo.title}
+						onChange={e =>
+							setHeaderInfo({ ...headerInfo, title: e.target.value })
+						}
 					/>
 				</Box>
 
@@ -48,17 +125,17 @@ const AdminHeader = () => {
 						Change image
 					</Button>
 					<Input
-						// ref={inputImgRef}
+						ref={inputImgRef}
 						type='file'
-						// onChange={handleChangeImage}
+						onChange={handleChangeImage}
 						display='none'
 					/>
 				</Box>
 
 				<Box marginBottom='2rem'>
 					<Image
-						// src={''}
-						// alt={data.title}
+						src={headerInfo.image}
+						alt={headerInfo.title}
 						width='10rem'
 						height='10rem'
 						objectFit='cover'
@@ -81,38 +158,40 @@ const AdminHeader = () => {
 						Description
 					</Text>
 
-					<Flex marginBottom='1rem'>
-						<Textarea
-							id='title'
-							borderColor='dark-grayish-blue'
-							borderRadius='4px'
-							paddingLeft='0.75rem'
-							height='8rem'
-							resize='none'
-							// value={description.text}
-							// onChange={e => {
-							//   const text = e.target.value
-							//   setDescriptionArray(currentDescription =>
-							//     produce(currentDescription, v => {
-							//       v[index].text = text
-							//     })
-							//   )
-							// }}
-						/>
-						<Button
-							minWidth='initial'
-							height='auto'
-							border='1px solid #D9D9D9'
-							marginLeft='0.75rem'
-							backgroundColor='red.400'
-							color='white'
-							fontSize='1.2rem'
-							_focus={{ shadow: 0 }}
-							// onClick={() => handleDeleteInputDescription(description.id)}
-						>
-							<BsTrash />
-						</Button>
-					</Flex>
+					{descriptionArray.map((item, index) => (
+						<Flex marginBottom='1rem' key={item.id}>
+							<Textarea
+								id='title'
+								borderColor='dark-grayish-blue'
+								borderRadius='4px'
+								paddingLeft='0.75rem'
+								height='8rem'
+								resize='none'
+								value={item.text}
+								onChange={e => {
+									const text = e.target.value;
+									setDescriptionArray(currentDescription =>
+										produce(currentDescription, v => {
+											v[index].text = text;
+										})
+									);
+								}}
+							/>
+							<Button
+								minWidth='initial'
+								height='auto'
+								border='1px solid #D9D9D9'
+								marginLeft='0.75rem'
+								backgroundColor='red.400'
+								color='white'
+								fontSize='1.2rem'
+								_focus={{ shadow: 0 }}
+								onClick={() => handleDeleteInputDescription(item.id)}
+							>
+								<BsTrash />
+							</Button>
+						</Flex>
+					))}
 
 					<Button
 						backgroundColor='transparent'
@@ -120,7 +199,7 @@ const AdminHeader = () => {
 						_focus={{ shadow: 0 }}
 						color='dark-blue'
 						fontWeight='normal'
-						// onClick={handleAddInputDescription}
+						onClick={handleAddInputDescription}
 					>
 						Add description
 					</Button>
@@ -133,7 +212,7 @@ const AdminHeader = () => {
 					color='white'
 					fontWeight='semibold'
 					padding='0.75rem 2rem'
-					// onClick={handleUpdateHeader}
+					onClick={handleUpdateHeaderInfo}
 				>
 					Update Info
 				</Button>

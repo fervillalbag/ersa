@@ -23,7 +23,7 @@ export class HeaderService {
     createHeaderDTO: CreateHeaderDTO,
   ): Promise<HeaderInterface> {
     const header = await this.headerModel.findOneAndUpdate(
-      { id },
+      { _id: id },
       createHeaderDTO,
       { new: true },
     );
