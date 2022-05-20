@@ -22,15 +22,14 @@ export const useCart = (): useCartIprops => {
 		// console.log(cart)
 	}, []);
 
-	useEffect(() => {
-		localStorage.setItem('cart-product', JSON.stringify(cart));
-		// console.log(localStorage.getItem('cart-product'))
-		// console.log(cart)
-	}, [cart]);
+	// useEffect(() => {
+	// 	localStorage.setItem('cart-product', JSON.stringify(cart));
+	// 	// console.log(localStorage.getItem('cart-product'))
+	// 	// console.log(cart)
+	// }, [cart]);
 
 	const handleAddCart = item => {
 		const exist = cart.find(x => x._id === item._id);
-		// console.log(cart)
 
 		if (exist) {
 			setCart(
@@ -39,10 +38,12 @@ export const useCart = (): useCartIprops => {
 				)
 			);
 		} else {
-			console.log(item);
+			// console.log(item);
 			setCart([...cart, { ...item, qty: 1 }]);
+			console.log([...cart]);
+
 			// console.log(localStorage.getItem('cart-product'))
-			console.log(cart);
+			// console.log(cart);
 		}
 	};
 
