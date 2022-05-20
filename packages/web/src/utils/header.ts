@@ -13,9 +13,12 @@ export const getHeaderInfo = async (): Promise<HeaderInterface | null> => {
 	}
 };
 
-export const updateHeader = async (data): Promise<HeaderInterface | null> => {
-	const response = await axios.put(`/header/${data._id}`, {
-		data,
+export const updateHeader = async (
+	data,
+	id: string
+): Promise<HeaderInterface | null> => {
+	const response = await axios.put(`/header/${id}`, {
+		...data,
 	});
 
 	console.log(response);

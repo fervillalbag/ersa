@@ -37,7 +37,7 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 		headerData.header.description
 	);
 
-	const [image, setImage] = useState<string>('');
+	const [image, setImage] = useState<string>(headerInfo.image);
 	const [fileImage, setFileImage] = useState<FileType | string | Blob>();
 	const inputImgRef = useRef(null);
 
@@ -67,22 +67,27 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 	const handleUpdateHeaderInfo = async () => {
 		if (!headerInfo.title) return;
 
+		const data = {
+			title: headerInfo.title,
+			image,
+			description: descriptionArray,
+		};
+
 		if (image) {
 			const responseImage = await useImage(fileImage as string);
 
 			const data = {
-				_id: headerInfo._id,
 				title: headerInfo.title,
 				image: responseImage,
 				description: descriptionArray,
 			};
 
-			const response = await updateHeader(data);
+			const response = await updateHeader(data, headerInfo._id);
 			console.log(response);
 			return;
 		}
 
-		const response = await updateHeader(headerInfo);
+		const response = await updateHeader(data, headerInfo._id);
 		console.log(response);
 	};
 
@@ -117,7 +122,7 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 					<Button
 						backgroundColor='transparent'
 						border='1px solid #D9D9D9'
-						// onClick={() => inputImgRef.current.click()}
+						onClick={() => inputImgRef.current.click()}
 						_focus={{ shadow: 0 }}
 						color='dark-blue'
 						fontWeight='normal'
@@ -134,7 +139,7 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 
 				<Box marginBottom='2rem'>
 					<Image
-						src={headerInfo.image}
+						src={image}
 						alt={headerInfo.title}
 						width='10rem'
 						height='10rem'
