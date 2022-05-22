@@ -17,8 +17,13 @@ export const updateHeader = async (
 	data,
 	id: string
 ): Promise<HeaderInterface | null> => {
-	const response = await axios.put(`/header/${id}`, {
-		...data,
+	const URL_API = 'https://ersa-2uw4k.ondigitalocean.app';
+	const URL_API_RESPONSE = URL_API + '/header/' + id;
+
+	const response = await axios({
+		method: 'PUT',
+		url: URL_API_RESPONSE,
+		data: { ...data },
 	});
 
 	console.log(response);
