@@ -8,7 +8,7 @@ import {
 	Textarea,
 } from '@chakra-ui/react';
 import produce from 'immer';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import { useRef, useState } from 'react';
 import { BsTrash } from 'react-icons/bs';
 
@@ -21,7 +21,7 @@ type AdminHeaderProps = {
 	headerData: HeaderInterface;
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
 	const headerData = await getHeaderInfo();
 
 	return {
