@@ -37,7 +37,7 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 		headerData.header.description
 	);
 
-	const [image, setImage] = useState<string>(headerInfo.image);
+	const [image, setImage] = useState<string>();
 	const [fileImage, setFileImage] = useState<FileType | string | Blob>();
 	const inputImgRef = useRef(null);
 
@@ -73,6 +73,7 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 			description: descriptionArray,
 		};
 
+		// Condición en caso de que la imagen se haya modificado
 		if (image) {
 			const responseImage = await useImage(fileImage as string);
 
@@ -139,7 +140,7 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 
 				<Box marginBottom='2rem'>
 					<Image
-						src={image}
+						src={image || headerInfo.image}
 						alt={headerInfo.title}
 						width='10rem'
 						height='10rem'
