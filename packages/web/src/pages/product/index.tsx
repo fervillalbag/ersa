@@ -24,7 +24,7 @@ const Products = ({ productsData }: ProductPageProps) => {
 	const products = productsData.products;
 
 	return (
-		<Layout title='Products'>
+		<Layout title='Community | Products'>
 			<Animation>
 				<Box maxWidth='1170px' margin='0 auto' width='90%' paddingBottom='4rem'>
 					<Grid

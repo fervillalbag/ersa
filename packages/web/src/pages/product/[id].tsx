@@ -23,10 +23,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
 const Product = ({ productData }: ProductProps) => {
 	const product = productData.product;
-	console.log(product);
 
 	return (
-		<Layout>
+		<Layout title={`${product.name} | Landing Ersa`}>
 			<Animation>
 				<Grid
 					gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}

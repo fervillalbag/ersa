@@ -24,7 +24,7 @@ const About = ({ aboutData }: AboutProps) => {
 	const about = aboutData.about;
 
 	return (
-		<Layout title='About Us'>
+		<Layout title='Community | About Us'>
 			<Animation>
 				<Grid
 					gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}

@@ -7,10 +7,11 @@ import { Toaster } from 'react-hot-toast';
 import NavbarProvider from '../context/Navbar';
 import { CartStatusProvider } from '../context/CartStatus';
 import { CartContextProvider } from '../context/CartContext';
-
 import theme from '../styles/theme';
+
 import '../styles/globals.css';
 import 'swiper/css';
+import 'swiper/css/bundle';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
