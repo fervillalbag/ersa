@@ -10,6 +10,7 @@ import { ValuesModule } from './values/values.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { AboutModule } from './about/about.module';
 import { ProductModule } from './product/product.module';
+import { BannerModule } from './banner/banner.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ProductModule } from './product/product.module';
     ReviewsModule,
     AboutModule,
     ProductModule,
+    BannerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
