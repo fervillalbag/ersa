@@ -1,9 +1,10 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { Box, Grid, Text, Flex, Button } from '@chakra-ui/react';
-import { FaArrowLeft, FaUserAlt } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
 
 import Navbar from '../../components/admin/Navbar';
+import Aside from '../../components/admin/Aside';
 
 type LayoutIprops = {
 	title?: string;
@@ -20,7 +21,7 @@ const Layout: React.FC<LayoutIprops> = ({
 	const router = useRouter();
 
 	return (
-		<Grid gridTemplateColumns='285px 1fr'>
+		<Grid gridTemplateColumns='250px 1fr 300px'>
 			<Box display={{ base: 'none', md: 'block' }}>
 				{showNavbar ? (
 					<Navbar />
@@ -49,7 +50,7 @@ const Layout: React.FC<LayoutIprops> = ({
 			</Box>
 			<Box
 				width={{ base: '100vw', md: 'initial' }}
-				backgroundColor='gray'
+				backgroundColor='#fff'
 				padding={{ base: '0 1rem', md: '0 2rem' }}
 				minHeight='100vh'
 			>
@@ -65,20 +66,10 @@ const Layout: React.FC<LayoutIprops> = ({
 					>
 						{router.pathname === '/admin' ? 'Hola Fernando!' : title}
 					</Text>
-					<Flex
-						width='3rem'
-						height='3rem'
-						backgroundColor='dark-blue'
-						rounded='full'
-						cursor='pointer'
-						alignItems='center'
-						justifyContent='center'
-					>
-						<FaUserAlt color='white' />
-					</Flex>
 				</Flex>
 				<Box paddingBottom='4rem'>{children}</Box>
 			</Box>
+			<Aside />
 		</Grid>
 	);
 };
