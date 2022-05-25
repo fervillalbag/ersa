@@ -21,7 +21,7 @@ const Layout: React.FC<LayoutIprops> = ({
 	const router = useRouter();
 
 	return (
-		<Grid gridTemplateColumns='250px 1fr 300px'>
+		<Grid gridTemplateColumns='250px 1fr 300px' className='scrollbar-hide'>
 			<Box display={{ base: 'none', md: 'block' }}>
 				{showNavbar ? (
 					<Navbar />
@@ -51,7 +51,7 @@ const Layout: React.FC<LayoutIprops> = ({
 			<Box
 				width={{ base: '100vw', md: 'initial' }}
 				backgroundColor='#fff'
-				padding={{ base: '0 1rem', md: '0 2rem' }}
+				padding={{ base: '0 1rem', md: '0 60px' }}
 				minHeight='100vh'
 			>
 				<Flex
@@ -60,9 +60,10 @@ const Layout: React.FC<LayoutIprops> = ({
 					justifyContent='space-between'
 				>
 					<Text
-						fontWeight='semibold'
-						color='dark-grayish-blue'
-						fontSize='1.5rem'
+						fontWeight='bold'
+						color='#79746C'
+						fontSize='28px'
+						textTransform={`uppercase`}
 					>
 						{router.pathname === '/admin' ? 'Hola Fernando!' : title}
 					</Text>

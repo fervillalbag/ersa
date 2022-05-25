@@ -10,7 +10,7 @@ import {
 import produce from 'immer';
 import { GetServerSideProps } from 'next';
 import { useRef, useState } from 'react';
-import { BsTrash } from 'react-icons/bs';
+import { HiPlus, HiOutlineTrash } from 'react-icons/hi';
 
 import { HeaderInterface, Description, FileType } from '../../interfaces';
 import Layout from '../../layout/admin';
@@ -73,7 +73,6 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 			description: descriptionArray,
 		};
 
-		// Condición en caso de que la imagen se haya modificado
 		if (image) {
 			const responseImage = await useImage(fileImage as string);
 
@@ -84,6 +83,7 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 			};
 
 			const response = await updateHeader(data, headerInfo._id);
+			// TODO: Toast
 			console.log(response);
 			return;
 		}
@@ -94,51 +94,34 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 
 	return (
 		<Layout title='Header'>
-			<Box maxWidth='600px'>
+			<Box>
 				<Box marginBottom='1.5rem'>
 					<Text
 						as='label'
 						display='block'
 						htmlFor='title'
-						color='dark-grayish-blue'
+						fontSize={`18px`}
+						color='#79746C'
 						textTransform='uppercase'
-						fontWeight='semibold'
-						marginBottom='0.35rem'
+						marginBottom='10px'
 					>
 						Title
 					</Text>
 					<Input
 						id='title'
-						borderColor='dark-grayish-blue'
-						borderRadius='4px'
+						height={`50px`}
+						borderColor='#9F9A93'
 						paddingLeft='0.75rem'
 						value={headerInfo.title}
+						borderRadius={`3px`}
+						_focus={{ borderColor: '#79746C', outline: 'none' }}
 						onChange={e =>
 							setHeaderInfo({ ...headerInfo, title: e.target.value })
 						}
 					/>
 				</Box>
 
-				<Box marginBottom='1.5rem'>
-					<Button
-						backgroundColor='transparent'
-						border='1px solid #D9D9D9'
-						onClick={() => inputImgRef.current.click()}
-						_focus={{ shadow: 0 }}
-						color='dark-blue'
-						fontWeight='normal'
-					>
-						Change image
-					</Button>
-					<Input
-						ref={inputImgRef}
-						type='file'
-						onChange={handleChangeImage}
-						display='none'
-					/>
-				</Box>
-
-				<Box marginBottom='2rem'>
+				<Box marginBottom='1rem'>
 					<Image
 						src={image || headerInfo.image}
 						alt={headerInfo.title}
@@ -151,15 +134,38 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 					/>
 				</Box>
 
+				<Box marginBottom='1.5rem'>
+					<Button
+						backgroundColor='transparent'
+						borderRadius={`3px`}
+						height={`50px`}
+						minWidth={`initial`}
+						padding={`0 28px`}
+						border='1px solid #9F9A93'
+						onClick={() => inputImgRef.current.click()}
+						_focus={{ shadow: 0 }}
+						color='#79746C'
+						fontWeight={`normal`}
+					>
+						Change image
+					</Button>
+					<Input
+						ref={inputImgRef}
+						type='file'
+						onChange={handleChangeImage}
+						display='none'
+					/>
+				</Box>
+
 				<Box>
 					<Text
 						as='label'
 						display='block'
 						htmlFor='title'
-						color='dark-grayish-blue'
+						fontSize={`18px`}
+						color='#79746C'
 						textTransform='uppercase'
-						fontWeight='semibold'
-						marginBottom='0.35rem'
+						marginBottom='10px'
 					>
 						Description
 					</Text>
@@ -168,10 +174,11 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 						<Flex marginBottom='1rem' key={item.id}>
 							<Textarea
 								id='title'
-								borderColor='dark-grayish-blue'
-								borderRadius='4px'
+								borderColor='#9F9A93'
 								paddingLeft='0.75rem'
-								height='8rem'
+								borderRadius={`3px`}
+								height={`8rem`}
+								_focus={{ borderColor: '#79746C', outline: 'none' }}
 								resize='none'
 								value={item.text}
 								onChange={e => {
@@ -183,44 +190,52 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 									);
 								}}
 							/>
-							<Button
-								minWidth='initial'
-								height='auto'
-								border='1px solid #D9D9D9'
-								marginLeft='0.75rem'
-								backgroundColor='red.400'
-								color='white'
-								fontSize='1.2rem'
-								_focus={{ shadow: 0 }}
-								onClick={() => handleDeleteInputDescription(item.id)}
-							>
-								<BsTrash />
-							</Button>
+							<Flex>
+								<Button
+									minWidth='initial'
+									height='auto'
+									border='1px solid #9F9A93'
+									marginLeft='0.75rem'
+									backgroundColor='#fff'
+									color='#9F9A93'
+									fontSize='1.2rem'
+									borderRadius={`3px`}
+									_focus={{ shadow: 0 }}
+									onClick={handleAddInputDescription}
+								>
+									<HiPlus />
+								</Button>
+
+								<Button
+									minWidth='initial'
+									height='auto'
+									marginLeft='0.75rem'
+									backgroundColor='#9F9A93'
+									color='#F8F5ED'
+									fontSize='1.2rem'
+									borderRadius={`3px`}
+									_focus={{ shadow: 0 }}
+									onClick={() => handleDeleteInputDescription(item.id)}
+								>
+									<HiOutlineTrash />
+								</Button>
+							</Flex>
 						</Flex>
 					))}
-
-					<Button
-						backgroundColor='transparent'
-						border='1px solid #D9D9D9'
-						_focus={{ shadow: 0 }}
-						color='dark-blue'
-						fontWeight='normal'
-						onClick={handleAddInputDescription}
-					>
-						Add description
-					</Button>
 				</Box>
 
 				<Button
-					backgroundColor='dark-blue'
-					marginTop='1.5rem'
-					rounded='4px'
-					color='white'
-					fontWeight='semibold'
-					padding='0.75rem 2rem'
+					backgroundColor='#9F9A93'
+					marginTop='10px'
+					borderRadius='3px'
+					minWidth={`initial`}
+					height={`50px`}
+					padding={`0 32px`}
+					color='#fff'
+					fontWeight='normal'
 					onClick={handleUpdateHeaderInfo}
 				>
-					Update Info
+					Actualizar
 				</Button>
 			</Box>
 		</Layout>
