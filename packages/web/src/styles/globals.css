@@ -2,41 +2,50 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Be Vietnam Pro', sans-serif;
-  overflow-x: hidden;
-  font-weight: 400;
+	padding: 0;
+	margin: 0;
+	font-family: 'Be Vietnam Pro', sans-serif;
+	overflow-x: hidden;
+	font-weight: 400;
 }
 
 .swiper-button-prev,
 .swiper-button-next {
-  color: #fff !important;
-  margin: 1rem;
+	color: #fff !important;
+	margin: 1rem;
 }
 
 .swiper-button-prev::after,
 .swiper-button-next::after {
-  font-size: 30px !important;
+	font-size: 30px !important;
 }
 
 @media (min-width: 768px) {
-  .swiper-button-prev,
-  .swiper-button-next {
-    margin: 2rem;
-  }
+	.swiper-button-prev,
+	.swiper-button-next {
+		margin: 2rem;
+	}
 
-  .swiper-button-prev::after,
-  .swiper-button-next::after {
-    font-size: 40px !important;
-  }
+	.swiper-button-prev::after,
+	.swiper-button-next::after {
+		font-size: 40px !important;
+	}
 }
 
 .image img {
-  object-fit: cover;
+	object-fit: cover;
 }
 
 .lazy-load-image-background.blur.lazy-load-image-loaded img {
-  height: 100%;
-  object-fit: cover;
+	height: 100%;
+	object-fit: cover;
+}
+
+.swiper-pagination-bullet {
+	background-color: #fff !important;
+	opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+	background-color: #f25f3a !important;
 }
