@@ -90,6 +90,7 @@ const Navbar: React.FC = () => {
 						</Text>
 
 						<NavLinkAdmin path={`/admin/header`} name={`Encabezado`} />
+						<NavLinkAdmin path={`/admin/goals`} name={`Metas`} />
 						<NavLinkAdmin path={`/admin/values`} name={`Valores`} />
 						<NavLinkAdmin
 							path={`/admin/reviews`}
