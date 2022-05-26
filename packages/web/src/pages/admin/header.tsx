@@ -6,16 +6,24 @@ import {
 	Input,
 	Text,
 	Textarea,
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	useDisclosure,
 } from '@chakra-ui/react';
 import produce from 'immer';
 import { GetServerSideProps } from 'next';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HiPlus, HiOutlineTrash } from 'react-icons/hi';
 
 import { HeaderInterface, Description, FileType } from '../../interfaces';
 import Layout from '../../layout/admin';
 import { getHeaderInfo, updateHeader } from '../../utils';
 import { useImage } from '../../hooks/useImage';
+import toast from 'react-hot-toast';
 
 type AdminHeaderProps = {
 	headerData: HeaderInterface;
@@ -37,7 +45,8 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 		headerData.header.description
 	);
 
-	const [image, setImage] = useState<string>();
+	const [imageExist, setImageExist] = useState(headerData.header.image);
+	const [image, setImage] = useState<string | null>(null);
 	const [fileImage, setFileImage] = useState<FileType | string | Blob>();
 	const inputImgRef = useRef(null);
 
@@ -45,6 +54,8 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 		id: Date.now().toString(),
 		text: '',
 	};
+
+	const { isOpen, onClose, onOpen } = useDisclosure();
 
 	const handleAddInputDescription = () => {
 		setDescriptionArray([...descriptionArray, newInputDescription]);
@@ -61,15 +72,21 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 		const file = target.files[0];
 		const image = URL.createObjectURL(file);
 		setImage(image);
+		setImageExist(image);
 		setFileImage(file);
 	};
+
+	useEffect(() => {
+		setImage(null);
+		setFileImage(null);
+	}, []);
 
 	const handleUpdateHeaderInfo = async () => {
 		if (!headerInfo.title) return;
 
 		const data = {
 			title: headerInfo.title,
-			image,
+			image: image || headerInfo.image,
 			description: descriptionArray,
 		};
 
@@ -83,17 +100,83 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 			};
 
 			const response = await updateHeader(data, headerInfo._id);
-			// TODO: Toast
-			console.log(response);
-			return;
+
+			if (response.success) {
+				onClose();
+				return toast.success('Actualizado correctamente');
+			}
+
+			onClose();
+			return toast.error('Hubo un problema al actualizar');
 		}
 
 		const response = await updateHeader(data, headerInfo._id);
-		console.log(response);
+
+		if (response.success) {
+			onClose();
+			return toast.success('Actualizado correctamente');
+		}
+
+		onClose();
+		return toast.error('Hubo un problema al actualizar');
 	};
+
+	function arrayEquals(a, b) {
+		return (
+			Array.isArray(a) &&
+			Array.isArray(b) &&
+			a.length === b.length &&
+			a.every((val, index) => val.text === b[index].text)
+		);
+	}
+
+	const arraysEquals = arrayEquals(headerInfo.description, descriptionArray);
 
 	return (
 		<Layout title='Header'>
+			<Modal isOpen={isOpen} onClose={onClose} isCentered>
+				<ModalOverlay />
+				<ModalContent borderRadius={`3px`}>
+					<ModalHeader color='#79746C'>
+						¿Desea actualizar la información?
+					</ModalHeader>
+					<ModalBody marginTop={`-12px`}>
+						Confirmar si estás de acuerdo en realizar los cambios
+					</ModalBody>
+
+					<ModalFooter>
+						<Button
+							minWidth='initial'
+							height='45px'
+							padding={`0 32px`}
+							border='1px solid #9F9A93'
+							marginLeft='0.75rem'
+							backgroundColor='#fff'
+							color='#9F9A93'
+							borderRadius={`3px`}
+							_focus={{ shadow: 0 }}
+							onClick={onClose}
+						>
+							Cerrar
+						</Button>
+
+						<Button
+							minWidth='initial'
+							height='45px'
+							padding={`0 32px`}
+							marginLeft='0.75rem'
+							backgroundColor='#9F9A93'
+							color='#F8F5ED'
+							borderRadius={`3px`}
+							_focus={{ shadow: 0 }}
+							onClick={handleUpdateHeaderInfo}
+						>
+							Confirmar
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
+
 			<Box>
 				<Box marginBottom='1.5rem'>
 					<Text
@@ -225,7 +308,20 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 				</Box>
 
 				<Button
-					backgroundColor='#9F9A93'
+					backgroundColor={
+						headerInfo.title !== headerData.header.title ||
+						!arraysEquals ||
+						imageExist !== headerData.header.image
+							? '#9F9A93'
+							: 'hsl(35, 6%, 80%)'
+					}
+					cursor={
+						headerInfo.title !== headerData.header.title ||
+						!arraysEquals ||
+						imageExist !== headerData.header.image
+							? 'pointer'
+							: 'not-allowed'
+					}
 					marginTop='10px'
 					borderRadius='3px'
 					minWidth={`initial`}
@@ -233,7 +329,14 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 					padding={`0 32px`}
 					color='#fff'
 					fontWeight='normal'
-					onClick={handleUpdateHeaderInfo}
+					_focus={{ outline: 'none' }}
+					onClick={() =>
+						headerInfo.title !== headerData.header.title ||
+						!arraysEquals ||
+						imageExist !== headerData.header.image
+							? onOpen()
+							: null
+					}
 				>
 					Actualizar
 				</Button>
