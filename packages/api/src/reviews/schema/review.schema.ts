@@ -13,6 +13,14 @@ export const ReviewSchema = new Schema({
     type: Array,
     required: true,
   },
+  status: {
+    type: Boolean,
+    default: true,
+  },
+  order: {
+    type: Number,
+    default: 0,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
