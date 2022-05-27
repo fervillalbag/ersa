@@ -11,3 +11,15 @@ export const getReviews = async (): Promise<ReviewInterface | null> => {
 		return null;
 	}
 };
+
+export const getReview = async (id: string) => {
+	try {
+		const URL = process.env.URL_API;
+		const response = await fetch(`${URL}/reviews/${id}`);
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};

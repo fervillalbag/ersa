@@ -110,6 +110,10 @@ const Aside: React.FC = () => {
 						textTransform={`uppercase`}
 						padding={`0`}
 						fontWeight={`bold`}
+						backgroundColor={`transparent`}
+						_hover={{ backgroundColor: `transparent` }}
+						_focus={{ outline: '0' }}
+						_active={{ backgroundColor: `transparent` }}
 					>
 						Cerrar sesión
 					</Button>

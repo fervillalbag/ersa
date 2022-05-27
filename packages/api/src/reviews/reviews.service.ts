@@ -31,7 +31,7 @@ export class ReviewsService {
   }
 
   async deleteReview(id: string): Promise<ReviewInterface> {
-    const review = await this.reviewModel.findOneAndDelete({ id });
+    const review = await this.reviewModel.findOneAndDelete({ _id: id });
     return review;
   }
 
@@ -41,7 +41,7 @@ export class ReviewsService {
   }
 
   async getReview(id: string): Promise<ReviewInterface> {
-    const review = await this.reviewModel.findOne({ id });
+    const review = await this.reviewModel.findOne({ _id: id });
     return review;
   }
 }
