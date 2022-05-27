@@ -50,7 +50,7 @@ const TableRow = ({ value }: any) => {
 					{value.title}
 				</Box>
 				<Box color={`#79746C`} fontSize={`14px`} fontWeight={`bold`}>
-					{value.status ? 'Activo' : 'No disponible'}
+					{value.status ? 'Activo' : 'Inactivo'}
 				</Box>
 			</Grid>
 			<Box>
@@ -62,6 +62,7 @@ const TableRow = ({ value }: any) => {
 					width={`100%`}
 					height={`50px`}
 					_focus={{ outline: 'none' }}
+					_hover={{ backgroundColor: `#FFF` }}
 					onClick={() => router.push(`/admin/values/${value._id}`)}
 				>
 					<Text fontSize={`20px`} color={`#79746C`}>
@@ -77,6 +78,7 @@ const TableRow = ({ value }: any) => {
 					width={`100%`}
 					height={`50px`}
 					_focus={{ outline: 'none' }}
+					_hover={{ backgroundColor: `#79746C` }}
 				>
 					<Text fontSize={`20px`} color={`#FFF`}>
 						<HiOutlineTrash />

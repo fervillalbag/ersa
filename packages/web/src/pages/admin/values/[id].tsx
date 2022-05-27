@@ -7,6 +7,13 @@ import {
 	Switch,
 	Text,
 	Textarea,
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	useDisclosure,
 } from '@chakra-ui/react';
 import produce from 'immer';
 import { GetServerSideProps } from 'next';
@@ -16,6 +23,7 @@ import { HiOutlineChevronLeft, HiOutlineTrash, HiPlus } from 'react-icons/hi';
 import { Description, ValueType } from '../../../interfaces';
 import Layout from '../../../layout/admin';
 import { getValue, updateValue } from '../../../utils';
+import toast from 'react-hot-toast';
 
 type AdminValueItemProps = {
 	value: ValueType;
@@ -38,7 +46,7 @@ const AdminValueItem = ({ value }: AdminValueItemProps) => {
 	const [statusValue, setStatusValue] = useState(value.status);
 	const [descriptionArray, setDescriptionArray] = useState(value.description);
 
-	console.log(value);
+	const { isOpen, onClose, onOpen } = useDisclosure();
 
 	const newInputDescription: Description = {
 		id: Date.now().toString(),
@@ -65,8 +73,14 @@ const AdminValueItem = ({ value }: AdminValueItemProps) => {
 			};
 
 			const response = await updateValue(data, valueInfo._id);
-			console.log(response);
-			console.log('hello');
+
+			if (response.success) {
+				onClose();
+				return toast.success('Actualizado correctamente');
+			}
+
+			onClose();
+			return toast.error('Hubo un problema al actualizar');
 		} catch (error) {
 			console.log(error);
 		}
@@ -85,6 +99,51 @@ const AdminValueItem = ({ value }: AdminValueItemProps) => {
 
 	return (
 		<Layout>
+			<Modal isOpen={isOpen} onClose={onClose} isCentered>
+				<ModalOverlay />
+				<ModalContent borderRadius={`3px`}>
+					<ModalHeader color='#79746C'>
+						¿Desea actualizar la información?
+					</ModalHeader>
+					<ModalBody marginTop={`-12px`}>
+						Confirmar si estás de acuerdo en realizar los cambios
+					</ModalBody>
+
+					<ModalFooter>
+						<Button
+							minWidth='initial'
+							height='45px'
+							padding={`0 32px`}
+							border='1px solid #9F9A93'
+							marginLeft='0.75rem'
+							backgroundColor='#fff'
+							color='#9F9A93'
+							borderRadius={`3px`}
+							_focus={{ shadow: 0 }}
+							_hover={{ backgroundColor: `#FFF` }}
+							onClick={onClose}
+						>
+							Cerrar
+						</Button>
+
+						<Button
+							minWidth='initial'
+							height='45px'
+							padding={`0 32px`}
+							marginLeft='0.75rem'
+							backgroundColor='#9F9A93'
+							color='#F8F5ED'
+							borderRadius={`3px`}
+							_focus={{ shadow: 0 }}
+							_hover={{ backgroundColor: `#9F9A93` }}
+							onClick={handleUpdateValueItem}
+						>
+							Confirmar
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
+
 			<Box>
 				<Button
 					display={`flex`}
@@ -131,7 +190,7 @@ const AdminValueItem = ({ value }: AdminValueItemProps) => {
 						borderRadius={`3px`}
 						_focus={{ borderColor: '#79746C', outline: 'none' }}
 						onChange={e =>
-							setValueInfo({ ...valueInfo, order: parseInt(e.target.value) })
+							setValueInfo({ ...valueInfo, order: Number(e.target.value) })
 						}
 					/>
 				</Box>
@@ -282,7 +341,7 @@ const AdminValueItem = ({ value }: AdminValueItemProps) => {
 							valueInfo.order !== value.order ||
 							statusValue !== value.status ||
 							!arraysEquals
-								? handleUpdateValueItem() // onOpen
+								? onOpen()
 								: null
 						}
 					>
