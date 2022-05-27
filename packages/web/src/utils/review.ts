@@ -1,3 +1,4 @@
+import axios from '../config/axios';
 import { ReviewInterface } from '../interfaces';
 
 export const getReviews = async (): Promise<ReviewInterface | null> => {
@@ -22,4 +23,18 @@ export const getReview = async (id: string) => {
 		console.log(error);
 		return null;
 	}
+};
+
+export const updateReview = async (
+	data,
+	id: string
+): Promise<ReviewInterface | null> => {
+	const response = await axios({
+		method: 'PUT',
+		url: `/reviews/${id}`,
+		data: { ...data },
+	});
+
+	console.log(response);
+	return response.data;
 };

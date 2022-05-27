@@ -23,7 +23,7 @@ export class ReviewsService {
     createReviewDTO: CreateReviewDTO,
   ): Promise<ReviewInterface> {
     const review = await this.reviewModel.findOneAndUpdate(
-      { id },
+      { _id: id },
       createReviewDTO,
       { new: true },
     );
