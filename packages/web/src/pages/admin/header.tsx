@@ -24,6 +24,7 @@ import Layout from '../../layout/admin';
 import { getHeaderInfo, updateHeader } from '../../utils';
 import { useImage } from '../../hooks/useImage';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
 type AdminHeaderProps = {
 	headerData: HeaderInterface;
@@ -40,6 +41,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 const AdminHeader = ({ headerData }: AdminHeaderProps) => {
+	const router = useRouter();
+
 	const [headerInfo, setHeaderInfo] = useState(headerData.header);
 	const [descriptionArray, setDescriptionArray] = useState(
 		headerData.header.description
@@ -82,7 +85,18 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 	}, []);
 
 	const handleUpdateHeaderInfo = async () => {
-		if (!headerInfo.title) return;
+		if (!headerInfo.title)
+			return toast('Todos los campos son obligatorios!', {
+				icon: '🤨',
+			});
+
+		const result = descriptionArray.some(item => item.text === '');
+
+		if (result) {
+			return toast('Todos los campos son obligatorios!', {
+				icon: '🤨',
+			});
+		}
 
 		const data = {
 			title: headerInfo.title,
@@ -103,10 +117,12 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 
 			if (response.success) {
 				onClose();
+				router.push('/admin');
 				return toast.success('Actualizado correctamente');
 			}
 
 			onClose();
+			router.push('/admin');
 			return toast.error('Hubo un problema al actualizar');
 		}
 
@@ -114,10 +130,12 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 
 		if (response.success) {
 			onClose();
+			router.push('/admin');
 			return toast.success('Actualizado correctamente');
 		}
 
 		onClose();
+		router.push('/admin');
 		return toast.error('Hubo un problema al actualizar');
 	};
 
@@ -156,6 +174,8 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 							borderRadius={`3px`}
 							_focus={{ shadow: 0 }}
 							onClick={onClose}
+							_hover={{ backgroundColor: `#FFF` }}
+							_active={{ backgroundColor: `#FFF` }}
 						>
 							Cerrar
 						</Button>
@@ -169,6 +189,8 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 							color='#F8F5ED'
 							borderRadius={`3px`}
 							_focus={{ shadow: 0 }}
+							_hover={{ backgroundColor: `#9F9A93` }}
+							_active={{ backgroundColor: `#9F9A93` }}
 							onClick={handleUpdateHeaderInfo}
 						>
 							Confirmar
@@ -229,6 +251,8 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 						_focus={{ shadow: 0 }}
 						color='#79746C'
 						fontWeight={`normal`}
+						_hover={{ backgroundColor: `#FFF` }}
+						_active={{ backgroundColor: `#FFF` }}
 					>
 						Cambiar imagen
 					</Button>
@@ -284,6 +308,8 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 									fontSize='1.2rem'
 									borderRadius={`3px`}
 									_focus={{ shadow: 0 }}
+									_hover={{ backgroundColor: `#fff` }}
+									_active={{ backgroundColor: `#fff` }}
 									onClick={handleAddInputDescription}
 								>
 									<HiPlus />
@@ -297,6 +323,8 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 									color='#F8F5ED'
 									fontSize='1.2rem'
 									borderRadius={`3px`}
+									_hover={{ backgroundColor: `#9F9A93` }}
+									_active={{ backgroundColor: `#9F9A93` }}
 									_focus={{ shadow: 0 }}
 									onClick={() => handleDeleteInputDescription(item.id)}
 								>
@@ -313,7 +341,7 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 						!arraysEquals ||
 						imageExist !== headerData.header.image
 							? '#9F9A93'
-							: 'hsl(35, 6%, 80%)'
+							: '#cfcdc9'
 					}
 					cursor={
 						headerInfo.title !== headerData.header.title ||
@@ -330,6 +358,8 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 					color='#fff'
 					fontWeight='normal'
 					_focus={{ outline: 'none' }}
+					_hover={{ backgroundColor: `#cfcdc9` }}
+					_active={{ backgroundColor: `#cfcdc9` }}
 					onClick={() =>
 						headerInfo.title !== headerData.header.title ||
 						!arraysEquals ||

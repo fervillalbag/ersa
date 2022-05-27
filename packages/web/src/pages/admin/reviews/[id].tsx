@@ -72,6 +72,7 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 	useEffect(() => {
 		setImage(null);
 		setFileImage(null);
+		setImageExist(review.avatar);
 	}, []);
 
 	const handleAddInputDescription = () => {
@@ -96,6 +97,19 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 	const arraysEquals = arrayEquals(review.description, descriptionArray);
 
 	const handleUpdateReviewItem = async () => {
+		if (!reviewInfo.name || reviewInfo.order <= 0 || !imageExist)
+			return toast('Todos los campos son obligatorios!', {
+				icon: '🤨',
+			});
+
+		const result = descriptionArray.some(item => item.text === '');
+
+		if (result) {
+			return toast('Todos los campos son obligatorios!', {
+				icon: '🤨',
+			});
+		}
+
 		try {
 			const data = {
 				name: reviewInfo.name,
@@ -120,10 +134,12 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 
 				if (response.success) {
 					onClose();
+					router.push('/admin/reviews');
 					return toast.success('Actualizado correctamente');
 				}
 
 				onClose();
+				router.push('/admin/reviews');
 				return toast.error('Hubo un problema al actualizar');
 			}
 
@@ -131,10 +147,12 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 
 			if (response.success) {
 				onClose();
+				router.push('/admin/reviews');
 				return toast.success('Actualizado correctamente');
 			}
 
 			onClose();
+			router.push('/admin/reviews');
 			return toast.error('Hubo un problema al actualizar');
 		} catch (error) {
 			console.log(error);

@@ -64,6 +64,19 @@ const AdminValueItem = ({ value }: AdminValueItemProps) => {
 	};
 
 	const handleUpdateValueItem = async () => {
+		if (!valueInfo.title || valueInfo.order <= 0)
+			return toast('Todos los campos son obligatorios!', {
+				icon: '🤨',
+			});
+
+		const result = descriptionArray.some(item => item.text === '');
+
+		if (result) {
+			return toast('Todos los campos son obligatorios!', {
+				icon: '🤨',
+			});
+		}
+
 		try {
 			const data = {
 				title: valueInfo.title,
@@ -76,10 +89,12 @@ const AdminValueItem = ({ value }: AdminValueItemProps) => {
 
 			if (response.success) {
 				onClose();
+				router.push('/admin/values');
 				return toast.success('Actualizado correctamente');
 			}
 
 			onClose();
+			router.push('/admin/values');
 			return toast.error('Hubo un problema al actualizar');
 		} catch (error) {
 			console.log(error);

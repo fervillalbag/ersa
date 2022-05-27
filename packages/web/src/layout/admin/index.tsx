@@ -65,7 +65,7 @@ const Layout: React.FC<LayoutIprops> = ({
 						fontSize='28px'
 						textTransform={`uppercase`}
 					>
-						{router.pathname === '/admin' ? 'Hola Fernando!' : title}
+						{router.pathname === '/admin' ? 'Bienvenido!' : title}
 					</Text>
 				</Flex>
 				<Box paddingBottom='4rem'>{children}</Box>
