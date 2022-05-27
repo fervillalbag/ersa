@@ -188,7 +188,7 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 						textTransform='uppercase'
 						marginBottom='10px'
 					>
-						Title
+						Título
 					</Text>
 					<Input
 						id='title'
@@ -230,7 +230,7 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 						color='#79746C'
 						fontWeight={`normal`}
 					>
-						Change image
+						Cambiar imagen
 					</Button>
 					<Input
 						ref={inputImgRef}
@@ -250,7 +250,7 @@ const AdminHeader = ({ headerData }: AdminHeaderProps) => {
 						textTransform='uppercase'
 						marginBottom='10px'
 					>
-						Description
+						Descripción
 					</Text>
 
 					{descriptionArray.map((item, index) => (

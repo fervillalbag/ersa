@@ -40,7 +40,7 @@ export class ValuesService {
   }
 
   async getValue(id: string): Promise<ValueInterface> {
-    const value = await this.valueService.findOne({ id });
+    const value = await this.valueService.findOne({ _id: id });
     return value;
   }
 }

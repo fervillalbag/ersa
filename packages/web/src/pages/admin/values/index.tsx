@@ -57,6 +57,7 @@ const TableRow = ({ value }: any) => {
 				<Button
 					border={`1px solid #79746C`}
 					borderRadius={`3px`}
+					backgroundColor={`#FFF`}
 					minWidth={`initial`}
 					width={`100%`}
 					height={`50px`}
@@ -89,8 +90,6 @@ const TableRow = ({ value }: any) => {
 const AdminValues: React.FC<AdminValueProps> = ({
 	valuesData,
 }: AdminValueProps) => {
-	console.log(valuesData);
-
 	return (
 		<Layout title='Lista de valores'>
 			{/* <Text></Text> */}
