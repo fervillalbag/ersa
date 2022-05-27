@@ -99,6 +99,8 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 		try {
 			const data = {
 				name: reviewInfo.name,
+				order: reviewInfo.order,
+				status: statusReview,
 				avatar: reviewInfo.avatar,
 				description: descriptionArray,
 			};
@@ -109,6 +111,8 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 				const data = {
 					name: review.name,
 					avatar: responseImage,
+					order: reviewInfo.order,
+					status: statusReview,
 					description: descriptionArray,
 				};
 
@@ -124,7 +128,14 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 			}
 
 			const response = await updateReview(data, review._id);
-			console.log(response);
+
+			if (response.success) {
+				onClose();
+				return toast.success('Actualizado correctamente');
+			}
+
+			onClose();
+			return toast.error('Hubo un problema al actualizar');
 		} catch (error) {
 			console.log(error);
 		}
