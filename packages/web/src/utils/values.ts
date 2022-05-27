@@ -1,3 +1,4 @@
+import axios from '../config/axios';
 import { ValueInterface } from '../interfaces';
 
 export const getValues = async (): Promise<ValueInterface | null> => {
@@ -22,4 +23,18 @@ export const getValue = async (id: string) => {
 		console.log(error);
 		return null;
 	}
+};
+
+export const updateValue = async (
+	data,
+	id: string
+): Promise<ValueInterface | null> => {
+	const response = await axios({
+		method: 'PUT',
+		url: `/values/${id}`,
+		data: { ...data },
+	});
+
+	console.log(response);
+	return response.data;
 };

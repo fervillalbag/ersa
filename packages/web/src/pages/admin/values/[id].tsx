@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
 	Box,
 	Button,
@@ -10,12 +11,11 @@ import {
 import produce from 'immer';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import { HiOutlineChevronLeft, HiOutlineTrash, HiPlus } from 'react-icons/hi';
 
 import { Description, ValueType } from '../../../interfaces';
 import Layout from '../../../layout/admin';
-import { getValue } from '../../../utils';
+import { getValue, updateValue } from '../../../utils';
 
 type AdminValueItemProps = {
 	value: ValueType;
@@ -56,8 +56,32 @@ const AdminValueItem = ({ value }: AdminValueItemProps) => {
 	};
 
 	const handleUpdateValueItem = async () => {
-		console.log(statusValue);
+		try {
+			const data = {
+				title: valueInfo.title,
+				order: valueInfo.order,
+				status: statusValue,
+				description: descriptionArray,
+			};
+
+			const response = await updateValue(data, valueInfo._id);
+			console.log(response);
+			console.log('hello');
+		} catch (error) {
+			console.log(error);
+		}
 	};
+
+	function arrayEquals(a, b) {
+		return (
+			Array.isArray(a) &&
+			Array.isArray(b) &&
+			a.length === b.length &&
+			a.every((val, index) => val.text === b[index].text)
+		);
+	}
+
+	const arraysEquals = arrayEquals(value.description, descriptionArray);
 
 	return (
 		<Layout>
@@ -226,7 +250,44 @@ const AdminValueItem = ({ value }: AdminValueItemProps) => {
 						))}
 					</Box>
 
-					<Button onClick={handleUpdateValueItem}>submit</Button>
+					<Button
+						backgroundColor={
+							valueInfo.title !== value.title ||
+							valueInfo.order !== value.order ||
+							statusValue !== value.status ||
+							!arraysEquals
+								? '#9F9A93'
+								: 'hsl(35, 6%, 80%)'
+						}
+						cursor={
+							valueInfo.title !== value.title ||
+							valueInfo.order !== value.order ||
+							statusValue !== value.status ||
+							!arraysEquals
+								? 'pointer'
+								: 'not-allowed'
+						}
+						marginTop='10px'
+						borderRadius='3px'
+						minWidth={`initial`}
+						height={`50px`}
+						padding={`0 32px`}
+						color='#fff'
+						fontWeight='normal'
+						_focus={{ outline: 'none' }}
+						_active={{ backgroundColor: `hsl(35, 6%, 80%)` }}
+						_hover={{ backgroundColor: `hsl(35, 6%, 80%)` }}
+						onClick={() =>
+							valueInfo.title !== value.title ||
+							valueInfo.order !== value.order ||
+							statusValue !== value.status ||
+							!arraysEquals
+								? handleUpdateValueItem() // onOpen
+								: null
+						}
+					>
+						Actualizar
+					</Button>
 				</Box>
 			</Box>
 		</Layout>

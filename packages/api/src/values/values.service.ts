@@ -21,7 +21,7 @@ export class ValuesService {
     createValuesDTO: CreateValuesDTO,
   ): Promise<ValueInterface> {
     const value = await this.valueService.findOneAndUpdate(
-      { id },
+      { _id: id },
       createValuesDTO,
       { new: true },
     );

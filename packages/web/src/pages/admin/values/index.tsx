@@ -50,7 +50,7 @@ const TableRow = ({ value }: any) => {
 					{value.title}
 				</Box>
 				<Box color={`#79746C`} fontSize={`14px`} fontWeight={`bold`}>
-					Activo
+					{value.status ? 'Activo' : 'No disponible'}
 				</Box>
 			</Grid>
 			<Box>
