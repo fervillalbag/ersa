@@ -14,6 +14,11 @@ export const ValueSchema = new Schema({
     required: true,
     default: 0,
   },
+  status: {
+    type: Boolean,
+    required: true,
+    default: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

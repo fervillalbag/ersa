@@ -3,6 +3,7 @@ export class CreateValuesDTO {
   title: string;
   description: Description[];
   order: number;
+  status: boolean;
   createdAt: string;
   updatedAt: string;
 }

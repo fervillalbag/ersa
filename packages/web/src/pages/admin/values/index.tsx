@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 // TODO: fixed type validation props
 /* eslint-disable */
-const TableRow = ({ value, index }: any) => {
+const TableRow = ({ value }: any) => {
 	const router = useRouter();
 
 	return (
@@ -44,7 +44,7 @@ const TableRow = ({ value, index }: any) => {
 				onClick={() => router.push(`/admin/values/${value._id}`)}
 			>
 				<Box textAlign={`center`} color={`#79746C`} fontWeight={`bold`}>
-					{index + 1}
+					{value.order}
 				</Box>
 				<Box color={`#79746C`} fontSize={`14px`}>
 					{value.title}
@@ -109,7 +109,7 @@ const AdminValues: React.FC<AdminValueProps> = ({
 			<Box marginTop={`15px`}>
 				{valuesData.values.map((item, index: number) => (
 					<Box key={item._id}>
-						<TableRow value={item} index={index} />
+						<TableRow value={item} />
 					</Box>
 				))}
 			</Box>
