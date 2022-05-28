@@ -38,3 +38,14 @@ export const updateReview = async (
 	console.log(response);
 	return response.data;
 };
+
+export const createReview = async (data): Promise<ReviewInterface | null> => {
+	const response = await axios({
+		method: 'POST',
+		url: `/reviews/create`,
+		data: { ...data },
+	});
+
+	console.log(response);
+	return response.data;
+};

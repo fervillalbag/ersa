@@ -95,9 +95,25 @@ const TableRow = ({ value }: any) => {
 };
 
 const AdminReview = ({ reviews }) => {
+	const router = useRouter();
+
 	return (
 		<Layout title='Lista de reseñas'>
-			{/* <Text></Text> */}
+			<Box marginBottom={`25px`}>
+				<Button
+					border={`1px solid #79746C`}
+					borderRadius={`3px`}
+					backgroundColor={`#FFF`}
+					minWidth={`initial`}
+					// width={`100%`}
+					height={`45px`}
+					_focus={{ outline: 'none' }}
+					_hover={{ backgroundColor: `#FFF` }}
+					onClick={() => router.push(`/admin/reviews/create`)}
+				>
+					<Text color={`#79746C`}>Crear una reseña</Text>
+				</Button>
+			</Box>
 
 			<Grid gridTemplateColumns={`50px 35px 1fr 100px 50px 50px`} gap={`15px`}>
 				<Box color={`#79746c`} textAlign={`center`}>

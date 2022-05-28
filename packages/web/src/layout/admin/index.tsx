@@ -28,6 +28,8 @@ const Layout: React.FC<LayoutIprops> = ({
 				xl: '250px 1fr 300px',
 			}}
 			className='scrollbar-hide'
+			height={`100vh`}
+			overflow={`hidden`}
 		>
 			<Box display={{ base: 'none', md: 'block' }}>
 				{showNavbar ? (
@@ -73,6 +75,8 @@ const Layout: React.FC<LayoutIprops> = ({
 				backgroundColor='#fff'
 				padding={{ base: '0 1rem', md: '0 60px' }}
 				minHeight='100vh'
+				className='scrollbar-hide'
+				overflowY={`auto`}
 			>
 				<Flex
 					padding={{ base: '0', md: '1.25rem 0' }}

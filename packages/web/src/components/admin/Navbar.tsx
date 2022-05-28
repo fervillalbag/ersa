@@ -40,6 +40,7 @@ const Navbar: React.FC = () => {
 				height='full'
 				position='fixed'
 				overflowY='auto'
+				className='scrollbar-hide'
 				borderRight={`1px solid #79746C`}
 				backgroundColor={`#F8F5ED`}
 			>

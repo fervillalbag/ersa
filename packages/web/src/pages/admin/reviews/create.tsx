@@ -1,9 +1,9 @@
+import { useEffect, useRef, useState } from 'react';
 import {
 	Box,
 	Button,
 	Flex,
 	Input,
-	Switch,
 	Text,
 	Textarea,
 	Modal,
@@ -16,39 +16,29 @@ import {
 	Image,
 } from '@chakra-ui/react';
 import produce from 'immer';
-import { GetServerSideProps } from 'next';
+import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { HiOutlineChevronLeft, HiOutlineTrash, HiPlus } from 'react-icons/hi';
+
 import { useImage } from '../../../hooks/useImage';
-
-import { Description, FileType, ReviewType } from '../../../interfaces';
+// import { Description, FileType, ReviewType } from '../../../interfaces';
+import { Description, FileType } from '../../../interfaces';
 import Layout from '../../../layout/admin';
-import { getReview, updateReview } from '../../../utils';
+import { createReview } from '../../../utils';
 
-type AdminReviewItemProps = {
-	review: ReviewType;
-};
-
-export const getServerSideProps: GetServerSideProps = async context => {
-	const review = await getReview(context.params.id as string);
-
-	return {
-		props: {
-			review: review.review,
-		},
-	};
-};
-
-const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
+const AdminReviewItem = () => {
 	const router = useRouter();
 
-	const [reviewInfo, setReviewInfo] = useState(review);
-	const [statusReview, setStatusReview] = useState(review.status);
-	const [descriptionArray, setDescriptionArray] = useState(review.description);
+	const [name, setName] = useState<string>('');
+	const [order, setOrder] = useState<number>(0);
+	const [descriptionArray, setDescriptionArray] = useState([
+		{
+			id: uuidv4(),
+			text: '',
+		},
+	]);
 
-	const [imageExist, setImageExist] = useState(review.avatar);
 	const [image, setImage] = useState<string | null>(null);
 	const [fileImage, setFileImage] = useState<FileType | string | Blob>();
 	const inputImgRef = useRef(null);
@@ -65,14 +55,12 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 		const file = target.files[0];
 		const image = URL.createObjectURL(file);
 		setImage(image);
-		setImageExist(image);
 		setFileImage(file);
 	};
 
 	useEffect(() => {
 		setImage(null);
 		setFileImage(null);
-		setImageExist(review.avatar);
 	}, []);
 
 	const handleAddInputDescription = () => {
@@ -85,19 +73,8 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 		);
 	};
 
-	function arrayEquals(a, b) {
-		return (
-			Array.isArray(a) &&
-			Array.isArray(b) &&
-			a.length === b.length &&
-			a.every((val, index) => val.text === b[index].text)
-		);
-	}
-
-	const arraysEquals = arrayEquals(review.description, descriptionArray);
-
 	const handleUpdateReviewItem = async () => {
-		if (!reviewInfo.name || reviewInfo.order <= 0 || !imageExist)
+		if (!name || order < 0 || !image)
 			return toast('Todos los campos son obligatorios!', {
 				icon: '🤨',
 			});
@@ -111,39 +88,16 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 		}
 
 		try {
+			const responseImage = await useImage(fileImage as string);
+
 			const data = {
-				name: reviewInfo.name,
-				order: reviewInfo.order,
-				status: statusReview,
-				avatar: reviewInfo.avatar,
+				name,
+				avatar: responseImage,
+				order,
 				description: descriptionArray,
 			};
 
-			if (image) {
-				const responseImage = await useImage(fileImage as string);
-
-				const data = {
-					name: review.name,
-					avatar: responseImage,
-					order: reviewInfo.order,
-					status: statusReview,
-					description: descriptionArray,
-				};
-
-				const response = await updateReview(data, review._id);
-
-				if (response.success) {
-					onClose();
-					router.push('/admin/reviews');
-					return toast.success('Actualizado correctamente');
-				}
-
-				onClose();
-				router.push('/admin/reviews');
-				return toast.error('Hubo un problema al actualizar');
-			}
-
-			const response = await updateReview(data, review._id);
+			const response = await createReview(data);
 
 			if (response.success) {
 				onClose();
@@ -248,12 +202,10 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 						height={`50px`}
 						borderColor='#9F9A93'
 						paddingLeft='0.75rem'
-						value={reviewInfo.order}
+						value={order}
 						borderRadius={`3px`}
 						_focus={{ borderColor: '#79746C', outline: 'none' }}
-						onChange={e =>
-							setReviewInfo({ ...reviewInfo, order: Number(e.target.value) })
-						}
+						onChange={e => setOrder(Number(e.target.value))}
 					/>
 				</Box>
 
@@ -274,19 +226,17 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 						height={`50px`}
 						borderColor='#9F9A93'
 						paddingLeft='0.75rem'
-						value={reviewInfo.name}
+						value={name}
 						borderRadius={`3px`}
 						_focus={{ borderColor: '#79746C', outline: 'none' }}
-						onChange={e =>
-							setReviewInfo({ ...reviewInfo, name: e.target.value })
-						}
+						onChange={e => setName(e.target.value)}
 					/>
 				</Box>
 
 				<Box marginTop={`25px`}>
 					<Image
-						src={image || reviewInfo.avatar}
-						alt={reviewInfo.name}
+						src={image}
+						alt={name || ''}
 						width='10rem'
 						height='10rem'
 						objectFit='cover'
@@ -320,25 +270,6 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 						display='none'
 					/>
 				</Box>
-
-				<Flex alignItems={`center`} marginTop={`25px`}>
-					<Text
-						marginRight={`15px`}
-						fontSize={`18px`}
-						color='#79746C'
-						textTransform='uppercase'
-					>
-						Estado:
-					</Text>
-					<Box>
-						<Switch
-							id='email-alerts'
-							size={`lg`}
-							defaultChecked={statusReview}
-							onChange={() => setStatusReview(!statusReview)}
-						/>
-					</Box>
-				</Flex>
 
 				<Box marginTop={`25px`}>
 					<Text
@@ -411,23 +342,9 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 
 				<Button
 					backgroundColor={
-						reviewInfo.name !== review.name ||
-						reviewInfo.order !== review.order ||
-						imageExist !== review.avatar ||
-						statusReview !== review.status ||
-						!arraysEquals
-							? '#9F9A93'
-							: 'hsl(35, 6%, 80%)'
+						name || order > 0 || image ? '#9F9A93' : 'hsl(35, 6%, 80%)'
 					}
-					cursor={
-						reviewInfo.name !== review.name ||
-						reviewInfo.order !== review.order ||
-						imageExist !== review.avatar ||
-						statusReview !== review.status ||
-						!arraysEquals
-							? 'pointer'
-							: 'not-allowed'
-					}
+					cursor={name || order > 0 || image ? 'pointer' : 'not-allowed'}
 					marginTop='10px'
 					borderRadius='3px'
 					minWidth={`initial`}
@@ -438,15 +355,7 @@ const AdminReviewItem = ({ review }: AdminReviewItemProps) => {
 					_focus={{ outline: 'none' }}
 					_active={{ backgroundColor: `hsl(35, 6%, 80%)` }}
 					_hover={{ backgroundColor: `hsl(35, 6%, 80%)` }}
-					onClick={() =>
-						reviewInfo.name !== review.name ||
-						reviewInfo.order !== review.order ||
-						imageExist !== review.avatar ||
-						statusReview !== review.status ||
-						!arraysEquals
-							? onOpen()
-							: null
-					}
+					onClick={() => (name || order > 0 || image ? onOpen() : null)}
 				>
 					Actualizar
 				</Button>
