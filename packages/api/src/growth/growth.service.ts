@@ -31,8 +31,8 @@ export class GrowthService {
     return growth;
   }
 
-  async getGrowth(): Promise<GrowthInterface> {
-    const growth = await this.growthService.findOne({});
+  async getGrowth(id: string): Promise<GrowthInterface> {
+    const growth = await this.growthService.findOne({ _id: id });
     return growth;
   }
 }
