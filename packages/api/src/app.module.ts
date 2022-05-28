@@ -11,6 +11,7 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { AboutModule } from './about/about.module';
 import { ProductModule } from './product/product.module';
 import { BannerModule } from './banner/banner.module';
+import { CommunityModule } from './community/community.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { BannerModule } from './banner/banner.module';
     AboutModule,
     ProductModule,
     BannerModule,
+    CommunityModule,
   ],
   controllers: [AppController],
   providers: [AppService],
