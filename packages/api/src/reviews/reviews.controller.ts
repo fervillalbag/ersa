@@ -102,7 +102,7 @@ export class ReviewsController {
 
     return res.status(HttpStatus.OK).json({
       message: 'Review deleted!',
-      sucesss: true,
+      success: true,
       review,
     });
   }

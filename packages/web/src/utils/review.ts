@@ -49,3 +49,14 @@ export const createReview = async (data): Promise<ReviewInterface | null> => {
 	console.log(response);
 	return response.data;
 };
+
+export const deleteReview = async (
+	id: string
+): Promise<ReviewInterface | null> => {
+	const response = await axios({
+		method: 'DELETE',
+		url: `/reviews/${id}`,
+	});
+
+	return response.data;
+};
