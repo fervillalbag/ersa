@@ -22,8 +22,7 @@ import produce from 'immer';
 
 import { Description } from '../../interfaces';
 import Layout from '../../layout/admin';
-import { updateAbout } from '../../utils';
-import { getCommunityInfo } from '../../utils/community';
+import { getCommunityInfo, updateCommunityInfo } from '../../utils/community';
 import { CommunityInterface } from '../../interfaces/Community';
 
 type AdminAboutProps = {
@@ -84,7 +83,7 @@ const AdminHeader = ({ aboutCommunity }: AdminAboutProps) => {
 			description: descriptionArray,
 		};
 
-		const response = await updateAbout(data, communityInfo._id);
+		const response = await updateCommunityInfo(data, communityInfo._id);
 
 		if (response.success) {
 			onClose();
