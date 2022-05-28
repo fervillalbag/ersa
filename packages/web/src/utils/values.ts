@@ -38,3 +38,14 @@ export const updateValue = async (
 	console.log(response);
 	return response.data;
 };
+
+export const createValue = async (data): Promise<ValueInterface | null> => {
+	const response = await axios({
+		method: 'POST',
+		url: `/values/create`,
+		data: { ...data },
+	});
+
+	console.log(response);
+	return response.data;
+};

@@ -92,9 +92,25 @@ const TableRow = ({ value }: any) => {
 const AdminValues: React.FC<AdminValueProps> = ({
 	valuesData,
 }: AdminValueProps) => {
+	const router = useRouter();
+
 	return (
 		<Layout title='Lista de valores'>
-			{/* <Text></Text> */}
+			<Box marginBottom={`25px`}>
+				<Button
+					border={`1px solid #79746C`}
+					borderRadius={`3px`}
+					backgroundColor={`#FFF`}
+					minWidth={`initial`}
+					// width={`100%`}
+					height={`45px`}
+					_focus={{ outline: 'none' }}
+					_hover={{ backgroundColor: `#FFF` }}
+					onClick={() => router.push(`/admin/values/create`)}
+				>
+					<Text color={`#79746C`}>Crear un valor</Text>
+				</Button>
+			</Box>
 
 			<Grid gridTemplateColumns={`50px 1fr 100px 50px 50px`} gap={`15px`}>
 				<Box color={`#79746c`} textAlign={`center`}>
