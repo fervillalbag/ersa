@@ -132,6 +132,7 @@ const Navbar: React.FC = () => {
 						</Text>
 
 						<NavLinkAdmin path={`/admin/product`} name={`Lista de productos`} />
+						<NavLinkAdmin path={`/admin/orders`} name={`Lista de pedidos`} />
 					</Box>
 
 					<Box

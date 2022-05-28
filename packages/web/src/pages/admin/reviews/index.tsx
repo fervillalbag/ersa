@@ -29,7 +29,7 @@ const TableRow = ({ value }: any) => {
 			marginBottom={`15px`}
 		>
 			<Grid
-				gridTemplateColumns={`35px 50px 1fr 100px`}
+				gridTemplateColumns={`50px 35px 1fr 100px`}
 				backgroundColor={`#F8F5ED`}
 				gap={`15px`}
 				borderRadius={`3px`}
@@ -99,7 +99,7 @@ const AdminReview = ({ reviews }) => {
 		<Layout title='Lista de reseñas'>
 			{/* <Text></Text> */}
 
-			<Grid gridTemplateColumns={`35px 50px 1fr 100px 50px 50px`} gap={`15px`}>
+			<Grid gridTemplateColumns={`50px 35px 1fr 100px 50px 50px`} gap={`15px`}>
 				<Box color={`#79746c`} textAlign={`center`}>
 					Nro
 				</Box>

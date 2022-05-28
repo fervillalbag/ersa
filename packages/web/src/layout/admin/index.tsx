@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { Box, Grid, Text, Flex, Button } from '@chakra-ui/react';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaBars, FaUser } from 'react-icons/fa';
 
 import Navbar from '../../components/admin/Navbar';
 import Aside from '../../components/admin/Aside';
@@ -21,7 +21,14 @@ const Layout: React.FC<LayoutIprops> = ({
 	const router = useRouter();
 
 	return (
-		<Grid gridTemplateColumns='250px 1fr 300px' className='scrollbar-hide'>
+		<Grid
+			gridTemplateColumns={{
+				base: '1fr',
+				md: '250px 1fr',
+				xl: '250px 1fr 300px',
+			}}
+			className='scrollbar-hide'
+		>
 			<Box display={{ base: 'none', md: 'block' }}>
 				{showNavbar ? (
 					<Navbar />
@@ -48,6 +55,19 @@ const Layout: React.FC<LayoutIprops> = ({
 					</Box>
 				)}
 			</Box>
+			<Flex
+				display={{ base: 'flex', md: 'none' }}
+				padding={{ base: '1rem', md: '0' }}
+				justifyContent={`space-between`}
+			>
+				<Button>
+					<FaBars />
+				</Button>
+				<Button>
+					<FaUser />
+				</Button>
+			</Flex>
+
 			<Box
 				width={{ base: '100vw', md: 'initial' }}
 				backgroundColor='#fff'
@@ -55,7 +75,7 @@ const Layout: React.FC<LayoutIprops> = ({
 				minHeight='100vh'
 			>
 				<Flex
-					padding='1.25rem 0'
+					padding={{ base: '0', md: '1.25rem 0' }}
 					alignItems='center'
 					justifyContent='space-between'
 				>
@@ -70,7 +90,9 @@ const Layout: React.FC<LayoutIprops> = ({
 				</Flex>
 				<Box paddingBottom='4rem'>{children}</Box>
 			</Box>
-			<Aside />
+			<Box display={{ base: 'none', lg: 'block' }}>
+				<Aside />
+			</Box>
 		</Grid>
 	);
 };
