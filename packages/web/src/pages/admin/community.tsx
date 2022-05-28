@@ -2,7 +2,6 @@ import {
 	Box,
 	Button,
 	Flex,
-	Image,
 	Input,
 	Text,
 	Textarea,
@@ -16,43 +15,38 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { HiPlus, HiOutlineTrash } from 'react-icons/hi';
 import toast from 'react-hot-toast';
 import produce from 'immer';
 
-import { Description, FileType } from '../../interfaces';
+import { Description } from '../../interfaces';
 import Layout from '../../layout/admin';
-import { getAboutInfo, updateAbout } from '../../utils';
-import { useImage } from '../../hooks/useImage';
-import { AboutInterface } from '../../interfaces/About';
+import { updateAbout } from '../../utils';
+import { getCommunityInfo } from '../../utils/community';
+import { CommunityInterface } from '../../interfaces/Community';
 
 type AdminAboutProps = {
-	aboutData: AboutInterface;
+	aboutCommunity: CommunityInterface;
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const aboutData = await getAboutInfo();
+	const aboutCommunity = await getCommunityInfo();
 
 	return {
 		props: {
-			aboutData,
+			aboutCommunity,
 		},
 	};
 };
 
-const AdminHeader = ({ aboutData }: AdminAboutProps) => {
+const AdminHeader = ({ aboutCommunity }: AdminAboutProps) => {
 	const router = useRouter();
 
-	const [aboutInfo, setAboutInfo] = useState(aboutData.about);
+	const [communityInfo, setCommunityInfo] = useState(aboutCommunity.community);
 	const [descriptionArray, setDescriptionArray] = useState(
-		aboutData.about.description
+		aboutCommunity.community.description
 	);
-
-	const [imageExist, setImageExist] = useState(aboutData.about.image);
-	const [image, setImage] = useState<string | null>(null);
-	const [fileImage, setFileImage] = useState<FileType | string | Blob>();
-	const inputImgRef = useRef(null);
 
 	const newInputDescription: Description = {
 		id: Date.now().toString(),
@@ -71,22 +65,8 @@ const AdminHeader = ({ aboutData }: AdminAboutProps) => {
 		);
 	};
 
-	const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const target = e.currentTarget as HTMLInputElement;
-		const file = target.files[0];
-		const image = URL.createObjectURL(file);
-		setImage(image);
-		setImageExist(image);
-		setFileImage(file);
-	};
-
-	useEffect(() => {
-		setImage(null);
-		setFileImage(null);
-	}, []);
-
 	const handleUpdateAboutInfo = async () => {
-		if (!aboutInfo.title)
+		if (!communityInfo.title)
 			return toast('Todos los campos son obligatorios!', {
 				icon: '🤨',
 			});
@@ -100,34 +80,11 @@ const AdminHeader = ({ aboutData }: AdminAboutProps) => {
 		}
 
 		const data = {
-			title: aboutInfo.title,
-			image: image || aboutInfo.image,
+			title: communityInfo.title,
 			description: descriptionArray,
 		};
 
-		if (image) {
-			const responseImage = await useImage(fileImage as string);
-
-			const data = {
-				title: aboutInfo.title,
-				image: responseImage,
-				description: descriptionArray,
-			};
-
-			const response = await updateAbout(data, aboutInfo._id);
-
-			if (response.success) {
-				onClose();
-				router.push('/admin');
-				return toast.success('Actualizado correctamente');
-			}
-
-			onClose();
-			router.push('/admin');
-			return toast.error('Hubo un problema al actualizar');
-		}
-
-		const response = await updateAbout(data, aboutInfo._id);
+		const response = await updateAbout(data, communityInfo._id);
 
 		if (response.success) {
 			onClose();
@@ -149,7 +106,7 @@ const AdminHeader = ({ aboutData }: AdminAboutProps) => {
 		);
 	}
 
-	const arraysEquals = arrayEquals(aboutInfo.description, descriptionArray);
+	const arraysEquals = arrayEquals(communityInfo.description, descriptionArray);
 
 	return (
 		<Layout title='Header'>
@@ -218,50 +175,12 @@ const AdminHeader = ({ aboutData }: AdminAboutProps) => {
 						height={`50px`}
 						borderColor='#9F9A93'
 						paddingLeft='0.75rem'
-						value={aboutInfo.title}
+						value={communityInfo.title}
 						borderRadius={`3px`}
 						_focus={{ borderColor: '#79746C', outline: 'none' }}
 						onChange={e =>
-							setAboutInfo({ ...aboutInfo, title: e.target.value })
+							setCommunityInfo({ ...communityInfo, title: e.target.value })
 						}
-					/>
-				</Box>
-
-				<Box marginBottom='1rem'>
-					<Image
-						src={image || aboutInfo.image}
-						alt={aboutInfo.title}
-						width='10rem'
-						height='10rem'
-						objectFit='cover'
-						border='1px solid #D9D9D9'
-						rounded='4px'
-						padding='0.5rem'
-					/>
-				</Box>
-
-				<Box marginBottom='1.5rem'>
-					<Button
-						backgroundColor='transparent'
-						borderRadius={`3px`}
-						height={`50px`}
-						minWidth={`initial`}
-						padding={`0 28px`}
-						border='1px solid #9F9A93'
-						onClick={() => inputImgRef.current.click()}
-						_focus={{ shadow: 0 }}
-						color='#79746C'
-						fontWeight={`normal`}
-						_hover={{ backgroundColor: `#FFF` }}
-						_active={{ backgroundColor: `#FFF` }}
-					>
-						Cambiar imagen
-					</Button>
-					<Input
-						ref={inputImgRef}
-						type='file'
-						onChange={handleChangeImage}
-						display='none'
 					/>
 				</Box>
 
@@ -338,16 +257,14 @@ const AdminHeader = ({ aboutData }: AdminAboutProps) => {
 
 				<Button
 					backgroundColor={
-						aboutInfo.title !== aboutData.about.title ||
-						!arraysEquals ||
-						imageExist !== aboutData.about.image
+						communityInfo.title !== aboutCommunity.community.title ||
+						!arraysEquals
 							? '#9F9A93'
 							: '#cfcdc9'
 					}
 					cursor={
-						aboutInfo.title !== aboutData.about.title ||
-						!arraysEquals ||
-						imageExist !== aboutData.about.image
+						communityInfo.title !== aboutCommunity.community.title ||
+						!arraysEquals
 							? 'pointer'
 							: 'not-allowed'
 					}
@@ -362,9 +279,8 @@ const AdminHeader = ({ aboutData }: AdminAboutProps) => {
 					_hover={{ backgroundColor: `#cfcdc9` }}
 					_active={{ backgroundColor: `#cfcdc9` }}
 					onClick={() =>
-						aboutInfo.title !== aboutData.about.title ||
-						!arraysEquals ||
-						imageExist !== aboutData.about.image
+						communityInfo.title !== aboutCommunity.community.title ||
+						!arraysEquals
 							? onOpen()
 							: null
 					}

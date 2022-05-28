@@ -31,8 +31,8 @@ export class CommunityService {
     return community;
   }
 
-  async getCommunityInfo(id: string): Promise<CommunityInterface> {
-    const community = await this.communityModel.findOne({ _id: id });
+  async getCommunityInfo(): Promise<CommunityInterface> {
+    const community = await this.communityModel.findOne({});
     return community;
   }
 }

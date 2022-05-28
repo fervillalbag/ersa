@@ -59,12 +59,9 @@ export class CommunityController {
     });
   }
 
-  @Get('/:id')
-  async getCommunityInfo(
-    @Res() res,
-    @Param('id') id: string,
-  ): Promise<CommunityInterface> {
-    const community = await this.communityService.getCommunityInfo(id);
+  @Get('/')
+  async getCommunityInfo(@Res() res): Promise<CommunityInterface> {
+    const community = await this.communityService.getCommunityInfo();
 
     if (Object.keys(community).length === 0) {
       throw new NotFoundException('Community info not found!');

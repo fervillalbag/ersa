@@ -14,3 +14,17 @@ export const getBanners = async (): Promise<BannerInterface | null> => {
 		return null;
 	}
 };
+
+export const getCommunityInfo = async () => {
+	try {
+		const community = await axios({
+			method: 'GET',
+			url: '/community',
+		});
+
+		return community.data;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};
