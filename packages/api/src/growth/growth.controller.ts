@@ -54,12 +54,9 @@ export class GrowthController {
     });
   }
 
-  @Get('/:id')
-  async getGrowth(
-    @Res() res,
-    @Param('id') id: string,
-  ): Promise<GrowthInterface> {
-    const growth = await this.growthService.getGrowth(id);
+  @Get('/')
+  async getGrowth(@Res() res): Promise<GrowthInterface> {
+    const growth = await this.growthService.getGrowth();
 
     if (Object.keys(growth).length === 0) {
       throw new NotFoundException('Growth not found');
