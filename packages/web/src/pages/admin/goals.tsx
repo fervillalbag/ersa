@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
 	Box,
 	Button,
@@ -13,16 +14,15 @@ import {
 	ModalBody,
 	useDisclosure,
 } from '@chakra-ui/react';
-import produce from 'immer';
 import { GetServerSideProps } from 'next';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import produce from 'immer';
 import { HiPlus, HiOutlineTrash } from 'react-icons/hi';
+import toast from 'react-hot-toast';
 
 import { Description, GrowthInterface } from '../../interfaces';
 import Layout from '../../layout/admin';
-import { getGrowthInfo, updateHeader } from '../../utils';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/router';
+import { getGrowthInfo, updateGrowth } from '../../utils';
 
 type AdminHeaderProps = {
 	growthData: GrowthInterface;
@@ -82,7 +82,7 @@ const AdminGrowth = ({ growthData }: AdminHeaderProps) => {
 			description: descriptionArray,
 		};
 
-		const response = await updateHeader(data, growthInfo._id);
+		const response = await updateGrowth(data, growthInfo._id);
 
 		if (response.success) {
 			onClose();
