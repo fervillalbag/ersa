@@ -49,3 +49,14 @@ export const createValue = async (data): Promise<ValueInterface | null> => {
 	console.log(response);
 	return response.data;
 };
+
+export const deleteValue = async (
+	id: string
+): Promise<ValueInterface | null> => {
+	const response = await axios({
+		method: 'DELETE',
+		url: `/values/${id}`,
+	});
+
+	return response.data;
+};

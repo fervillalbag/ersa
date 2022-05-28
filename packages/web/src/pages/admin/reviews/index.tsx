@@ -38,11 +38,10 @@ const TableRow = ({ value }: any) => {
 
 	const handleDeleteReviewItem = async () => {
 		const response = await deleteReview(value._id);
-		console.log(response);
 
 		if (response.success) {
+			router.push('/admin/reviews');
 			onClose();
-			router.reload();
 			return toast.success('Eliminado correctamente');
 		}
 

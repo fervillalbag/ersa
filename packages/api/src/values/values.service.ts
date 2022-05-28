@@ -30,7 +30,7 @@ export class ValuesService {
   }
 
   async deleteValue(id: string): Promise<ValueInterface> {
-    const value = await this.valueService.findOneAndDelete({ id });
+    const value = await this.valueService.findOneAndDelete({ _id: id });
     return value;
   }
 
