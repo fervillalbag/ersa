@@ -35,7 +35,6 @@ export const updateValue = async (
 		data: { ...data },
 	});
 
-	console.log(response);
 	return response.data;
 };
 
@@ -46,7 +45,6 @@ export const createValue = async (data): Promise<ValueInterface | null> => {
 		data: { ...data },
 	});
 
-	console.log(response);
 	return response.data;
 };
 

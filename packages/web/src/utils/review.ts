@@ -35,7 +35,6 @@ export const updateReview = async (
 		data: { ...data },
 	});
 
-	console.log(response);
 	return response.data;
 };
 
@@ -46,7 +45,6 @@ export const createReview = async (data): Promise<ReviewInterface | null> => {
 		data: { ...data },
 	});
 
-	console.log(response);
 	return response.data;
 };
 

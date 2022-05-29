@@ -8,8 +8,6 @@ export const getGrowthInfo = async (): Promise<GrowthInterface | null> => {
 			url: `/growth`,
 		});
 
-		console.log(response);
-
 		return response.data;
 	} catch (error) {
 		console.log(error);

@@ -23,6 +23,5 @@ export const updateHeader = async (
 		data: { ...data },
 	});
 
-	console.log(response);
 	return response.data;
 };
