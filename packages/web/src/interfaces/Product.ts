@@ -1,6 +1,6 @@
 import { Description } from './Description';
 
-export type Product = {
+export type ProductType = {
 	_id?: string;
 	name: string;
 	quantity: number;
@@ -15,11 +15,11 @@ export type Product = {
 export type ProductsInterface = {
 	message: string;
 	success: boolean;
-	products: Product[];
+	products: ProductType[];
 };
 
 export type ProductInterface = {
 	message: string;
 	success: boolean;
-	product: Product;
+	product: ProductType;
 };

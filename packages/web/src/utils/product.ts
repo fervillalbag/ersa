@@ -1,4 +1,5 @@
-import { ProductsInterface } from '../interfaces';
+import axios from '../config/axios';
+import { ProductInterface, ProductsInterface } from '../interfaces';
 
 export const getProducts = async (): Promise<ProductsInterface | null> => {
 	try {
@@ -14,12 +15,14 @@ export const getProducts = async (): Promise<ProductsInterface | null> => {
 
 export const getProduct = async (
 	id: string
-): Promise<ProductsInterface | null> => {
+): Promise<ProductInterface | null> => {
 	try {
-		const URL = process.env.URL_API;
-		const response = await fetch(`${URL}/product/${id}`);
-		const data = await response.json();
-		return data;
+		const response = await axios({
+			method: 'GET',
+			url: `/product/${id}`,
+		});
+
+		return response.data;
 	} catch (error) {
 		console.log(error);
 		return null;
