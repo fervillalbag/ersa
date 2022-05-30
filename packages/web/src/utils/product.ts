@@ -35,7 +35,28 @@ export const updateProduct = async (
 ): Promise<ProductInterface | null> => {
 	const response = await axios({
 		method: 'PUT',
-		url: `/reviews/${id}`,
+		url: `/product/${id}`,
+		data: { ...data },
+	});
+
+	return response.data;
+};
+
+export const deleteProduct = async (
+	id: string
+): Promise<ProductInterface | null> => {
+	const response = await axios({
+		method: 'DELETE',
+		url: `/product/${id}`,
+	});
+
+	return response.data;
+};
+
+export const createProduct = async (data): Promise<ProductInterface | null> => {
+	const response = await axios({
+		method: 'POST',
+		url: `/product/create`,
 		data: { ...data },
 	});
 

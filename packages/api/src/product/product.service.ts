@@ -24,7 +24,7 @@ export class ProductService {
     createProductDTO: CreateProductDTO,
   ): Promise<ProductInterface> {
     const product = await this.productModel.findOneAndUpdate(
-      { id },
+      { _id: id },
       createProductDTO,
       { new: true },
     );

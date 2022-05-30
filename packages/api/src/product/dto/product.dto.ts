@@ -10,6 +10,7 @@ export class CreateProductDTO {
   price: number;
   qty?: number;
   image: string;
+  status: boolean;
   category: string;
   description: Description[];
   createdAt?: number;

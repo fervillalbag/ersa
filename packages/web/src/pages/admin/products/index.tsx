@@ -14,10 +14,11 @@ import {
 } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 import { HiOutlinePencilAlt, HiOutlineTrash } from 'react-icons/hi';
 
 import Layout from '../../../layout/admin';
-import { getProducts } from '../../../utils';
+import { deleteProduct, getProducts } from '../../../utils';
 
 export const getServerSideProps: GetServerSideProps = async () => {
 	const products = await getProducts();
@@ -36,6 +37,14 @@ const TableRow = ({ value }: any) => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
 
 	const handleDeleteReviewItem = async () => {
+		const response = await deleteProduct(value._id);
+
+		if (response.success) {
+			router.push('/admin/products');
+			onClose();
+			return toast.success('Eliminado correctamente');
+		}
+
 		onClose();
 	};
 

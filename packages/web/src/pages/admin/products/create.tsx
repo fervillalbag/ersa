@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import {
 	Box,
 	Button,
@@ -16,41 +17,35 @@ import {
 	useDisclosure,
 	Textarea,
 } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
+import toast from 'react-hot-toast';
+import produce from 'immer';
+import { useRouter } from 'next/router';
+import { v4 as uuidv4 } from 'uuid';
+import { HiOutlineChevronLeft, HiOutlineTrash, HiPlus } from 'react-icons/hi';
 
 import Layout from '../../../layout/admin';
-import { Description, FileType, ProductType } from '../../../interfaces';
-import { getProduct, updateProduct } from '../../../utils';
-import { HiOutlineChevronLeft, HiOutlineTrash, HiPlus } from 'react-icons/hi';
-import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
-import toast from 'react-hot-toast';
 import { useImage } from '../../../hooks/useImage';
-import produce from 'immer';
+import { createProduct } from '../../../utils';
+import { Description, FileType, ProductType } from '../../../interfaces';
 
 export type AdminProductItemProps = {
 	product: ProductType;
 };
 
-export const getServerSideProps: GetServerSideProps = async context => {
-	const product = await getProduct(context.params.id as string);
+const AdminProductItem = () => {
+	const [name, setName] = useState<string>('');
+	const [category, setCategory] = useState<string>('');
+	const [price, setPrice] = useState<number>(0);
+	const [quantity, setQuantity] = useState<number>(0);
 
-	return {
-		props: {
-			product: product.product,
-		},
-	};
-};
-
-const AdminProductItem = ({ product }: AdminProductItemProps) => {
-	const [productInfo, setProductInfo] = useState(product);
-	const [descriptionArray, setDescriptionArray] = useState(product.description);
+	const [descriptionArray, setDescriptionArray] = useState([
+		{ id: uuidv4(), text: '' },
+	]);
 
 	const router = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const [statusValue, setStatusValue] = useState<boolean>(product.status);
-	const [imageExist, setImageExist] = useState(product.image);
+	const [statusValue, setStatusValue] = useState<boolean>(true);
 	const [image, setImage] = useState<string | null>(null);
 	const [fileImage, setFileImage] = useState<FileType | string | Blob>();
 	const inputImgRef = useRef(null);
@@ -75,35 +70,16 @@ const AdminProductItem = ({ product }: AdminProductItemProps) => {
 		const file = target.files[0];
 		const image = URL.createObjectURL(file);
 		setImage(image);
-		setImageExist(image);
 		setFileImage(file);
 	};
 
 	useEffect(() => {
 		setImage(null);
 		setFileImage(null);
-		setImageExist(product.image);
 	}, []);
 
-	function arrayEquals(a, b) {
-		return (
-			Array.isArray(a) &&
-			Array.isArray(b) &&
-			a.length === b.length &&
-			a.every((val, index) => val.text === b[index].text)
-		);
-	}
-
-	const arraysEquals = arrayEquals(product.description, descriptionArray);
-
 	const handleUpdateProductItem = async () => {
-		if (
-			!productInfo.name ||
-			!productInfo.category ||
-			!imageExist ||
-			productInfo.price < 0 ||
-			productInfo.quantity < 0
-		)
+		if (!name || !category || !image || price < 0 || quantity < 0)
 			return toast('Todos los campos son obligatorios!', {
 				icon: '🤨',
 			});
@@ -117,43 +93,19 @@ const AdminProductItem = ({ product }: AdminProductItemProps) => {
 		}
 
 		try {
+			const responseImage = await useImage(fileImage as string);
+
 			const data = {
-				name: productInfo.name,
-				price: productInfo.price,
-				image: productInfo.image,
+				name,
+				price,
+				image: responseImage,
 				status: statusValue,
-				category: productInfo.category,
-				quantity: productInfo.quantity,
+				category,
+				quantity,
 				description: descriptionArray,
 			};
 
-			if (image) {
-				const responseImage = await useImage(fileImage as string);
-
-				const data = {
-					name: productInfo.name,
-					price: productInfo.price,
-					image: responseImage,
-					status: statusValue,
-					category: productInfo.category,
-					quantity: productInfo.quantity,
-					description: descriptionArray,
-				};
-
-				const response = await updateProduct(data, router.query.id as string);
-
-				if (response.success) {
-					onClose();
-					router.push('/admin/products');
-					return toast.success('Actualizado correctamente');
-				}
-
-				onClose();
-				router.push('/admin/products');
-				return toast.error('Hubo un problema al actualizar');
-			}
-
-			const response = await updateProduct(data, router.query.id as string);
+			const response = await createProduct(data);
 
 			if (response.success) {
 				onClose();
@@ -168,6 +120,8 @@ const AdminProductItem = ({ product }: AdminProductItemProps) => {
 			console.log(error);
 		}
 	};
+
+	const result = descriptionArray.some(item => item.text === '');
 
 	return (
 		<Layout>
@@ -259,10 +213,8 @@ const AdminProductItem = ({ product }: AdminProductItemProps) => {
 						paddingLeft='0.75rem'
 						borderRadius={`3px`}
 						_focus={{ borderColor: '#79746C', outline: 'none' }}
-						value={productInfo.name}
-						onChange={e =>
-							setProductInfo({ ...productInfo, name: e.target.value })
-						}
+						value={name}
+						onChange={e => setName(e.target.value)}
 					/>
 				</Box>
 
@@ -292,13 +244,8 @@ const AdminProductItem = ({ product }: AdminProductItemProps) => {
 							paddingLeft='0.75rem'
 							borderRadius={`3px`}
 							_focus={{ borderColor: '#79746C', outline: 'none' }}
-							value={productInfo.quantity}
-							onChange={e =>
-								setProductInfo({
-									...productInfo,
-									quantity: Number(e.target.value),
-								})
-							}
+							value={quantity}
+							onChange={e => setQuantity(Number(e.target.value))}
 						/>
 					</Box>
 					<Box>
@@ -322,13 +269,8 @@ const AdminProductItem = ({ product }: AdminProductItemProps) => {
 							paddingLeft='0.75rem'
 							borderRadius={`3px`}
 							_focus={{ borderColor: '#79746C', outline: 'none' }}
-							value={productInfo.category}
-							onChange={e =>
-								setProductInfo({
-									...productInfo,
-									category: e.target.value,
-								})
-							}
+							value={category}
+							onChange={e => setCategory(e.target.value)}
 						/>
 					</Box>
 				</Grid>
@@ -359,13 +301,8 @@ const AdminProductItem = ({ product }: AdminProductItemProps) => {
 							paddingLeft='0.75rem'
 							borderRadius={`3px`}
 							_focus={{ borderColor: '#79746C', outline: 'none' }}
-							value={productInfo.price}
-							onChange={e =>
-								setProductInfo({
-									...productInfo,
-									price: Number(e.target.value),
-								})
-							}
+							value={price}
+							onChange={e => setPrice(Number(e.target.value))}
 						/>
 					</Box>
 				</Grid>
@@ -391,8 +328,8 @@ const AdminProductItem = ({ product }: AdminProductItemProps) => {
 
 				<Box marginTop={`25px`}>
 					<Image
-						src={image || productInfo.image}
-						alt={productInfo.name}
+						src={image}
+						alt={name}
 						width='10rem'
 						height='10rem'
 						objectFit='cover'
@@ -417,7 +354,7 @@ const AdminProductItem = ({ product }: AdminProductItemProps) => {
 						_hover={{ backgroundColor: `#FFF` }}
 						_active={{ backgroundColor: `#FFF` }}
 					>
-						Cambiar imagen
+						Añadir imagen
 					</Button>
 					<Input
 						ref={inputImgRef}
@@ -498,26 +435,14 @@ const AdminProductItem = ({ product }: AdminProductItemProps) => {
 
 				<Button
 					backgroundColor={
-						productInfo.name !== product.name ||
-						productInfo.category !== product.category ||
-						imageExist !== product.image ||
-						statusValue !== product.status ||
-						productInfo.quantity !== product.quantity ||
-						productInfo.price !== product.price ||
-						!arraysEquals
-							? '#9F9A93'
-							: 'hsl(35, 6%, 80%)'
+						!name || !category || !image || price < 0 || quantity < 0 || result
+							? 'hsl(35, 6%, 80%)'
+							: '#9F9A93'
 					}
 					cursor={
-						productInfo.name !== product.name ||
-						productInfo.category !== product.category ||
-						imageExist !== product.image ||
-						statusValue !== product.status ||
-						productInfo.quantity !== product.quantity ||
-						productInfo.price !== product.price ||
-						!arraysEquals
-							? 'pointer'
-							: 'not-allowed'
+						!name || !category || !image || price < 0 || quantity < 0 || result
+							? 'not-allowed'
+							: 'pointer'
 					}
 					marginTop='10px'
 					borderRadius='3px'
@@ -530,18 +455,12 @@ const AdminProductItem = ({ product }: AdminProductItemProps) => {
 					_active={{ backgroundColor: `hsl(35, 6%, 80%)` }}
 					_hover={{ backgroundColor: `hsl(35, 6%, 80%)` }}
 					onClick={() =>
-						productInfo.name !== product.name ||
-						productInfo.category !== product.category ||
-						imageExist !== product.image ||
-						statusValue !== product.status ||
-						productInfo.quantity !== product.quantity ||
-						productInfo.price !== product.price ||
-						!arraysEquals
-							? onOpen()
-							: null
+						!name || !category || !image || price < 0 || quantity < 0 || result
+							? null
+							: onOpen()
 					}
 				>
-					Actualizar
+					Crear
 				</Button>
 			</Box>
 		</Layout>
