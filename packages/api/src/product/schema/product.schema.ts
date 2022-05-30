@@ -5,6 +5,10 @@ export const ProductSchema = new Schema({
     type: String,
     required: true,
   },
+  status: {
+    type: Boolean,
+    default: true,
+  },
   price: {
     type: Number,
     required: true,

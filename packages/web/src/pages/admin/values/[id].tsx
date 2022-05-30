@@ -236,6 +236,7 @@ const AdminValueItem = ({ value }: AdminValueItemProps) => {
 							}
 						/>
 					</Box>
+
 					<Flex alignItems={`center`}>
 						<Text
 							marginRight={`15px`}

@@ -4,7 +4,7 @@ import { Box, Text, Button, Link, Flex } from '@chakra-ui/react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { RiShoppingCartFill } from 'react-icons/ri';
 
-import { Product as ProductInterface } from '../interfaces/Product';
+import { ProductType as ProductInterface } from '../interfaces/Product';
 import { useCart } from '../hooks/useCart';
 
 type ProductIprops = {

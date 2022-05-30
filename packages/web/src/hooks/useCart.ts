@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { CartContextProducts } from '../context/CartContext';
-import { Product } from '../interfaces';
+import { ProductType } from '../interfaces';
 
 type useCartIprops = {
-	cart: Product[];
+	cart: ProductType[];
 	handleAddCart: (item) => void;
 	handleDeleteCart: (id: string) => void;
 	handleDeleteAllProductCart: (id: string) => void;

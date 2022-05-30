@@ -3,11 +3,11 @@ import { Grid, Box, Button, Text, Image } from '@chakra-ui/react';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 
-import { Product } from '../interfaces/Product';
+import { ProductType } from '../interfaces/Product';
 import { useCart } from '../hooks/useCart';
 
 type CartCardProdIprops = {
-	product: Product;
+	product: ProductType;
 };
 
 const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {

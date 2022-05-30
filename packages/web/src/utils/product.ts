@@ -28,3 +28,16 @@ export const getProduct = async (
 		return null;
 	}
 };
+
+export const updateProduct = async (
+	data,
+	id: string
+): Promise<ProductInterface | null> => {
+	const response = await axios({
+		method: 'PUT',
+		url: `/reviews/${id}`,
+		data: { ...data },
+	});
+
+	return response.data;
+};
