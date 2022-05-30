@@ -5,14 +5,16 @@ import Animation from '../../components/Animation';
 import { getProducts } from '../../utils';
 import { ProductsInterface } from '../../interfaces';
 import Product from '../../components/Product';
+import { GetStaticProps } from 'next';
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 	const productsData = await getProducts();
 
 	return {
 		props: {
 			productsData,
 		},
+		revalidate: 3600,
 	};
 };
 
