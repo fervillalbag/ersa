@@ -5,6 +5,14 @@ export const BannerSchema = new Schema({
     type: String,
     required: true,
   },
+  status: {
+    type: Boolean,
+    default: true,
+  },
+  order: {
+    type: Number,
+    default: 0,
+  },
   title: {
     type: String,
   },

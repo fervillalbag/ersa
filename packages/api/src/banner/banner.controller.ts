@@ -7,6 +7,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
   Res,
 } from '@nestjs/common';
 
@@ -82,6 +83,25 @@ export class BannerController {
 
     return res.status(HttpStatus.OK).json({
       message: 'Banner fetched!',
+      success: true,
+      banner,
+    });
+  }
+
+  @Put('/:id')
+  async updateBanner(
+    @Res() res,
+    @Body() createBannerDTO: CreateBannerDTO,
+    @Param('id') id: string,
+  ): Promise<BannerInterface> {
+    const banner = await this.bannerService.updateBanner(id, createBannerDTO);
+
+    if (Object.keys(banner).length === 0) {
+      throw new NotFoundException('Banner not found!');
+    }
+
+    return res.status(HttpStatus.OK).json({
+      message: 'Banner updated!',
       success: true,
       banner,
     });

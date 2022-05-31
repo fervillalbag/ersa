@@ -33,4 +33,17 @@ export class BannerService {
     const banner = await this.serviceBanner.findOne({ _id: id });
     return banner;
   }
+
+  async updateBanner(
+    id: string,
+    createBannerDTO: CreateBannerDTO,
+  ): Promise<BannerInterface> {
+    const banner = await this.serviceBanner.findOneAndUpdate(
+      { _id: id },
+      createBannerDTO,
+      { new: true },
+    );
+
+    return banner;
+  }
 }

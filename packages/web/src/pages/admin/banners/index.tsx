@@ -1,10 +1,10 @@
-import { Box, Button, Flex, Grid, Image, Text } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+import { Box, Button, Flex, Grid, Image, Text } from '@chakra-ui/react';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
-import { BannerType } from '../../../interfaces/Community';
 
+import { BannerType } from '../../../interfaces/Community';
 import Layout from '../../../layout/admin';
 import { getBanners } from '../../../utils/community';
 
