@@ -1,7 +1,7 @@
 import axios from '../config/axios';
-import { BannerInterface } from '../interfaces/Community';
+import { BannersInterface } from '../interfaces/Community';
 
-export const getBanners = async (): Promise<BannerInterface | null> => {
+export const getBanners = async (): Promise<BannersInterface | null> => {
 	try {
 		const banners = await axios({
 			method: 'GET',

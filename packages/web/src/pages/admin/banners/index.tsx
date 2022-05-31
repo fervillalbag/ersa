@@ -31,6 +31,15 @@ export const BannerItem = ({ banner }: BannerItemProps) => {
 
 	return (
 		<Box position={`relative`}>
+			<Box
+				position={`absolute`}
+				left={`0`}
+				top={`0`}
+				backgroundColor={`rgba(0,0,0,0.3)`}
+				width={`100%`}
+				height={`100%`}
+			></Box>
+
 			<Image
 				src={banner.image}
 				width={`100%`}
@@ -46,15 +55,39 @@ export const BannerItem = ({ banner }: BannerItemProps) => {
 				backgroundColor={`#F8F5ED`}
 				borderRadius={`3px`}
 				position={`absolute`}
+				zIndex={`50`}
 				top={`10px`}
 				left={`10px`}
 			>
 				<Text color={`#79746C`} fontSize={`18px`} fontWeight={`bold`}>
-					1
+					{banner.order}
 				</Text>
 			</Grid>
 
-			<Flex position={`absolute`} bottom={`10px`} right={`10px`}>
+			<Grid
+				placeItems={`center`}
+				display={`inline-grid`}
+				// width={`/`}
+				height={`30px`}
+				backgroundColor={`#79746C`}
+				borderRadius={`3px`}
+				padding={`0 10px`}
+				position={`absolute`}
+				zIndex={`50`}
+				top={`10px`}
+				right={`10px`}
+			>
+				<Text
+					color={`#F8F5ED`}
+					textTransform={`uppercase`}
+					fontSize={`12px`}
+					fontWeight={`semibold`}
+				>
+					{banner.status ? `Activo` : `Inactivo`}
+				</Text>
+			</Grid>
+
+			<Flex position={`absolute`} zIndex={`50`} bottom={`10px`} right={`10px`}>
 				<Button
 					width={`40px`}
 					height={`40px`}
