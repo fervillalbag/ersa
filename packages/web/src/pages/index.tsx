@@ -3,7 +3,6 @@ import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Layout from '../layout';
-// import NotFound from '../components/NotFound';
 import Animation from '../components/Animation';
 import { getHeaderInfo, getGrowthInfo, getValues, getReviews } from '../utils';
 import {
