@@ -154,7 +154,7 @@ const Navbar: React.FC = () => {
 							Comunidad
 						</Text>
 
-						<NavLinkAdmin path={`/admin/banners`} name={`Banners`} />
+						<NavLinkAdmin path={`/admin/banner`} name={`Banners`} />
 						<NavLinkAdmin path={`/admin/community`} name={`Información`} />
 					</Box>
 				</Box>

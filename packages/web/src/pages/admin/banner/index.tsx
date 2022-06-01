@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 export const BannerItem = ({ banner }: BannerItemProps) => {
-	console.log(banner);
+	const router = useRouter();
 
 	return (
 		<Box position={`relative`}>
@@ -97,6 +97,7 @@ export const BannerItem = ({ banner }: BannerItemProps) => {
 					_focus={{ outline: 'none' }}
 					_hover={{ backgroundColor: `#F8F5ED` }}
 					_active={{ backgroundColor: `#F8F5ED` }}
+					onClick={() => router.push(`/admin/banner/${banner._id}`)}
 				>
 					<Text fontSize={`20px`}>
 						<HiOutlinePencilAlt />
@@ -122,8 +123,6 @@ export const BannerItem = ({ banner }: BannerItemProps) => {
 };
 
 const AdminBanner = ({ banners }: AdminBanner) => {
-	console.log(banners);
-
 	const router = useRouter();
 
 	return (
