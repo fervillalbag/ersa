@@ -16,7 +16,6 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import produce from 'immer';
-import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -25,31 +24,19 @@ import { HiOutlineChevronLeft, HiOutlineTrash, HiPlus } from 'react-icons/hi';
 import Layout from '../../../layout/admin';
 import { useImage } from '../../../hooks/useImage';
 import { Description, FileType } from '../../../interfaces';
-import { BannerType } from '../../../interfaces/Community';
-import { getBanner, updateBanner } from '../../../utils/community';
+import { createBanner } from '../../../utils/community';
 
-type AdminBannerItem = {
-	banner: BannerType;
-};
-
-export const getServerSideProps: GetServerSideProps = async context => {
-	const banner = await getBanner(context.params.id as string);
-
-	return {
-		props: {
-			banner: banner.banner,
-		},
-	};
-};
-
-const AdminBannerItem = ({ banner }: AdminBannerItem) => {
+const AdminBannerItem = () => {
 	const router = useRouter();
 
-	const [bannerInfo, setBannerInfo] = useState(banner);
-	const [descriptionArray, setDescriptionArray] = useState(banner.description);
-	const [statusBanner, setStatusBanner] = useState(banner.status);
+	const [descriptionArray, setDescriptionArray] = useState([
+		{ id: new Date().toString(), text: '' },
+	]);
 
-	const [imageExist, setImageExist] = useState(banner.image);
+	const [title, setTitle] = useState<string>('');
+	const [order, setOrder] = useState<number>(0);
+	const [statusBanner, setStatusBanner] = useState(true);
+
 	const [image, setImage] = useState<string | null>(null);
 	const [fileImage, setFileImage] = useState<FileType | string | Blob>();
 	const inputImgRef = useRef(null);
@@ -66,14 +53,12 @@ const AdminBannerItem = ({ banner }: AdminBannerItem) => {
 		const file = target.files[0];
 		const image = URL.createObjectURL(file);
 		setImage(image);
-		setImageExist(image);
 		setFileImage(file);
 	};
 
 	useEffect(() => {
 		setImage(null);
 		setFileImage(null);
-		setImageExist(banner.image);
 	}, []);
 
 	const handleAddInputDescription = () => {
@@ -86,29 +71,18 @@ const AdminBannerItem = ({ banner }: AdminBannerItem) => {
 		);
 	};
 
-	function arrayEquals(a, b) {
-		return (
-			Array.isArray(a) &&
-			Array.isArray(b) &&
-			a.length === b.length &&
-			a.every((val, index) => val.text === b[index].text)
-		);
-	}
-
-	const arraysEquals = arrayEquals(banner.description, descriptionArray);
-
 	const handleBannerUpdate = async () => {
-		if (bannerInfo.order < 0 || !imageExist)
+		if (order < 0 || !image)
 			return toast('Todos los campos son obligatorios!', {
 				icon: '🤨',
 			});
 
 		try {
 			const data = {
-				title: bannerInfo.title,
-				order: bannerInfo.order,
+				title,
+				order,
 				status: statusBanner,
-				image: bannerInfo.image,
+				image,
 				description: descriptionArray,
 			};
 
@@ -116,14 +90,14 @@ const AdminBannerItem = ({ banner }: AdminBannerItem) => {
 				const responseImage = await useImage(fileImage as string);
 
 				const data = {
-					title: bannerInfo.title,
+					title,
 					image: responseImage,
-					order: bannerInfo.order,
+					order,
 					status: statusBanner,
 					description: descriptionArray,
 				};
 
-				const response = await updateBanner(data, banner._id);
+				const response = await createBanner(data);
 
 				if (response.success) {
 					onClose();
@@ -136,7 +110,7 @@ const AdminBannerItem = ({ banner }: AdminBannerItem) => {
 				return toast.error('Hubo un problema al actualizar');
 			}
 
-			const response = await updateBanner(data, banner._id);
+			const response = await createBanner(data);
 
 			if (response.success) {
 				onClose();
@@ -243,10 +217,8 @@ const AdminBannerItem = ({ banner }: AdminBannerItem) => {
 						paddingLeft='0.75rem'
 						borderRadius={`3px`}
 						_focus={{ borderColor: '#79746C', outline: 'none' }}
-						value={bannerInfo.order}
-						onChange={e =>
-							setBannerInfo({ ...bannerInfo, order: Number(e.target.value) })
-						}
+						value={order}
+						onChange={e => setOrder(Number(e.target.value))}
 					/>
 				</Box>
 
@@ -269,17 +241,15 @@ const AdminBannerItem = ({ banner }: AdminBannerItem) => {
 						paddingLeft='0.75rem'
 						borderRadius={`3px`}
 						_focus={{ borderColor: '#79746C', outline: 'none' }}
-						value={bannerInfo.title}
-						onChange={e =>
-							setBannerInfo({ ...bannerInfo, title: e.target.value })
-						}
+						value={title}
+						onChange={e => setTitle(e.target.value)}
 					/>
 				</Box>
 
 				<Box marginTop={`25px`}>
 					<Image
-						src={image || bannerInfo.image}
-						alt={bannerInfo.title}
+						src={image}
+						alt={title}
 						width='10rem'
 						height='10rem'
 						objectFit='cover'
@@ -403,24 +373,8 @@ const AdminBannerItem = ({ banner }: AdminBannerItem) => {
 				</Box>
 
 				<Button
-					backgroundColor={
-						bannerInfo.title !== banner.title ||
-						bannerInfo.order !== banner.order ||
-						imageExist !== banner.image ||
-						statusBanner !== banner.status ||
-						!arraysEquals
-							? '#9F9A93'
-							: 'hsl(35, 6%, 80%)'
-					}
-					cursor={
-						bannerInfo.title !== banner.title ||
-						bannerInfo.order !== banner.order ||
-						imageExist !== banner.image ||
-						statusBanner !== banner.status ||
-						!arraysEquals
-							? 'pointer'
-							: 'not-allowed'
-					}
+					backgroundColor={order > 0 || image ? '#9F9A93' : 'hsl(35, 6%, 80%)'}
+					cursor={order > 0 || image ? 'pointer' : 'not-allowed'}
 					marginTop='10px'
 					borderRadius='3px'
 					minWidth={`initial`}
@@ -431,17 +385,9 @@ const AdminBannerItem = ({ banner }: AdminBannerItem) => {
 					_focus={{ outline: 'none' }}
 					_active={{ backgroundColor: `hsl(35, 6%, 80%)` }}
 					_hover={{ backgroundColor: `hsl(35, 6%, 80%)` }}
-					onClick={() =>
-						bannerInfo.title !== banner.title ||
-						bannerInfo.order !== banner.order ||
-						imageExist !== banner.image ||
-						statusBanner !== banner.status ||
-						!arraysEquals
-							? onOpen()
-							: null
-					}
+					onClick={() => (order > 0 || image ? onOpen() : null)}
 				>
-					Actualizar
+					Crear
 				</Button>
 			</Box>
 		</Layout>

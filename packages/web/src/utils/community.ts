@@ -68,3 +68,32 @@ export const updateBanner = async (data, id: string) => {
 		return null;
 	}
 };
+
+export const deleteBanner = async (id: string) => {
+	try {
+		const banner = await axios({
+			method: 'DELETE',
+			url: `/banner/${id}`,
+		});
+
+		return banner.data;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};
+
+export const createBanner = async data => {
+	try {
+		const banner = await axios({
+			method: 'POST',
+			url: `/banner/create`,
+			data: { ...data },
+		});
+
+		return banner.data;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};
