@@ -2,14 +2,21 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Box, Button, Text, Flex } from '@chakra-ui/react';
 import { FaTimes } from 'react-icons/fa';
 
-import CartCardProd from './CartCardProd';
+// import CartCardProd from './CartCardProd';
 import { CartStatusContext } from '../context/CartStatus';
-import { useCart } from '../hooks/useCart';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
+// import { useCart } from '../hooks/useCart';
 
 const Cart: React.FC = () => {
 	const { statusCart, setStatusCart } = useContext(CartStatusContext);
 	const [currentHeight, setCurrentHeight] = useState(null);
-	const { cart } = useCart();
+	// const { cart } = useCart();
+
+	const cart = useSelector((state: RootState) => state.cart.value);
+	console.log(cart);
+
+	// console.log(cart);
 
 	const ref = useRef(null);
 
@@ -102,10 +109,10 @@ const Cart: React.FC = () => {
 								}}
 								overflowY='auto'
 							>
-								{cart &&
+								{/* {cart &&
 									cart.map(item => (
 										<CartCardProd product={item} key={item._id} />
-									))}
+									))} */}
 							</Box>
 						</Box>
 

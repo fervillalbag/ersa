@@ -4,14 +4,13 @@ import { BsFillTrashFill } from 'react-icons/bs';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 
 import { ProductType } from '../interfaces/Product';
-import { useCart } from '../hooks/useCart';
 
 type CartCardProdIprops = {
 	product: ProductType;
 };
 
 const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
-	const { handleAddCart, handleDeleteCart } = useCart();
+	// const { handleAddCart, handleDeleteCart } = useCart();
 
 	return (
 		<Box
@@ -68,7 +67,7 @@ const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
 						_focus={{ shadow: 0 }}
 						fontSize='0.7rem'
 						rounded='4px'
-						onClick={() => handleDeleteCart(product._id)}
+						// onClick={() => handleDeleteCart(product._id)}
 					>
 						<FaMinus />
 					</Button>
@@ -90,7 +89,7 @@ const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
 						_focus={{ shadow: 0 }}
 						fontSize='0.7rem'
 						rounded='4px'
-						onClick={() => handleAddCart(product)}
+						// onClick={() => handleAddCart(product)}
 					>
 						<FaPlus />
 					</Button>
