@@ -10,39 +10,26 @@ export const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		addProduct: (_, action: PayloadAction<ProductType>) => {
-			const currentLocalStorage = JSON.parse(
-				localStorage.getItem('cart-product')
-			);
-
-			const exist = currentLocalStorage.find(
-				(x: ProductType) => x._id === action.payload._id
+		addProduct: (state, action: PayloadAction<ProductType>) => {
+			const currentStorage = JSON.parse(localStorage.getItem('cart-product'));
+			const exist = currentStorage.find(
+				item => item._id === action.payload._id
 			);
 
 			if (exist) {
-				const stateRepeated = currentLocalStorage.map((item: ProductType) =>
+				const newState = currentStorage.map(item =>
 					item._id === action.payload._id
 						? { ...exist, qty: exist.qty + 1 }
 						: item
 				);
 
-				const newState = [...stateRepeated, action.payload];
+				console.log(newState);
+
 				localStorage.setItem('cart-product', JSON.stringify(newState));
 			} else {
-				if (currentLocalStorage.length === 0) {
-					const newValue = { ...action.payload, qty: 1 };
-					const newState = [...currentLocalStorage, newValue];
-
-					localStorage.setItem('cart-product', JSON.stringify(newState));
-				} else {
-					const newState = currentLocalStorage.map(item =>
-						item._id === action.payload._id
-							? { ...action.payload, qty: 1 }
-							: item
-					);
-
-					localStorage.setItem('cart-product', JSON.stringify(newState));
-				}
+				const newValue = { ...action.payload, qty: 1 };
+				const newState = [...currentStorage, newValue];
+				localStorage.setItem('cart-product', JSON.stringify(newState));
 			}
 		},
 	},

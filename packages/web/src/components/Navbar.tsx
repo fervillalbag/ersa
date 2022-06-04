@@ -49,22 +49,26 @@ const Navbar: React.FC = () => {
 							<FaShoppingCart />
 						</Text>
 
-						<Flex
-							justifyContent='center'
-							alignItems='center'
-							width='1.5rem'
-							height='1.5rem'
-							backgroundColor='bright-red'
-							rounded='full'
-							fontSize='0.85rem'
-							fontWeight='semibold'
-							color='white'
-							position='absolute'
-							bottom='-0.5rem'
-							right='0.3rem'
-						>
-							{!cart || cart.lenght === 0 ? 0 : cart.length}
-						</Flex>
+						{cart && cart.length >= 0 ? (
+							<Flex
+								justifyContent='center'
+								alignItems='center'
+								width='1.5rem'
+								height='1.5rem'
+								backgroundColor='bright-red'
+								rounded='full'
+								fontSize='0.85rem'
+								fontWeight='semibold'
+								color='white'
+								position='absolute'
+								bottom='-0.5rem'
+								right='0.3rem'
+							>
+								{cart.length}
+							</Flex>
+						) : (
+							<Box></Box>
+						)}
 					</Button>
 					<Button
 						justifySelf='end'
@@ -214,22 +218,26 @@ const Navbar: React.FC = () => {
 							<FaShoppingCart />
 						</Text>
 
-						<Flex
-							justifyContent='center'
-							alignItems='center'
-							width='1.5rem'
-							height='1.5rem'
-							backgroundColor='bright-red'
-							rounded='full'
-							fontSize='0.85rem'
-							fontWeight='semibold'
-							color='white'
-							position='absolute'
-							bottom='-0.5rem'
-							right='0.3rem'
-						>
-							{!cart || cart.lenght === 0 ? 0 : cart.length}
-						</Flex>
+						{cart && cart.length >= 0 ? (
+							<Flex
+								justifyContent='center'
+								alignItems='center'
+								width='1.5rem'
+								height='1.5rem'
+								backgroundColor='bright-red'
+								rounded='full'
+								fontSize='0.85rem'
+								fontWeight='semibold'
+								color='white'
+								position='absolute'
+								bottom='-0.5rem'
+								right='0.3rem'
+							>
+								{cart.length}
+							</Flex>
+						) : (
+							<Box></Box>
+						)}
 					</Button>
 				</Flex>
 			</Grid>
