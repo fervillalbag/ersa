@@ -1,18 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ProductType } from '../interfaces';
 
-const initialState = {
-	value:
-		typeof window !== 'undefined'
-			? JSON.parse(localStorage.getItem('cart-product') as string)
-			: null,
-};
+const initialState =
+	typeof window !== 'undefined'
+		? JSON.parse(localStorage.getItem('cart-product') as string) || []
+		: null;
 
 export const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		addProduct: (state, action: PayloadAction<ProductType>) => {
+		addProduct: (_, action: PayloadAction<ProductType>) => {
 			const currentLocalStorage = JSON.parse(
 				localStorage.getItem('cart-product')
 			);
@@ -22,20 +20,29 @@ export const cartSlice = createSlice({
 			);
 
 			if (exist) {
-				const newState = currentLocalStorage.map((item: ProductType) =>
+				const stateRepeated = currentLocalStorage.map((item: ProductType) =>
 					item._id === action.payload._id
 						? { ...exist, qty: exist.qty + 1 }
 						: item
 				);
 
-				state.value = newState;
+				const newState = [...stateRepeated, action.payload];
 				localStorage.setItem('cart-product', JSON.stringify(newState));
 			} else {
-				const newValue: ProductType = { ...action.payload, qty: 1 };
-				const newState: ProductType[] = [...state.value, newValue];
+				if (currentLocalStorage.length === 0) {
+					const newValue = { ...action.payload, qty: 1 };
+					const newState = [...currentLocalStorage, newValue];
 
-				state.value.push(...newState);
-				localStorage.setItem('cart-product', JSON.stringify(newState));
+					localStorage.setItem('cart-product', JSON.stringify(newState));
+				} else {
+					const newState = currentLocalStorage.map(item =>
+						item._id === action.payload._id
+							? { ...action.payload, qty: 1 }
+							: item
+					);
+
+					localStorage.setItem('cart-product', JSON.stringify(newState));
+				}
 			}
 		},
 	},

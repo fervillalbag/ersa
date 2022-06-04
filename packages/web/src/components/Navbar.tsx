@@ -6,10 +6,13 @@ import { FaBars, FaShoppingCart, FaTimes } from 'react-icons/fa';
 
 import { NavbarContext } from '../context/Navbar';
 import { CartStatusContext } from '../context/CartStatus';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
 
 const Navbar: React.FC = () => {
 	const { showNavbar, setShowNavbar } = useContext(NavbarContext);
 	const { setStatusCart } = useContext(CartStatusContext);
+	const cart = useSelector((state: RootState) => state.cart);
 
 	const { pathname } = useRouter();
 
@@ -40,6 +43,7 @@ const Navbar: React.FC = () => {
 						position='relative'
 						_focus={{ shadow: 0 }}
 						onClick={() => setStatusCart(true)}
+						backgroundColor={`transparent`}
 					>
 						<Text fontSize='1.9rem'>
 							<FaShoppingCart />
@@ -59,7 +63,7 @@ const Navbar: React.FC = () => {
 							bottom='-0.5rem'
 							right='0.3rem'
 						>
-							2
+							{!cart || cart.lenght === 0 ? 0 : cart.length}
 						</Flex>
 					</Button>
 					<Button
@@ -67,6 +71,7 @@ const Navbar: React.FC = () => {
 						fontSize='24px'
 						color='dark-blue'
 						_focus={{ boxShadow: 0 }}
+						backgroundColor={`transparent`}
 						onClick={() => setShowNavbar(true)}
 					>
 						<FaBars />
@@ -97,6 +102,7 @@ const Navbar: React.FC = () => {
 						top='32px'
 						right='20px'
 						_focus={{ boxShadow: '0' }}
+						backgroundColor={`transparent`}
 						onClick={() => setShowNavbar(false)}
 					>
 						<FaTimes />
@@ -222,7 +228,7 @@ const Navbar: React.FC = () => {
 							bottom='-0.5rem'
 							right='0.3rem'
 						>
-							2
+							{!cart || cart.lenght === 0 ? 0 : cart.length}
 						</Flex>
 					</Button>
 				</Flex>

@@ -1,5 +1,6 @@
 import React from 'react';
 import NextLink from 'next/link';
+import toast from 'react-hot-toast';
 import { Box, Text, Button, Link, Flex } from '@chakra-ui/react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { RiShoppingCartFill } from 'react-icons/ri';
@@ -7,7 +8,6 @@ import { RiShoppingCartFill } from 'react-icons/ri';
 import { ProductType as ProductInterface } from '../interfaces/Product';
 import { addProduct } from '../features/cartSlice';
 import { useDispatch } from 'react-redux';
-// import { useCart } from '../hooks/useCart';
 
 type ProductIprops = {
 	product: ProductInterface;
@@ -83,9 +83,10 @@ const Product: React.FC<ProductIprops> = ({ product }) => {
 							justifyContent='center'
 							alignItems='center'
 							_focus={{ shadow: 0 }}
-							// console.log(product)
-							// toast.success('Agregado al carrito')
-							onClick={() => dispatch(addProduct(product))}
+							onClick={() => {
+								toast.success('Agregado al carrito');
+								dispatch(addProduct(product));
+							}}
 						>
 							<Text fontSize='1.3rem' color='white'>
 								<RiShoppingCartFill />

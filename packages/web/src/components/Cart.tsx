@@ -6,13 +6,14 @@ import CartCardProd from './CartCardProd';
 import { CartStatusContext } from '../context/CartStatus';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
+import { ProductType } from '../interfaces';
 
 const Cart: React.FC = () => {
 	const { statusCart, setStatusCart } = useContext(CartStatusContext);
 	const [currentHeight, setCurrentHeight] = useState(null);
 	// const { cart } = useCart();
 
-	const cart = useSelector((state: RootState) => state.cart.value);
+	const cart = useSelector((state: RootState) => state.cart) || [];
 	console.log(cart);
 
 	// console.log(cart);
@@ -108,10 +109,13 @@ const Cart: React.FC = () => {
 								}}
 								overflowY='auto'
 							>
-								{cart &&
-									cart.map(item => (
+								{/* {cart.length === 0 ? (
+									<Box>No existen productos en el carrito</Box>
+								) : (
+									cart.map((item: ProductType) => (
 										<CartCardProd product={item} key={item._id} />
-									))}
+									))
+								)} */}
 							</Box>
 						</Box>
 

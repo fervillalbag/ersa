@@ -10,8 +10,6 @@ type CartCardProdIprops = {
 };
 
 const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
-	// const { handleAddCart, handleDeleteCart } = useCart();
-
 	return (
 		<Box
 			borderBottom='1px solid #ebebeb'
@@ -38,8 +36,8 @@ const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
 				<Box height='100%'>
 					<Image
 						src={product.image}
-						width='100%'
-						height='100%'
+						width='80px'
+						height='80px'
 						objectFit='cover'
 						alt=''
 					/>
