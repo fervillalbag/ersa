@@ -7,6 +7,9 @@ import Layout from '../../layout';
 import Animation from '../../components/Animation';
 import { ProductInterface } from '../../interfaces';
 import { getProduct } from '../../utils';
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../features/cartSlice';
+import toast from 'react-hot-toast';
 
 type ProductProps = {
 	productData: ProductInterface;
@@ -23,6 +26,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
 const Product = ({ productData }: ProductProps) => {
 	const product = productData.product;
+	const dispatch = useDispatch();
 
 	return (
 		<Layout title={`${product.name} | Landing Ersa`}>
@@ -100,6 +104,7 @@ const Product = ({ productData }: ProductProps) => {
 								padding='0.75rem 2rem'
 								color='white'
 								height='auto'
+								onClick={() => toast.success('Compra realizada 😳')}
 							>
 								Buy now
 							</Button>
@@ -116,6 +121,10 @@ const Product = ({ productData }: ProductProps) => {
 								color='bright-red'
 								marginLeft='1rem'
 								height='auto'
+								onClick={() => {
+									toast.success('Agregado al carrito');
+									dispatch(addProduct(product));
+								}}
 							>
 								<RiShoppingCartFill />
 							</Button>

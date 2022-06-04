@@ -2,18 +2,16 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Box, Button, Text, Flex } from '@chakra-ui/react';
 import { FaTimes } from 'react-icons/fa';
 
-// import CartCardProd from './CartCardProd';
+import CartCardProd from './CartCardProd';
 import { CartStatusContext } from '../context/CartStatus';
-import { useSelector } from 'react-redux';
-import { RootState } from '../app/store';
-// import { ProductType } from '../interfaces';
+import useCart from '../utils/cart';
+import { ProductType } from '../interfaces';
 
 const Cart: React.FC = () => {
 	const { statusCart, setStatusCart } = useContext(CartStatusContext);
 	const [currentHeight, setCurrentHeight] = useState(null);
 
-	const cart = useSelector((state: RootState) => state.cart);
-	console.log(cart);
+	const { cart } = useCart();
 
 	const ref = useRef(null);
 
@@ -106,13 +104,13 @@ const Cart: React.FC = () => {
 								}}
 								overflowY='auto'
 							>
-								{/* {cart.length === 0 ? (
+								{cart.length === 0 ? (
 									<Box>No existen productos en el carrito</Box>
 								) : (
 									cart.map((item: ProductType) => (
 										<CartCardProd product={item} key={item._id} />
 									))
-								)} */}
+								)}
 							</Box>
 						</Box>
 

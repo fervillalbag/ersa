@@ -4,12 +4,20 @@ import { BsFillTrashFill } from 'react-icons/bs';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 
 import { ProductType } from '../interfaces/Product';
+import { useDispatch } from 'react-redux';
+import {
+	addProduct,
+	deleteAllProduct,
+	deleteProduct,
+} from '../features/cartSlice';
 
 type CartCardProdIprops = {
 	product: ProductType;
 };
 
 const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
+	const dispatch = useDispatch();
+
 	return (
 		<Box
 			borderBottom='1px solid #ebebeb'
@@ -28,6 +36,7 @@ const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
 					backgroundColor='red.500'
 					rounded='4px'
 					color='white'
+					onClick={() => dispatch(deleteAllProduct(product._id))}
 				>
 					<Text>
 						<BsFillTrashFill />
@@ -65,7 +74,7 @@ const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
 						_focus={{ shadow: 0 }}
 						fontSize='0.7rem'
 						rounded='4px'
-						// onClick={() => handleDeleteCart(product._id)}
+						onClick={() => dispatch(deleteProduct(product._id))}
 					>
 						<FaMinus />
 					</Button>
@@ -87,7 +96,7 @@ const CartCardProd: React.FC<CartCardProdIprops> = ({ product }) => {
 						_focus={{ shadow: 0 }}
 						fontSize='0.7rem'
 						rounded='4px'
-						// onClick={() => handleAddCart(product)}
+						onClick={() => dispatch(addProduct(product))}
 					>
 						<FaPlus />
 					</Button>

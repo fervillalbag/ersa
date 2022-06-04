@@ -6,13 +6,14 @@ import { FaBars, FaShoppingCart, FaTimes } from 'react-icons/fa';
 
 import { NavbarContext } from '../context/Navbar';
 import { CartStatusContext } from '../context/CartStatus';
-import { useSelector } from 'react-redux';
-import { RootState } from '../app/store';
+import useCart from '../utils/cart';
+// import { useSelector } from 'react-redux';
+// import { RootState } from '../app/store';
 
 const Navbar: React.FC = () => {
 	const { showNavbar, setShowNavbar } = useContext(NavbarContext);
 	const { setStatusCart } = useContext(CartStatusContext);
-	const cart = useSelector((state: RootState) => state.cart);
+	const { cart } = useCart();
 
 	const { pathname } = useRouter();
 
