@@ -1,7 +1,7 @@
 import axiosPackage from 'axios';
 
 const axios = axiosPackage.create({
-	baseURL: process.env.URL_API,
+	baseURL: 'https://ersa-rf7w3.ondigitalocean.app',
 	headers: {
 		'Content-Type': 'application/json',
 	},
