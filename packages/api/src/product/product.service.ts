@@ -32,7 +32,7 @@ export class ProductService {
   }
 
   async deleteProduct(id: string): Promise<ProductInterface> {
-    const product = await this.productModel.findOneAndDelete({ id });
+    const product = await this.productModel.findOneAndDelete({ _id: id });
     return product;
   }
 
