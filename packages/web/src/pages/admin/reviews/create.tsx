@@ -22,7 +22,6 @@ import toast from 'react-hot-toast';
 import { HiOutlineChevronLeft, HiOutlineTrash, HiPlus } from 'react-icons/hi';
 
 import { useImage } from '../../../hooks/useImage';
-// import { Description, FileType, ReviewType } from '../../../interfaces';
 import { Description, FileType } from '../../../interfaces';
 import Layout from '../../../layout/admin';
 import { createReview } from '../../../utils';

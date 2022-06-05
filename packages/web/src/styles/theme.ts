@@ -8,7 +8,6 @@ const theme = extendTheme({
 		'vary-light-gray': 'hsl(0, 0%, 98%)',
 		'bright-red': 'hsl(12, 88%, 59%)',
 		'dark-blue': 'hsl(228, 39%, 23%)',
-		// gray: 'hsl(0, 0%, 96%)',
 		'hover-gray': 'hsl(0, 0%, 97%)',
 	},
 });

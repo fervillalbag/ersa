@@ -19,10 +19,8 @@ import { useRouter } from 'next/router';
 import { HiOutlineChevronLeft, HiOutlineTrash, HiPlus } from 'react-icons/hi';
 import { v4 as uuidv4 } from 'uuid';
 
-// import { Description, ValueType } from '../../../interfaces';
 import { Description } from '../../../interfaces';
 import Layout from '../../../layout/admin';
-// import { updateValue } from '../../../utils';
 import toast from 'react-hot-toast';
 import { createValue } from '../../../utils';
 

@@ -173,7 +173,6 @@ const AdminValues: React.FC<AdminValueProps> = ({
 					borderRadius={`3px`}
 					backgroundColor={`#FFF`}
 					minWidth={`initial`}
-					// width={`100%`}
 					height={`45px`}
 					_focus={{ outline: 'none' }}
 					_hover={{ backgroundColor: `#FFF` }}

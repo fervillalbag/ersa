@@ -7,8 +7,6 @@ import { FaBars, FaShoppingCart, FaTimes } from 'react-icons/fa';
 import { NavbarContext } from '../context/Navbar';
 import { CartStatusContext } from '../context/CartStatus';
 import useCart from '../utils/cart';
-// import { useSelector } from 'react-redux';
-// import { RootState } from '../app/store';
 
 const Navbar: React.FC = () => {
 	const { showNavbar, setShowNavbar } = useContext(NavbarContext);

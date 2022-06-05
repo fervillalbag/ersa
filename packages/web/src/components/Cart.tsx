@@ -100,7 +100,6 @@ const Cart: React.FC = () => {
 								padding='0 1.25rem'
 								height={{
 									base: `calc(100vh - 128px - 69px)`,
-									// md: `calc(100vh - 70px - 8rem)`,
 								}}
 								overflowY='auto'
 							>

@@ -1,4 +1,3 @@
-// import { Box } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Box, Heading, Image, Text } from '@chakra-ui/react';
 import { Pagination, Autoplay } from 'swiper';

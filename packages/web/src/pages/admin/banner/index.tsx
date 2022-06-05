@@ -139,7 +139,6 @@ export const BannerItem = ({ banner }: BannerItemProps) => {
 			<Grid
 				placeItems={`center`}
 				display={`inline-grid`}
-				// width={`/`}
 				height={`30px`}
 				backgroundColor={`#79746C`}
 				borderRadius={`3px`}
@@ -206,7 +205,6 @@ const AdminBanner = ({ banners }: AdminBanner) => {
 					borderRadius={`3px`}
 					backgroundColor={`#FFF`}
 					minWidth={`initial`}
-					// width={`100%`}
 					height={`45px`}
 					_focus={{ outline: 'none' }}
 					_hover={{ backgroundColor: `#FFF` }}
@@ -223,7 +221,6 @@ const AdminBanner = ({ banners }: AdminBanner) => {
 						base: `1fr`,
 						md: `repeat(2, 1fr)`,
 						lg: `repeat(3, 1fr)`,
-						// xl: `repeat(4, 1fr)`,
 					}}
 					gap={`15px`}
 				>
