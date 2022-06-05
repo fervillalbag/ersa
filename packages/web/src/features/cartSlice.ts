@@ -1,38 +1,51 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ProductType } from '../interfaces';
 
-const initialState =
-	typeof window !== 'undefined'
-		? JSON.parse(localStorage.getItem('cart-product') as string) || []
-		: null;
+type initialStateProps = {
+	value: ProductType[] | [];
+	status: boolean;
+};
+
+const initialState: initialStateProps = {
+	value:
+		typeof window !== 'undefined'
+			? JSON.parse(localStorage.getItem('cart-product') as string) || []
+			: null,
+	status: false,
+};
 
 export const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		addProduct: (_, action: PayloadAction<ProductType>) => {
+		addProduct: (state, action: PayloadAction<ProductType>) => {
 			const currentStorage = JSON.parse(localStorage.getItem('cart-product'));
 			const exist = currentStorage.find(
-				item => item._id === action.payload._id
+				(item: ProductType) => item._id === action.payload._id
 			);
 
 			if (exist) {
-				const newState = currentStorage.map(item =>
+				const newState = currentStorage.map((item: ProductType) =>
 					item._id === action.payload._id
 						? { ...exist, qty: exist.qty + 1 }
 						: item
 				);
 
+				state.status = !state.status;
 				localStorage.setItem('cart-product', JSON.stringify(newState));
 			} else {
 				const newValue = { ...action.payload, qty: 1 };
 				const newState = [...currentStorage, newValue];
+
+				state.status = !state.status;
 				localStorage.setItem('cart-product', JSON.stringify(newState));
 			}
 		},
-		deleteProduct: (_, action: PayloadAction<string>) => {
+		deleteProduct: (state, action: PayloadAction<string>) => {
 			const currentStorage = JSON.parse(localStorage.getItem('cart-product'));
-			const exist = currentStorage.find(item => item._id === action.payload);
+			const exist = currentStorage.find(
+				(item: ProductType) => item._id === action.payload
+			);
 
 			if (!exist) return null;
 
@@ -40,23 +53,31 @@ export const cartSlice = createSlice({
 				const newState = currentStorage.filter(
 					item => item._id !== action.payload
 				);
+
+				state.status = !state.status;
 				localStorage.setItem('cart-product', JSON.stringify(newState));
 			} else {
-				const newState = currentStorage.map(item =>
+				const newState = currentStorage.map((item: ProductType) =>
 					item._id === action.payload ? { ...exist, qty: exist.qty - 1 } : item
 				);
+
+				state.status = !state.status;
 				localStorage.setItem('cart-product', JSON.stringify(newState));
 			}
 		},
-		deleteAllProduct: (_state, action: PayloadAction<string>) => {
+		deleteAllProduct: (state, action: PayloadAction<string>) => {
 			const currentStorage = JSON.parse(localStorage.getItem('cart-product'));
-			const exist = currentStorage.find(item => item._id === action.payload);
+			const exist = currentStorage.find(
+				(item: ProductType) => item._id === action.payload
+			);
 
 			if (!exist) return null;
 
 			const newState = currentStorage.filter(
 				item => item._id !== action.payload
 			);
+
+			state.status = !state.status;
 			localStorage.setItem('cart-product', JSON.stringify(newState));
 		},
 	},

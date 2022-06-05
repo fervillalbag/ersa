@@ -10,6 +10,7 @@ import { ProductType } from '../interfaces';
 const Cart: React.FC = () => {
 	const { statusCart, setStatusCart } = useContext(CartStatusContext);
 	const [currentHeight, setCurrentHeight] = useState(null);
+	// const [totalPriceValue, setTotalPriceValue] = useState(0);
 
 	const { cart } = useCart();
 
@@ -24,6 +25,16 @@ const Cart: React.FC = () => {
 			setCurrentHeight(0);
 		};
 	}, []);
+
+	// useEffect(() => {
+	// 	const response = totalPrice();
+	// 	setTotalPriceValue(response);
+	// }, []);
+
+	// const totalPrice = () => {
+	// 	const total = cart.reduce((a, b) => Number(a.price) + Number(b.price), 0);
+	// 	return total;
+	// };
 
 	return (
 		<>
@@ -126,7 +137,7 @@ const Cart: React.FC = () => {
 						>
 							<Flex width='full' justifyContent='space-between'>
 								<Text fontWeight='bold'>Total</Text>
-								<Text fontWeight='bold'>$340</Text>
+								{/* <Text fontWeight='bold'>{totalPriceValue}</Text> */}
 							</Flex>
 							<Box marginTop='1rem'>
 								<Button
