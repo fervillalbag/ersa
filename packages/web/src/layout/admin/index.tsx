@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Grid, Text, Flex, Button } from '@chakra-ui/react';
 import { FaArrowLeft, FaBars, FaUser } from 'react-icons/fa';
@@ -19,6 +19,13 @@ const Layout: React.FC<LayoutIprops> = ({
 	onClick,
 }) => {
 	const router = useRouter();
+
+	useEffect(() => {
+		const currentStorage = localStorage.getItem('cart-product');
+		if (!currentStorage) {
+			localStorage.setItem('cart-product', '[]');
+		}
+	}, []);
 
 	return (
 		<Grid

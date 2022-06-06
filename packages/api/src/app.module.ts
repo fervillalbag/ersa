@@ -12,6 +12,7 @@ import { AboutModule } from './about/about.module';
 import { ProductModule } from './product/product.module';
 import { BannerModule } from './banner/banner.module';
 import { CommunityModule } from './community/community.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { CommunityModule } from './community/community.module';
     ProductModule,
     BannerModule,
     CommunityModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

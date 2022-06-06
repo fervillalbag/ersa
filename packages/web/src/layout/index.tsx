@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Head from 'next/head';
 import { Box } from '@chakra-ui/react';
 
@@ -14,6 +14,13 @@ type LayoutIprops = {
 
 const Layout: React.FC<LayoutIprops> = ({ children, title }) => {
 	const { statusCart } = useContext(CartStatusContext);
+
+	useEffect(() => {
+		const currentStorage = localStorage.getItem('cart-product');
+		if (!currentStorage) {
+			localStorage.setItem('cart-product', '[]');
+		}
+	}, []);
 
 	return (
 		<Box
