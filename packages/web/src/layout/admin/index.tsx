@@ -5,6 +5,8 @@ import { FaArrowLeft, FaBars, FaUser } from 'react-icons/fa';
 
 import Navbar from '../../components/admin/Navbar';
 import Aside from '../../components/admin/Aside';
+import useCart from '../../utils/cart';
+import { CART_PRODUCT_LOCAL_STORAGE } from '../../utils/constants';
 
 type LayoutIprops = {
 	title?: string;
@@ -19,13 +21,14 @@ const Layout: React.FC<LayoutIprops> = ({
 	onClick,
 }) => {
 	const router = useRouter();
+	const cart = useCart();
 
 	useEffect(() => {
-		const currentStorage = localStorage.getItem('cart-product');
+		const currentStorage = localStorage.getItem(CART_PRODUCT_LOCAL_STORAGE);
 		if (!currentStorage) {
-			localStorage.setItem('cart-product', '[]');
+			localStorage.setItem(CART_PRODUCT_LOCAL_STORAGE, '[]');
 		}
-	}, []);
+	}, [cart]);
 
 	return (
 		<Grid

@@ -114,7 +114,7 @@ const Cart: React.FC = () => {
 								}}
 								overflowY='auto'
 							>
-								{cart.length === 0 ? (
+								{!cart || cart.length === 0 ? (
 									<Box>No existen productos en el carrito</Box>
 								) : (
 									cart.map((item: ProductType) => (

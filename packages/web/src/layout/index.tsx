@@ -7,6 +7,8 @@ import Footer from '../components/Footer';
 import Cart from '../components/Cart';
 import Animation from '../components/Animation';
 import { CartStatusContext } from '../context/CartStatus';
+import useCart from '../utils/cart';
+import { CART_PRODUCT_LOCAL_STORAGE } from '../utils/constants';
 
 type LayoutIprops = {
 	title?: string;
@@ -14,13 +16,14 @@ type LayoutIprops = {
 
 const Layout: React.FC<LayoutIprops> = ({ children, title }) => {
 	const { statusCart } = useContext(CartStatusContext);
+	const cart = useCart();
 
 	useEffect(() => {
-		const currentStorage = localStorage.getItem('cart-product');
+		const currentStorage = localStorage.getItem(CART_PRODUCT_LOCAL_STORAGE);
 		if (!currentStorage) {
-			localStorage.setItem('cart-product', '[]');
+			localStorage.setItem(CART_PRODUCT_LOCAL_STORAGE, '[]');
 		}
-	}, []);
+	}, [cart]);
 
 	return (
 		<Box

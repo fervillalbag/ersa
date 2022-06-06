@@ -66,7 +66,22 @@ const Navbar: React.FC = () => {
 								{cart.length}
 							</Flex>
 						) : (
-							<Box></Box>
+							<Flex
+								justifyContent='center'
+								alignItems='center'
+								width='1.5rem'
+								height='1.5rem'
+								backgroundColor='bright-red'
+								rounded='full'
+								fontSize='0.85rem'
+								fontWeight='semibold'
+								color='white'
+								position='absolute'
+								bottom='-0.5rem'
+								right='0.3rem'
+							>
+								0
+							</Flex>
 						)}
 					</Button>
 					<Button
@@ -235,7 +250,22 @@ const Navbar: React.FC = () => {
 								{cart.length}
 							</Flex>
 						) : (
-							<Box></Box>
+							<Flex
+								justifyContent='center'
+								alignItems='center'
+								width='1.5rem'
+								height='1.5rem'
+								backgroundColor='bright-red'
+								rounded='full'
+								fontSize='0.85rem'
+								fontWeight='semibold'
+								color='white'
+								position='absolute'
+								bottom='-0.5rem'
+								right='0.3rem'
+							>
+								0
+							</Flex>
 						)}
 					</Button>
 				</Flex>
