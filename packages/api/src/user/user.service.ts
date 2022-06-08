@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 import { CreateUserDTO, LoginUserDTO } from './dto/user.dto';
@@ -58,7 +58,21 @@ export class UserService {
     id: string,
     createUserDTO: CreateUserDTO,
   ): Promise<UserInterface> {
-    const user = this.userModel.findOneAndUpdate({ _id: id }, createUserDTO, {
+    const currentUser = createUserDTO;
+
+    const foundUser = await this.userModel.findOne({
+      email: currentUser.email,
+    });
+
+    if (!foundUser) throw new NotFoundException(`El usuario no existe`);
+
+    const saltOrRounds = 10;
+    currentUser.password = await bcrypt.hash(
+      currentUser.password,
+      saltOrRounds,
+    );
+
+    const user = this.userModel.findOneAndUpdate({ _id: id }, currentUser, {
       new: true,
     });
     return user;
