@@ -7,6 +7,7 @@ import Navbar from '../../components/admin/Navbar';
 import Aside from '../../components/admin/Aside';
 import useCart from '../../utils/cart';
 import { CART_PRODUCT_LOCAL_STORAGE } from '../../utils/constants';
+import { UserAuth } from '../../hooks/useAuth';
 
 type LayoutIprops = {
 	title?: string;
@@ -23,12 +24,30 @@ const Layout: React.FC<LayoutIprops> = ({
 	const router = useRouter();
 	const cart = useCart();
 
+	const { user } = UserAuth();
+
 	useEffect(() => {
 		const currentStorage = localStorage.getItem(CART_PRODUCT_LOCAL_STORAGE);
 		if (!currentStorage) {
 			localStorage.setItem(CART_PRODUCT_LOCAL_STORAGE, '[]');
 		}
 	}, [cart]);
+
+	if (!user)
+		return (
+			<Flex
+				alignItems={`center`}
+				justifyContent={`center`}
+				height={`100vh`}
+				overflow={`hidden`}
+				flexDir={`column`}
+			>
+				<Text>No tiene acceso a esta página</Text>
+				<Button mt={`15px`} onClick={() => router.push('/admin/login')}>
+					Regresar al inicio
+				</Button>
+			</Flex>
+		);
 
 	return (
 		<Grid

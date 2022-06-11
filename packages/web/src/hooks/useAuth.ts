@@ -15,5 +15,10 @@ export const UserAuth = () => {
 		}
 	}, []);
 
-	return { user };
+	const logout = () => {
+		setUser(null);
+		localStorage.setItem('ERSA_TOKEN_AUTH', '');
+	};
+
+	return { user, logout };
 };

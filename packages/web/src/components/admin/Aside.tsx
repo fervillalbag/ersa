@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { UserAuth } from '../../hooks/useAuth';
 
 import 'dayjs/locale/es';
+import toast from 'react-hot-toast';
 dayjs.locale('es');
 
 type NavLinkAdminProps = {
@@ -36,8 +37,16 @@ const NavLinkAdmin = ({ path, name }: NavLinkAdminProps) => {
 };
 
 const Aside: React.FC = () => {
-	const { user } = UserAuth();
+	const { user, logout } = UserAuth();
+	const router = useRouter();
+
 	const currentDate = dayjs(new Date()).format('dddd, DD MMMM');
+
+	const handleLogout = () => {
+		logout();
+		toast.success('Sesión cerrada!');
+		router.push('/admin/login');
+	};
 
 	return (
 		<Box height={`100vh`} position={`relative`}>
@@ -128,6 +137,7 @@ const Aside: React.FC = () => {
 						_hover={{ backgroundColor: `transparent` }}
 						_focus={{ outline: '0' }}
 						_active={{ backgroundColor: `transparent` }}
+						onClick={handleLogout}
 					>
 						Cerrar sesión
 					</Button>

@@ -65,7 +65,7 @@ const Login = () => {
 							_focus={{ shadow: 0 }}
 							height={`45px`}
 							color={`gray.800`}
-							marginBottom={`20px`}
+							marginBottom={`15px`}
 							placeholder={`Correo`}
 							value={email}
 							onChange={e => setEmail(e.target.value)}
