@@ -38,13 +38,14 @@ const Login = () => {
 				gridTemplateRows={{ base: `30vh 70vh`, md: `1fr` }}
 				height={`100%`}
 			>
-				<Box backgroundColor={`blue`} height={{ base: `auto`, md: `100vh` }}>
+				<Box height={{ base: `auto`, md: `100vh` }}>
 					<Image
 						src={`/login-bg.jpeg`}
 						alt='Fondo'
 						width={`100%`}
 						height={`100%`}
 						objectFit={`cover`}
+						loading='eager'
 					/>
 				</Box>
 				<Flex
