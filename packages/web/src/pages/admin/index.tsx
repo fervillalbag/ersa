@@ -1,5 +1,5 @@
 import Layout from '../../layout/admin';
-import { UserAuth } from '../../hooks/useUserInfo';
+import { UserAuth } from '../../hooks/useAuth';
 
 const AdminHome = () => {
 	const user = UserAuth();

@@ -14,3 +14,17 @@ export const loginUser = async data => {
 		return null;
 	}
 };
+
+export const getUser = async (id: string) => {
+	try {
+		const response = await axios({
+			method: 'GET',
+			url: `/user/${id}`,
+		});
+
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};

@@ -1,6 +1,12 @@
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { Box, Flex, Grid, Image, Text, Link, Button } from '@chakra-ui/react';
+import dayjs from 'dayjs';
+
+import { UserAuth } from '../../hooks/useAuth';
+
+import 'dayjs/locale/es';
+dayjs.locale('es');
 
 type NavLinkAdminProps = {
 	path: string;
@@ -30,6 +36,9 @@ const NavLinkAdmin = ({ path, name }: NavLinkAdminProps) => {
 };
 
 const Aside: React.FC = () => {
+	const { user } = UserAuth();
+	const currentDate = dayjs(new Date()).format('dddd, DD MMMM');
+
 	return (
 		<Box height={`100vh`} position={`relative`}>
 			<Box
@@ -46,15 +55,20 @@ const Aside: React.FC = () => {
 					justifyContent={`center`}
 					borderBottom={`1px solid #79746C`}
 				>
-					<Text color={`#79746C`} fontSize={`20px`} textAlign={`center`}>
-						Lunes, 20 de mayo
+					<Text
+						color={`#79746C`}
+						fontSize={`20px`}
+						textAlign={`center`}
+						textTransform={`capitalize`}
+					>
+						{currentDate}
 					</Text>
 				</Flex>
 
 				<Box padding={`30px`} borderBottom={`1px solid #79746C`}>
 					<Grid placeItems={`center`}>
 						<Image
-							src='https://images.unsplash.com/photo-1589254065909-b7086229d08c?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774'
+							src='/profile.avif'
 							width={`100px`}
 							height={`100px`}
 							objectFit={`cover`}
@@ -68,10 +82,10 @@ const Aside: React.FC = () => {
 							color={`#494130`}
 							textAlign={`center`}
 						>
-							Lucas Lamas
+							{user?.name}
 						</Text>
 						<Text color={`#79746C`} fontSize={`14px`} textAlign={`center`}>
-							lucaslamas@gmail.com
+							{user?.email}
 						</Text>
 					</Box>
 				</Box>
