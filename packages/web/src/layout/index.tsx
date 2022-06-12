@@ -5,7 +5,7 @@ import { Box } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Cart from '../components/Cart';
-import Animation from '../components/Animation';
+// import Animation from '../components/Animation';
 import { CartStatusContext } from '../context/CartStatus';
 import useCart from '../utils/cart';
 import { CART_PRODUCT_LOCAL_STORAGE } from '../utils/constants';
@@ -42,9 +42,9 @@ const Layout: React.FC<LayoutIprops> = ({ children, title }) => {
 			>
 				{children}
 			</Box>
-			<Animation>
-				<Footer />
-			</Animation>
+			{/* <Animation> */}
+			<Footer />
+			{/* </Animation> */}
 		</Box>
 	);
 };

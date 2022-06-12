@@ -1,9 +1,18 @@
 import NextLink from 'next/link';
-import { Box, Grid, Heading, Image, Link, Text, Flex } from '@chakra-ui/react';
+import {
+	Box,
+	Grid,
+	Heading,
+	Image,
+	Link,
+	Text,
+	Flex,
+	Button,
+} from '@chakra-ui/react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Layout from '../layout';
-import Animation from '../components/Animation';
+// import Animation from '../components/Animation';
 import { getHeaderInfo, getGrowthInfo, getValues, getReviews } from '../utils';
 import {
 	HeaderInterface,
@@ -48,162 +57,114 @@ const Home = ({
 
 	return (
 		<Layout title='Home Page'>
-			<Animation>
-				<Grid
-					gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
-					maxWidth='1170px'
-					width='90%'
-					margin='0 auto'
-					padding='2rem 0 4rem 0'
-					alignItems='center'
-					gap='2rem 4rem'
-					position='relative'
-					_before={{
-						content: `''`,
-						display: 'block',
-						width: { base: '20rem', md: '30rem' },
-						height: { base: '25rem', md: '60rem' },
-						position: 'absolute',
-						right: { base: 0, md: -100 },
-						bottom: { base: 440, md: 0 },
-						backgroundColor: 'hsl(13, 100%, 96%)',
-						borderRadius: '30rem',
-						zIndex: -100,
-						transform: 'rotate(40deg)',
-					}}
-				>
-					<Box order={{ base: '2', lg: 'initial' }}>
-						<Heading
-							as='h1'
-							fontSize={{ base: '2.8rem', lg: '3.6rem' }}
-							color='dark-blue'
-						>
-							{header.title}
-						</Heading>
+			{/* <Animation> */}
+			<Grid
+				gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
+				maxWidth='1170px'
+				width='90%'
+				margin='0 auto'
+				padding='2rem 0 4rem 0'
+				alignItems='center'
+				gap='2rem 4rem'
+				position='relative'
+				_before={{
+					content: `''`,
+					display: 'block',
+					width: { base: '20rem', md: '30rem' },
+					height: { base: '25rem', md: '60rem' },
+					position: 'absolute',
+					right: { base: 0, md: -100 },
+					bottom: { base: 440, md: 0 },
+					backgroundColor: 'hsl(13, 100%, 96%)',
+					borderRadius: '30rem',
+					zIndex: -100,
+					transform: 'rotate(40deg)',
+				}}
+			>
+				<Box order={{ base: '2', lg: 'initial' }}>
+					<Heading variant={`large`}>{header.title}</Heading>
 
+					<Box marginTop={`15px`}>
 						{header.description.map(item => (
 							<Text
 								key={item.id}
-								color='dark-grayish-blue'
-								fontSize='1.125rem'
-								marginTop='1rem'
-								maxWidth={{ base: '100%', lg: '65%' }}
-							>
-								{item.text}
-							</Text>
-						))}
-
-						<NextLink href='/' passHref>
-							<Link
-								display='inline-block'
-								backgroundColor='bright-red'
-								color='white'
-								padding='12px 30px'
-								rounded='30px'
-								fontWeight='semibold'
-								fontSize='14px'
-								marginTop='1rem'
-								_hover={{ textDecoration: 'none' }}
-							>
-								Get Started
-							</Link>
-						</NextLink>
-					</Box>
-					<Box>
-						<LazyLoadImage
-							src={header.image}
-							width='100%'
-							alt=''
-							effect='blur'
-						/>
-					</Box>
-				</Grid>
-
-				<Grid
-					gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
-					maxWidth='1170px'
-					margin='0 auto'
-					width='90%'
-					padding={{ base: '3rem 0 6rem 0', lg: '2rem 0 6rem 0' }}
-					gap='3rem'
-				>
-					<Box>
-						<Heading
-							as='h3'
-							fontSize={{ base: '2.2rem', lg: '2.6rem' }}
-							color='dark-blue'
-						>
-							{growth.title}
-						</Heading>
-
-						{growth.description.map(item => (
-							<Text
-								key={item.id}
-								color='dark-grayish-blue'
-								fontSize='1.125rem'
-								marginTop='1rem'
-								maxWidth={{ base: '100%', lg: '65%' }}
+								variant={`description`}
+								maxW={{ base: '100%', lg: '65%' }}
 							>
 								{item.text}
 							</Text>
 						))}
 					</Box>
 
-					<Box>
-						{values.map((item, index) => (
-							<Grid
-								key={item._id}
-								gridTemplateColumns='70px 1fr'
-								gridTemplateRows='repeat(2, auto)'
-								gap='1rem'
-								marginBottom='2rem'
-							>
-								<Box gridColumn='1/2'>
-									<Box
-										backgroundColor='bright-red'
-										color='white'
-										padding='0.45rem 1rem'
-										rounded='full'
-										textAlign='center'
-										fontWeight='bold'
-										fontSize='0.9rem'
-									>
-										0{index + 1}
-									</Box>
-								</Box>
-								<Box gridColumn='2/3' alignSelf='center'>
-									<Text fontWeight='bold' color='dark-blue' fontSize='1.2rem'>
-										{item.title}
-									</Text>
-								</Box>
-								<Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow='2/3'>
-									{item.description.map(item => (
-										<Text key={item.id} color='dark-grayish-blue'>
-											{item.text}
-										</Text>
-									))}
-								</Box>
-							</Grid>
-						))}
-					</Box>
-				</Grid>
-			</Animation>
+					<NextLink href='/' passHref>
+						<Button variant={`primary`} marginTop={`15px`}>
+							<Link _hover={{ textDecoration: 'none' }}>Get Started</Link>
+						</Button>
+					</NextLink>
+				</Box>
+				<Box>
+					<LazyLoadImage src={header.image} width='100%' alt='' effect='blur' />
+				</Box>
+			</Grid>
 
-			<Box
-				padding={{ base: '0 0 6rem 0', lg: '3rem 0 6rem 0' }}
+			<Grid
+				gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
 				maxWidth='1170px'
 				margin='0 auto'
 				width='90%'
+				padding={{ base: '3rem 0 6rem 0', lg: '2rem 0 6rem 0' }}
+				gap='3rem'
 			>
-				<Heading
-					as='h3'
-					textAlign='center'
-					fontSize={{ base: '2.2rem', lg: '2.8rem' }}
-					color='dark-blue'
-					marginBottom='5rem'
-				>
-					What they’ve said
-				</Heading>
+				<Box>
+					<Heading variant={`title`}>{growth.title}</Heading>
+
+					<Box marginTop={`15px`}>
+						{growth.description.map(item => (
+							<Text
+								key={item.id}
+								variant={`description`}
+								maxW={{ base: '100%', lg: '65%' }}
+							>
+								{item.text}
+							</Text>
+						))}
+					</Box>
+				</Box>
+
+				<Box>
+					{values.map((item, index) => (
+						<Grid
+							key={item._id}
+							gridTemplateColumns='70px 1fr'
+							gridTemplateRows='repeat(2, auto)'
+							gap='0.5rem 1rem'
+							marginBottom='2rem'
+						>
+							<Box gridColumn='1/2'>
+								<Button variant={`dots`}>0{index + 1}</Button>
+							</Box>
+							<Box gridColumn='2/3' alignSelf='center'>
+								<Heading variant={`secondary`}>{item.title}</Heading>
+							</Box>
+							<Box gridColumn={{ base: '1/3', lg: '2/3' }} gridRow='2/3'>
+								{item.description.map(item => (
+									<Text key={item.id} variant={`description`}>
+										{item.text}
+									</Text>
+								))}
+							</Box>
+						</Grid>
+					))}
+				</Box>
+			</Grid>
+			{/* </Animation> */}
+
+			<Box paddingBottom={`6rem`} maxWidth='1170px' margin='0 auto' width='90%'>
+				<Box marginBottom='5rem'>
+					<Heading variant={`title`} textAlign={`center`}>
+						What they’ve said
+					</Heading>
+				</Box>
 
 				<Grid
 					gridTemplateColumns={{
@@ -237,7 +198,7 @@ const Home = ({
 								{review.description.map(item => (
 									<Text
 										key={item.id}
-										color='dark-grayish-blue'
+										variant={`description`}
 										textAlign='center'
 									>
 										{item.text}
@@ -290,19 +251,15 @@ const Home = ({
 						marginTop={{ base: '1rem', lg: '0' }}
 					>
 						<NextLink href='/' passHref>
-							<Link
-								display='inline-block'
-								backgroundColor='white'
-								color='bright-red'
-								padding='12px 30px'
-								rounded='30px'
-								fontWeight='semibold'
-								fontSize='14px'
-								marginTop='1rem'
-								_hover={{ textDecoration: 'none' }}
+							<Button
+								variant={`primary`}
+								bgColor={`white`}
+								color={`bright-red`}
+								_hover={{ bgColor: '#f2f2f2' }}
+								_active={{ bgColor: '#fff' }}
 							>
-								Get Started
-							</Link>
+								<Link _hover={{ textDecoration: 'none' }}>Get Started</Link>
+							</Button>
 						</NextLink>
 					</Flex>
 				</Flex>

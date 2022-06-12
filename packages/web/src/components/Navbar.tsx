@@ -206,18 +206,9 @@ const Navbar: React.FC = () => {
 					zIndex='100'
 				>
 					<NextLink href='/' passHref>
-						<Link
-							display='inline-block'
-							backgroundColor='bright-red'
-							color='white'
-							padding='12px 30px'
-							rounded='30px'
-							fontWeight='semibold'
-							fontSize='14px'
-							_hover={{ textDecoration: 'none' }}
-						>
-							Get Started
-						</Link>
+						<Button variant={`primary`}>
+							<Link _hover={{ textDecor: 'none' }}>Get Started</Link>
+						</Button>
 					</NextLink>
 
 					<Button

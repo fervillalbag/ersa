@@ -1,10 +1,9 @@
+import { GetStaticProps } from 'next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Box, Heading, Image, Text } from '@chakra-ui/react';
 import { Pagination, Autoplay } from 'swiper';
 
 import Layout from '../layout';
-
-import { GetStaticProps } from 'next';
 import { getBanners } from '../utils/community';
 import { BannerType } from '../interfaces/Community';
 
@@ -58,21 +57,17 @@ const Community = ({ banners }: CommunityProps) => {
 				width={`90%`}
 				padding={`4rem 0`}
 			>
-				<Heading as='h3' color='dark-blue' marginBottom='1.2rem'>
+				<Heading variant={`title`} marginBottom={`20px`}>
 					Community
 				</Heading>
-				<Text
-					color='dark-grayish-blue'
-					fontSize='1.125rem'
-					marginBottom={`1.2rem`}
-				>
+				<Text variant={`description`} marginBottom={`1.2rem`}>
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit
 					officiis dolores provident omnis iste similique sequi cum quisquam
 					quidem excepturi nemo deleniti quam nam non rem autem saepe quibusdam
 					dicta cupiditate, repellendus sunt eligendi accusantium? Asperiores
 					adipisci nulla debitis neque!
 				</Text>
-				<Text color='dark-grayish-blue' fontSize='1.125rem'>
+				<Text variant={`description`}>
 					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore in
 					consequatur cupiditate neque modi ullam? Officia atque quas minus
 					quasi. Doloremque tempore voluptatem iure, dolore consectetur neque

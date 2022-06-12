@@ -1,1 +1,1 @@
-### Pseudo Monorepo config with ESLint and Prettier
+### A Fullstack project with Javascript Technologies
