@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Box, Button, Text, Flex } from '@chakra-ui/react';
 import { FaTimes } from 'react-icons/fa';
@@ -10,7 +11,7 @@ import { ProductType } from '../interfaces';
 const Cart: React.FC = () => {
 	const { statusCart, setStatusCart } = useContext(CartStatusContext);
 	const [currentHeight, setCurrentHeight] = useState(null);
-	// const [totalPriceValue, setTotalPriceValue] = useState(0);
+	const [totalPriceValue, setTotalPriceValue] = useState(0);
 
 	const { cart } = useCart();
 
@@ -26,15 +27,25 @@ const Cart: React.FC = () => {
 		};
 	}, []);
 
-	// useEffect(() => {
-	// 	const response = totalPrice();
-	// 	setTotalPriceValue(response);
-	// }, []);
+	useEffect(() => {
+		const response = totalPrice();
+		setTotalPriceValue(response);
+	}, [cart]);
 
-	// const totalPrice = () => {
-	// 	const total = cart.reduce((a, b) => Number(a.price) + Number(b.price), 0);
-	// 	return total;
-	// };
+	const totalPrice = () => {
+		const total =
+			cart.length === 1
+				? cart.map(item => Number(item.price * item.qty))
+				: cart.length === 0
+				? 0
+				: cart.reduce(
+						(a, b) =>
+							Number(Number(a.price) * Number(a.qty)) +
+							Number(Number(b.price) * Number(b.qty))
+				  );
+
+		return total;
+	};
 
 	return (
 		<>
@@ -90,6 +101,7 @@ const Cart: React.FC = () => {
 									justifyContent='center'
 									alignItems='center'
 									minWidth='initial'
+									bgColor={`#fff`}
 									_focus={{ shadow: 0 }}
 									padding={{ base: '0.25rem 0', md: '0' }}
 									margin='0'
@@ -137,7 +149,7 @@ const Cart: React.FC = () => {
 						>
 							<Flex width='full' justifyContent='space-between'>
 								<Text fontWeight='bold'>Total</Text>
-								{/* <Text fontWeight='bold'>{totalPriceValue}</Text> */}
+								<Text fontWeight='bold'>${totalPriceValue}</Text>
 							</Flex>
 							<Box marginTop='1rem'>
 								<Button
