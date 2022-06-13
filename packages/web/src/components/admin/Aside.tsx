@@ -116,7 +116,7 @@ const Aside: React.FC = () => {
 						</Text>
 
 						<NavLinkAdmin
-							path={`/admin/settings/user`}
+							path={`/admin/settings/user/${user?._id}`}
 							name={`Ajustes de perfil`}
 						/>
 						<NavLinkAdmin path={`/admin/support`} name={`Ayuda y soporte`} />

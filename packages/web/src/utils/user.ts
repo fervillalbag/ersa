@@ -28,3 +28,13 @@ export const getUser = async (id: string) => {
 		return null;
 	}
 };
+
+export const updateUser = async (id, data) => {
+	const response = await axios({
+		method: 'PUT',
+		url: `/user/${id}`,
+		data: { ...data },
+	});
+
+	return response.data;
+};
