@@ -119,8 +119,25 @@ const Aside: React.FC = () => {
 							path={`/admin/settings/user/${user?._id}`}
 							name={`Ajustes de perfil`}
 						/>
-						<NavLinkAdmin path={`/admin/support`} name={`Ayuda y soporte`} />
-						<NavLinkAdmin path={`/admin/reviews`} name={`Ir al sitio web`} />
+						<NavLinkAdmin
+							path={`/admin/settings/support`}
+							name={`Ayuda y soporte`}
+						/>
+
+						<Link
+							target={`_blank`}
+							href={`https://ersa.fervillalbag.com`}
+							display={`block`}
+							padding='10px 40px'
+							color={'#9F9A93'}
+							_focus={{ outline: 0 }}
+							_hover={{
+								textDecoration: 'none',
+								color: `#494130`,
+							}}
+						>
+							Ir al sitio web
+						</Link>
 					</Box>
 				</Box>
 
