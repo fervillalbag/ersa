@@ -42,6 +42,7 @@ const Navbar: React.FC = () => {
 						position='relative'
 						_focus={{ shadow: 0 }}
 						onClick={() => setStatusCart(true)}
+						_hover={{ backgroundColor: `transparent` }}
 						backgroundColor={`transparent`}
 					>
 						<Text fontSize='1.9rem'>
