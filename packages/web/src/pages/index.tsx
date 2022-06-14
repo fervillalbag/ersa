@@ -12,7 +12,6 @@ import {
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Layout from '../layout';
-// import Animation from '../components/Animation';
 import { getHeaderInfo, getGrowthInfo, getValues, getReviews } from '../utils';
 import {
 	HeaderInterface,
@@ -57,7 +56,6 @@ const Home = ({
 
 	return (
 		<Layout title='Home Page'>
-			{/* <Animation> */}
 			<Grid
 				gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
 				maxWidth='1170px'
@@ -157,7 +155,6 @@ const Home = ({
 					))}
 				</Box>
 			</Grid>
-			{/* </Animation> */}
 
 			<Box paddingBottom={`6rem`} maxWidth='1170px' margin='0 auto' width='90%'>
 				<Box marginBottom='5rem'>
