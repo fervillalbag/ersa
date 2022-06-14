@@ -2,7 +2,6 @@ import { Grid, Box, Heading, Text } from '@chakra-ui/react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Layout from '../layout';
-// import Animation from '../components/Animation';
 import { getAboutInfo } from '../utils';
 import { AboutInterface } from '../interfaces/About';
 
@@ -25,7 +24,6 @@ const About = ({ aboutData }: AboutProps) => {
 
 	return (
 		<Layout title='Community | About Us'>
-			{/* <Animation> */}
 			<Grid
 				gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
 				maxWidth='1170px'
@@ -57,7 +55,6 @@ const About = ({ aboutData }: AboutProps) => {
 					/>
 				</Box>
 			</Grid>
-			{/* </Animation> */}
 		</Layout>
 	);
 };
