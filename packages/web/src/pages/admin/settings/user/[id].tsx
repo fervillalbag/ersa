@@ -19,9 +19,10 @@ import Layout from '../../../../layout/admin';
 import { getUser, updateUser } from '../../../../utils/user';
 import { useRouter } from 'next/router';
 import { UserAuth } from '../../../../hooks/useAuth';
+import { UserResponse } from '../../../../interfaces/User';
 
 type SettingsUserProps = {
-	user: any;
+	user: UserResponse;
 };
 
 export const getServerSideProps: GetServerSideProps = async context => {
