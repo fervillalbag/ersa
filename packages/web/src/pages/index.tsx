@@ -175,7 +175,7 @@ const Home = ({
 					{reviews.map(review => (
 						<Box
 							key={review._id}
-							backgroundColor='gray.100'
+							backgroundColor='gray.50'
 							padding='1.5rem'
 							rounded='md'
 						>
