@@ -102,10 +102,11 @@ const Cart: React.FC = () => {
 									alignItems='center'
 									minWidth='initial'
 									bgColor={`#fff`}
-									_focus={{ shadow: 0 }}
 									padding={{ base: '0.25rem 0', md: '0' }}
 									margin='0'
 									onClick={() => setStatusCart(false)}
+									_focus={{ shadow: 0 }}
+									_active={{ bgColor: `dark-grayish-blue` }}
 								>
 									<Text
 										as='span'
@@ -159,6 +160,8 @@ const Cart: React.FC = () => {
 									rounded='4px'
 									color='white'
 									width='full'
+									_hover={{ bgColor: `dark-blue` }}
+									_active={{ bgColor: `dark-grayish-blue` }}
 								>
 									Go to cart
 								</Button>
