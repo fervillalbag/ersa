@@ -19,7 +19,7 @@ const Cart: React.FC = () => {
 
 	useEffect(() => {
 		if (ref && ref.current && ref.current.clientHeight) {
-			// console.log('called')
+			// some code
 		}
 		setCurrentHeight(ref.current.clientHeight);
 		return () => {
