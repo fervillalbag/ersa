@@ -106,6 +106,7 @@ const Cart: React.FC = () => {
 									margin='0'
 									onClick={() => setStatusCart(false)}
 									_focus={{ shadow: 0 }}
+									_hover={{ bgColor: `transparent` }}
 									_active={{ bgColor: `dark-grayish-blue` }}
 								>
 									<Text
