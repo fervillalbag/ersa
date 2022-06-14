@@ -92,6 +92,8 @@ const Navbar: React.FC = () => {
 						_focus={{ boxShadow: 0 }}
 						backgroundColor={`transparent`}
 						onClick={() => setShowNavbar(true)}
+						_hover={{ backgroundColor: `transparent` }}
+						_active={{ backgroundColor: `transparent` }}
 					>
 						<FaBars />
 					</Button>
