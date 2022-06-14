@@ -40,9 +40,10 @@ const Navbar: React.FC = () => {
 				>
 					<Button
 						position='relative'
-						_focus={{ shadow: 0 }}
 						onClick={() => setStatusCart(true)}
+						_focus={{ shadow: 0 }}
 						_hover={{ backgroundColor: `transparent` }}
+						_active={{ backgroundColor: `transparent` }}
 						backgroundColor={`transparent`}
 					>
 						<Text fontSize='1.9rem'>
