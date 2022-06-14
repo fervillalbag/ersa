@@ -5,7 +5,6 @@ import { RiShoppingCartFill } from 'react-icons/ri';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Layout from '../../layout';
-// import Animation from '../../components/Animation';
 import { ProductInterface } from '../../interfaces';
 import { getProduct } from '../../utils';
 import { useDispatch } from 'react-redux';
@@ -30,7 +29,6 @@ const Product = ({ productData }: ProductProps) => {
 
 	return (
 		<Layout title={`${product.name} | Landing Ersa`}>
-			{/* <Animation> */}
 			<Grid
 				gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
 				maxWidth='1170px'
@@ -127,7 +125,6 @@ const Product = ({ productData }: ProductProps) => {
 					</Flex>
 				</Box>
 			</Grid>
-			{/* </Animation> */}
 		</Layout>
 	);
 };
