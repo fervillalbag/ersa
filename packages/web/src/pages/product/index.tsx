@@ -1,7 +1,6 @@
 import { Box, Grid } from '@chakra-ui/react';
 
 import Layout from '../../layout';
-// import Animation from '../../components/Animation';
 import { getProducts } from '../../utils';
 import { ProductsInterface } from '../../interfaces';
 import Product from '../../components/Product';
@@ -27,7 +26,6 @@ const Products = ({ productsData }: ProductPageProps) => {
 
 	return (
 		<Layout title='Community | Products'>
-			{/* <Animation> */}
 			<Box maxWidth='1170px' margin='0 auto' width='90%' paddingBottom='4rem'>
 				<Grid
 					gridTemplateColumns={{
@@ -42,7 +40,6 @@ const Products = ({ productsData }: ProductPageProps) => {
 					))}
 				</Grid>
 			</Box>
-			{/* </Animation> */}
 		</Layout>
 	);
 };
