@@ -77,7 +77,6 @@ const UserSettings = ({ user }: SettingsUserProps) => {
 		}
 
 		toast.error('Hubo un problema al actualizar');
-		console.log(response);
 	};
 
 	return (
