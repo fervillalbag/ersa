@@ -51,8 +51,8 @@ const Home = ({
 }: HomeProps) => {
 	const growth = growthData.growth;
 	const header = headerData.header;
-	const values = valuesData.values;
-	const reviews = reviewsData.reviews;
+	const values = valuesData.values.sort((a, b) => a.order - b.order);
+	const reviews = reviewsData.reviews.sort((a, b) => a.order - b.order);
 
 	return (
 		<Layout title='Home Page'>

@@ -7,6 +7,9 @@ import { UserAuth } from '../../hooks/useAuth';
 
 import 'dayjs/locale/es';
 import toast from 'react-hot-toast';
+import { getUser } from '../../utils/user';
+import { useEffect, useState } from 'react';
+import { UserType } from '../../interfaces/User';
 dayjs.locale('es');
 
 type NavLinkAdminProps = {
@@ -38,7 +41,18 @@ const NavLinkAdmin = ({ path, name }: NavLinkAdminProps) => {
 
 const Aside: React.FC = () => {
 	const { user, logout } = UserAuth();
+	const [userLogged, setUserLogged] = useState<UserType | null>(null);
+
 	const router = useRouter();
+
+	useEffect(() => {
+		(async () => {
+			const currentUser = await getUser(user?._id);
+			if (currentUser.success) {
+				setUserLogged(currentUser.user);
+			}
+		})();
+	}, []);
 
 	const currentDate = dayjs(new Date()).format('dddd, DD MMMM');
 
@@ -91,10 +105,10 @@ const Aside: React.FC = () => {
 							color={`#494130`}
 							textAlign={`center`}
 						>
-							{user?.name}
+							{userLogged?.name}
 						</Text>
 						<Text color={`#79746C`} fontSize={`14px`} textAlign={`center`}>
-							{user?.email}
+							{userLogged?.email}
 						</Text>
 					</Box>
 				</Box>

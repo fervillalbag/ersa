@@ -25,6 +25,8 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const Community = ({ banners }: CommunityProps) => {
+	const bannersList = banners.sort((a, b) => a.order - b.order);
+
 	return (
 		<Layout title='Community | Landing Ersa'>
 			<Swiper
@@ -38,7 +40,7 @@ const Community = ({ banners }: CommunityProps) => {
 				modules={[Pagination, Autoplay]}
 				className='mySwiper'
 			>
-				{banners.map(banner => (
+				{bannersList.map(banner => (
 					<SwiperSlide key={banner._id}>
 						<Image
 							width={`100%`}
