@@ -4,18 +4,20 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Layout from '../layout';
 import { getAboutInfo } from '../utils';
 import { AboutInterface } from '../interfaces/About';
+import { GetStaticProps } from 'next';
 
 type AboutProps = {
 	aboutData: AboutInterface;
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 	const aboutData = await getAboutInfo();
 
 	return {
 		props: {
 			aboutData,
 		},
+		revalidate: 1,
 	};
 };
 

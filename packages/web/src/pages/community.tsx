@@ -21,6 +21,7 @@ export const getStaticProps: GetStaticProps = async () => {
 		props: {
 			banners: banners.banners,
 		},
+		revalidate: 1,
 	};
 };
 

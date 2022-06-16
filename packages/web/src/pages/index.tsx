@@ -19,6 +19,7 @@ import {
 	ValueInterface,
 	ReviewInterface,
 } from '../interfaces/';
+import { GetStaticProps } from 'next';
 
 type HomeProps = {
 	headerData: HeaderInterface;
@@ -27,7 +28,7 @@ type HomeProps = {
 	reviewsData: ReviewInterface;
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 	const headerData = await getHeaderInfo();
 	const growthData = await getGrowthInfo();
 	const valuesData = await getValues();
@@ -40,6 +41,7 @@ export const getStaticProps = async () => {
 			valuesData,
 			reviewsData,
 		},
+		revalidate: 1,
 	};
 };
 
