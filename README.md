@@ -1,1 +1,1 @@
-### Monorepo with Turborepo Nest, GraphQL, Typescript, React
+### Monorepo with Turborepo Nest, Apollo, GraphQL, Typescript, React
