@@ -1,18 +1,19 @@
 {
-	"scripts": {
-		"format": "prettier --write .",
-		"lint": "eslint --fix . --ext .js,.jsx,.ts,.tsx"
-	},
-	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.23.0",
-		"@typescript-eslint/parser": "^5.23.0",
-		"eslint": "^8.15.0",
-		"eslint-config-prettier": "^8.5.0",
-		"eslint-config-standard": "^17.0.0",
-		"eslint-plugin-import": "^2.26.0",
-		"eslint-plugin-n": "^15.2.0",
-		"eslint-plugin-promise": "^6.0.0",
-		"eslint-plugin-react": "^7.29.4",
-		"prettier": "^2.6.2"
-	}
+  "name": "@example/blog",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^1.9.0",
+    "@astrojs/mdx": "^0.14.0",
+    "@astrojs/rss": "^2.0.0",
+    "@astrojs/sitemap": "^1.0.0"
+  }
 }
